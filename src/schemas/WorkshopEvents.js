@@ -9,5 +9,5 @@ const WorkshopSchema=new mongoose.Schema({
     timestamps:true
 });
 
-const WorkshopEvent = mongoose.model('ResearchEvent', WorkshopSchema);
+const WorkshopEvent = mongoose.model('WorkshopEvent', WorkshopSchema);
 module.exports = WorkshopEvent;

@@ -9,5 +9,5 @@ const ResearchSchema=new mongoose.Schema({
     timestamps:true
 });
 
-const ResearchEvent = mongoose.model('WorkshopEvent', ResearchSchema);
+const ResearchEvent = mongoose.model('ResearchEvent', ResearchSchema);
 module.exports = ResearchEvent;
