@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../schemas/Conferences');
+const controller = require('../controller/ConferenceController');
 
 module.exports = function () {
     router.get('/', controller.getAllConferences);

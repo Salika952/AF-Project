@@ -3,7 +3,7 @@ const mongoose=require('mongoose');
 const ResearchSchema=new mongoose.Schema({
     presenters:[{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Users'}],
     papers:[{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Papers'}],
-    presenterFree:{type:Number, required:true},
+    presenterFee:{type:Number, required:true},
     topic:{type:String,required:true, trim:true },
 },{
     timestamps:true
