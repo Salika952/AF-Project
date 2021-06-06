@@ -1,8 +1,7 @@
 const mongoose=require('mongoose');
 
 const UsersSchema=new mongoose.Schema({
-    user_fName:{type:String,required:true,trim:true},
-    user_lName:{type:String,required:true,trim:true},
+    user_name:{type:String,required:true,trim:true},
     user_email:{type:String,required:true,trim:true},
     user_telephone:{type:Number,required:true},
     user_address:{type:String,required:true,trim:true},
