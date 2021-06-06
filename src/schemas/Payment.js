@@ -1,10 +1,10 @@
 const mongoose=require('mongoose');
 
 const PaymentSchema=new mongoose.Schema({
-    creditCardNo:{type:Number,required:true},
-    users: [{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Users'}],
-    amount:{type:Number,required:true},
-    description:{type:String,required:true}
+    pay_creditCardNo:{type:Number,required:true},
+    pay_users: [{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Users'}],
+    pay_amount:{type:Number,required:true},
+    pay_description:{type:String,required:true}
 },{
     timestamps:true
 });
