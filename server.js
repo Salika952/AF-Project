@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const PaymentAPI = require('./src/api/PaymentApi')
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,13 @@ mongoose.connect(MONGODB_URI, {
 mongoose.connection.once('open', () => {
     console.log('Database Connected');
 });
+
+app.route('/').get((req, res) => {
+    res.send('SLIIT AF FINAL API BY SE2021 BATCH');
+});
+
+app.use('/payment', PaymentAPI());
+// app.use('/course', courseAPI());
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on PORT ${PORT}`);
