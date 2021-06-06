@@ -2,26 +2,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const feedbackSchema = new Schema({
 
-    name: {
+    feed_name: {
         type: String,
         required: true,
         trim: true
     },
-    email: {
+    feed_email: {
         type: String,
         required: true,
         trim: true
     },
-    rating: {
+    feed_rating: {
         type: Number,
         required: true
     },
-    comment: {
+    feed_comment: {
         type: String,
         required: true,
         trim: true
     },
-    reply: {
+    feed_reply: {
         type: String,
         trim: true
     },
