@@ -70,24 +70,16 @@ const deletePayment = async (req, res) => {
 
 const calculateAmount = async (req, res) => {
 
-    const course = await Payment.find()
-        .then(data => {
-            res.status(200).send({ data: data.pay_amount });
-            console.log(Payment.pay_amount);
-        })
-    // let totalAmount = Payment.pay_amount;
-    // let i = 0;
-    // for (i=0;i<5;i++){
-    //     totalAmount = totalAmount + 5;
-    // }
+
+    if (req.params && req.params.id) {
+      const course = await Payment.findById(req.params.id)
+        let amount = course.pay_amount;
+        console.log("amount");
+
+    res.status(200).send({ amount: amount });
 
 
-        // course.Payment.map((subject) => {
-        //     totalAmount += subject.pay_amount;
-        // });
-
-    // res.status(200).send({ totalAmount: totalAmount });
-
+    }
 
 
 }
