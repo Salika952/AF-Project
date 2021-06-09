@@ -1,11 +1,10 @@
 import './App.css';
 import React from "react";
-import GuestNavbar from "./Components/navBars/UserNavBar";
 
 function App() {
   return (
     <div className="App">
-       <GuestNavbar/>
+       <h1>Hello world</h1>
     </div>
   );
 }

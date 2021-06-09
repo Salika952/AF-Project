@@ -20,6 +20,7 @@ class Navbar extends Component {
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav">
+
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="/conferences">Conferences</a>
                             </li>
