@@ -1,10 +1,13 @@
 import './App.css';
 import React from "react";
+import NavBar from './Components/navBars/guestNavBar';
+import Routes from './Components/routes/routes';
 
 function App() {
   return (
     <div className="App">
-       <h1>Hello world</h1>
+        <NavBar/>
+        <Routes/>
     </div>
   );
 }
