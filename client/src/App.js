@@ -1,23 +1,14 @@
+import './App.css';
 import React from "react";
-import './App.css'
-import Register from "./pages/register";
-import Login from "./pages/login";
-import AdminRegister from "./pages/admin/adminRegister";
-import Home from "./pages/Home";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import AdminNavBar from "./Components/navBars/adminNavBar";
+// import Routes from './Components/routes/routes';
+
 function App() {
-  return (
-    <div>
-        <main>
-            <Router>
-                <Switch>
-                    <Route path="/" component={Home} exact/>
-                    <Route path="/login" component={Login}  />
-                </Switch>
-            </Router>
-        </main>
-    </div>
-  );
+    return (
+        <div className="App">
+            <AdminNavBar/>
+        </div>
+    );
 }
 
 export default App;

@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const userAPI=require('./src/api/UsersApi');
-const NotificationAPI=require('./src/api/NotificationApi')
+const WorkshopEventsAPI = require('./src/api/WorkshopEventsApi');
+const ProposalAPI=require('./src/api/ProposalsApi');
+
 
 dotenv.config();
 const app = express();
@@ -26,12 +27,14 @@ mongoose.connect(MONGODB_URI, {
     }
 });
 
+app.use('/WorkshopEvents', WorkshopEventsAPI());
+app.use('/ProposalEvents', ProposalAPI());
+
 mongoose.connection.once('open', () => {
     console.log('Database Connected');
 });
 
-app.use('/api/users', userAPI());
-app.use('/api/notify', NotificationAPI());
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on PORT ${PORT}`);
