@@ -1,6 +1,7 @@
-import React, { Component} from 'react';
+import React, { Component, useState, useRef, useEffect} from 'react';
 import axios from 'axios';
-import {Link, Redirect} from "react-router-dom";
+import Timer from './Timer/timer';
+import moment from 'moment';
 
 class ShowConferencesUser extends Component {
     constructor(props) {
@@ -10,10 +11,11 @@ class ShowConferencesUser extends Component {
             name:'',
             theme:'',
             venue:'',
-            date:'',
+            date:'2020-07-07',
             amount:0,
             researchList:[],
-            workshopList:[]
+            workshopList:[],
+
         }
     }
 
@@ -33,6 +35,11 @@ class ShowConferencesUser extends Component {
 
                 });
             })
+
+        ///////////////////
+
+
+//////////////////////
     }
 
 
@@ -42,7 +49,10 @@ class ShowConferencesUser extends Component {
 
 
 
+
     render() {
+
+
         return (
             <div className="container">
                 <h1>Categories</h1>
@@ -52,9 +62,14 @@ class ShowConferencesUser extends Component {
                     <h4>Name: {this.state.name}</h4>
                     <h6>Theme: {this.state.theme}</h6>
                     <h6>Venue: {this.state.venue}</h6>
-                    <h6>Date & Time: {this.state.date}</h6>
+                    <h6>Date & Time: {moment(this.state.date).format('Do of MMMM, YYYY')}</h6>
                     <h6>Fee: {this.state.amount}</h6>
-                    <h1>Countdown:</h1>
+
+                    {/*////////////////////////*/}
+                    <div>
+                        <Timer dueDate = {this.state.date}/>
+                    </div>
+                    {/*////////////////////////*/}
 
                 </div>
 

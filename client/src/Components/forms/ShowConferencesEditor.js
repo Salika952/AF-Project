@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import {Link, Redirect} from "react-router-dom";
+import moment from 'moment';
 
 class ShowConferencesEditor extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class ShowConferencesEditor extends Component {
                             <h4>Name: {item.con_name}</h4>
                             <h6>Theme: {item.con_theme}</h6>
                             <h6>Venue: {item.con_venue}</h6>
-                            <h6>Date & Time: {item.con_date}</h6>
+                            <h6>Date & Time: {moment(item.con_date).format('Do of MMMM, YYYY')}</h6>
                             <h6>Fee: {item.con_amount}</h6>
 
 
