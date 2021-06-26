@@ -1,10 +1,12 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import UserNavbar from "../navBars/UserNavBar";
 
 const initialState = {
     paper_content: '',
     paper_contact: '',
     paper_sign: '',
+    pdf:''
 
 }
 
@@ -16,23 +18,24 @@ class EditPaper extends Component {
         this.state = initialState;
     }
 
-    // componentDidMount() {
-    //
-    //     axios.get(`http://localhost:4002/paper/${this.props.match.params.id}`)
-    //         .then(response => {
-    //             this.setState(
-    //                 {
-    //                     paper_content: response.data.data.paper_content,
-    //                     paper_contact: response.data.data.paper_contact,
-    //                     paper_sign: response.data.data.paper_sign
-    //
-    //                 });
-    //         })
-    //         .catch(error => {
-    //             alert(error.message)
-    //         })
-    //
-    // }
+    componentDidMount() {
+
+
+        axios.get(`http://localhost:4002/paper/${this.props.match.params.id}`)
+            .then(response => {
+                this.setState(
+                    {
+                        paper_content: response.data.data.paper_content,
+                        paper_contact: response.data.data.paper_contact,
+                        paper_sign: response.data.data.paper_sign,
+
+                    });
+            })
+            .catch(error => {
+                alert(error.message)
+            })
+
+    }
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
@@ -44,11 +47,12 @@ class EditPaper extends Component {
         let paper = {
             paper_content: this.state.paper_content,
             paper_contact: this.state.paper_contact,
-            paper_sign: this.state.paper_sign
+            paper_sign: this.state.paper_sign,
+            pdf: this.state.pdf
 
         };
         console.log('DATA TO SEND', paper)
-        axios.put(`http://localhost:4000/paper/${this.props.match.params.id}`, paper)
+        axios.put(`http://localhost:4002/paper/${this.props.match.params.id}`, paper)
             .then(response => {
                 alert('Category Data successfully updated')
             })
@@ -60,6 +64,8 @@ class EditPaper extends Component {
 
     render() {
         return (
+            <div>
+                <UserNavbar/>
             <div className="container">
                 <h1>Edit Paper</h1>
                 <form onSubmit={this.onSubmit}>
@@ -96,9 +102,21 @@ class EditPaper extends Component {
                             onChange={this.onChange}
                         />
                     </div>
+                    <div className="mb-3">
+                        <label htmlFor="paperPdf" className="form-label">File</label>
+                        <input
+                            type="file"
+                            className="form-control"
+                            id="paperPdf"
+                            name="pdf"
+                            value={this.state.pdf}
+                            onChange={this.onChange}
+                        />
+                    </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+            </div>
             </div>
         )
     }

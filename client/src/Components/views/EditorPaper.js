@@ -18,8 +18,19 @@ class EditorPaper extends Component {
             })
     }
 
-    navigateEditPage(e, paperId) {
-        window.location = `/${paperId}`
+    acceptPaper(paperId) {
+        let paper = {
+            paper_validation: true,
+        };
+        axios.put(`http://localhost:4002/paper/${paperId}`, paper)
+            .then(response => {
+                alert('Category Data successfully updated')
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
+        // window.location = `/${paperId}`
     }
 
     render() {
@@ -35,8 +46,8 @@ class EditorPaper extends Component {
                             <h5>Contact: {item.paper_contact}</h5>
                             <h5>Sign: {item.paper_sign}</h5>
                             <h6>Validation: {item.paper_validation}</h6>
-                            <button className="btn btn-success" onClick={e => this.navigateEditPage(e, item._id)}>Edit</button>
-                            <button className="btn btn-danger" onClick={e => this.deleteCourse(e, item._id)}>Delete</button>
+                            <button className="btn btn-success" onClick={e => this.acceptPaper(item._id)}>Accept</button>
+                            <button className="btn btn-danger" onClick={e => this.deleteCourse(e, item._id)}>Decline</button>
                         </div>
                     </div>
                 ))}

@@ -3,6 +3,9 @@ const Paper = require('../schemas/Papers');
 const addPaper = async (req, res) => {
     if (req.body) {
         const paper = new Paper(req.body);
+        if(req.file){
+            paper.pdf =req.file.path
+        }
         await paper.save()
             .then(data => {
                 res.status(200).send({ data: data });
@@ -11,6 +14,26 @@ const addPaper = async (req, res) => {
                 res.status(500).send({ error: error.message });
             });
     }
+
+    // let paper = new Paper({
+    //     auther: req.body.paper_author,
+    //     content: req.body.paper_content,
+    //     contact: req.body.paper_contact,
+    //     sign: req.body.paper_sign
+    // })
+    //
+    // if(req.file){
+    //             paper.avatar =req.file.path
+    //         }
+    //
+    // paper.save()
+    //     .then(data => {
+    //                     res.status(200).send({ data: data });
+    //                 })
+    //                 .catch(error => {
+    //                     res.status(500).send({ error: error.message });
+    //                 });
+
 }
 
 const getAllPapers = async (req, res) => {
