@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const PaymentAPI = require('./src/api/PaymentApi');
+const UserAPI = require('./src/api/UsersApi');
+const PaperAPI = require('./src/api/PapersApi');
 
 
 
@@ -30,6 +33,14 @@ mongoose.connect(MONGODB_URI, {
 mongoose.connection.once('open', () => {
     console.log('Database Connected');
 });
+
+app.route('/').get((req, res) => {
+    res.send('SLIIT AF FATCH');
+});
+
+app.use('/payment', PaymentAPI());
+app.use('/user', UserAPI());
+app.use('/paper', PaperAPI());
 
 
 
