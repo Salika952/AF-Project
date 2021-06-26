@@ -3,8 +3,12 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const WorkshopEventsAPI = require('./src/api/WorkshopEventsApi');
-const ProposalAPI=require('./src/api/ProposalsApi');
+const ResearchEventApi = require('./src/api/ResearchEventApi');
+const ConferenceAPI=require('./src/api/ConferenceApi');
+const UserAPI = require('./src/api/UsersApi');
+const WorkshopEventAPI = require('./src/api/WorkshopEventsApi');
+const PaperAPI = require('./src/api/PapersApi');
+const ProposalAPI = require('./src/api/ProposalsApi');
 
 
 dotenv.config();
@@ -27,8 +31,12 @@ mongoose.connect(MONGODB_URI, {
     }
 });
 
-app.use('/WorkshopEvents', WorkshopEventsAPI());
-app.use('/ProposalEvents', ProposalAPI());
+app.use('/ResearchEvent', ResearchEventApi());
+app.use('/Conference', ConferenceAPI());
+app.use('/Users', UserAPI());
+app.use('/WorkshopEvent', WorkshopEventAPI());
+app.use('/Papers', PaperAPI());
+app.use('/Proposals', ProposalAPI());
 
 mongoose.connection.once('open', () => {
     console.log('Database Connected');

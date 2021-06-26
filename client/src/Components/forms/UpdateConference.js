@@ -3,20 +3,24 @@ import Select from 'react-select';
 import axios from 'axios';
 
 const initialState = {
+
     con_name: '',
     con_theme: '',
     con_venue: '',
     con_date: '',
-    con_amount: 0,
+
     con_researchList:[],
     con_researchList_options:[],
     con_researchList_selected:[],
+
     con_workshopList:[],
     con_workshopList_options:[],
     con_workshopList_selected:[],
 
+    con_amount: 0
 }
-class CreateConference extends Component {
+
+class UpdateConference extends Component {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
@@ -27,6 +31,22 @@ class CreateConference extends Component {
     }
 
     componentDidMount() {
+
+        axios.get(`http://localhost:4002/Conference/${this.props.match.params.id}`)
+            .then(response => {
+                this.setState(
+                    {  con_name: response.data.data.con_name,
+                        con_theme : response.data.data.con_theme,
+                        con_venue : response.data.data.con_venue,
+                        con_date : response.data.data.con_date,
+                        con_researchList_selected: response.data.data.con_researchList,
+                        con_workshopList_selected: response.data.data.con_workshopList,
+                    });
+            })
+            .catch(error => {
+                alert(error.message)
+            })
+
         axios.get('http://localhost:4002/ResearchEvent/')
             .then(response => {
                 this.setState({ con_researchList: response.data.data }, () => {
@@ -34,15 +54,13 @@ class CreateConference extends Component {
                     this.state.con_researchList.map((item, index) => {
                         let research = {
                             value: item._id,
-                            label: item.res_topic
+                            label: item.name
                         }
-                        console.log(research);
                         data.push(research)
                     });
                     this.setState({ con_researchList_options: data });
                 })
             })
-
 
         axios.get('http://localhost:4002/WorkshopEvent/')
             .then(response => {
@@ -58,6 +76,7 @@ class CreateConference extends Component {
                     this.setState({ con_workshopList_options: data });
                 })
             })
+
     }
 
     onChange(e) {
@@ -84,9 +103,9 @@ class CreateConference extends Component {
             con_workshopList: this.state.con_workshopList_selected
         };
         console.log('DATA TO SEND', conference)
-        axios.post('http://localhost:4002/Conference/', conference)
+        axios.put(`http://localhost:4002/Conference/${this.props.match.params.id}`, conference)
             .then(response => {
-                alert('Conference Data successfully inserted')
+                alert('Conference Data successfully updated')
             })
             .catch(error => {
                 console.log(error.message);
@@ -96,79 +115,73 @@ class CreateConference extends Component {
 
     render() {
         return (
-
             <div className="container">
-                <h1>Create Conference</h1>
+                <h1>Update Conference</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="con_name" className="form-label">Conference Name</label>
+                        <label htmlFor="conferenceName" className="form-label">Conference Name</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="con_name"
-                            name="con_name"
+                            id="conferenceName"
+                            name="conferenceName"
                             value={this.state.con_name}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="con_theme" className="form-label">Conference Theme</label>
+                        <label htmlFor="theme" className="form-label">Conference Theme</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="con_theme"
-                            name="con_theme"
+                            id="theme"
+                            name="theme"
                             value={this.state.con_theme}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="con_venue" className="form-label">Conference Venue</label>
+                        <label htmlFor="venue" className="form-label">Conference Venue</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="con_venue"
-                            name="con_venue"
+                            id="venue"
+                            name="venue"
                             value={this.state.con_venue}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="con_date" className="form-label">Conference Date</label>
+                        <label htmlFor="date1" className="form-label">Conference Date</label>
                         <input
                             type="date"
                             className="form-control"
-                            id="con_date"
-                            name="con_date"
+                            id="date1"
+                            name="date1"
                             value={this.state.con_date}
                             onChange={this.onChange}
                         />
                     </div>
+                    <Select
+                        options={this.state.con_researchList_options}
+                        onChange={this.onResearchSelect}
+                        className="basic-multi-select"
+                        isMulti
+                    />
+                    <Select
+                        options={this.state.con_workshopList_options}
+                        onChange={this.onWorkshopSelect}
+                        className="basic-multi-select"
+                        isMulti
+                    />
+
                     <div className="mb-3">
-                        <label htmlFor="con_researchList_options" className="form-label">Research Events</label>
-                        <Select
-                            options={this.state.con_researchList_options}
-                            onChange={this.onResearchSelect}
-                            className="basic-multi-select"
-                            isMulti
-                        />
-                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="con_workshopList_options" className="form-label">Workshop Events</label>
-                        <Select
-                            options={this.state.con_workshopList_options}
-                            onChange={this.onWorkshopSelect}
-                            className="basic-multi-select"
-                            isMulti
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="con_amount" className="form-label">Entry fee</label>
+                        <label htmlFor="amount" className="form-label">Entry fee</label>
                         <input
                             type="number"
                             className="form-control"
-                            id="con_amount"
-                            name="con_amount"
+                            id="amount"
+                            name="amount"
                             value={this.state.con_amount}
                             onChange={this.onChange}
                         />
@@ -180,4 +193,4 @@ class CreateConference extends Component {
     }
 }
 
-export default CreateConference;
+export default UpdateConference;

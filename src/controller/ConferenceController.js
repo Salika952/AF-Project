@@ -35,9 +35,9 @@ const getAllConferences = async (req, res) => {
 const getSpecificConference = async (req, res) => {
     if (req.params && req.params.id) {
         await Conferences.findById(req.params.id)
-            .populate('researchList', 'res_topic res_presenterFee')
-            .populate('workshopList', 'work_topic')
-            .populate('attendees', 'user_name user_email')
+            .populate('con_researchList', 'res_topic res_presenterFee')
+            .populate('con_workshopList', 'work_topic')
+            .populate('con_attendees', 'user_name user_email')
             .then(response => {
                 res.status(200).send({ data: response });
             })

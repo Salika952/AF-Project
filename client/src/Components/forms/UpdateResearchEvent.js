@@ -1,13 +1,15 @@
 import React, { Component} from 'react';
+import Select from 'react-select';
 import axios from 'axios';
 
 const initialState = {
+
     res_presenterFee: 0,
     res_topic: '',
-    res_description: ''
+    res_description:''
 }
 
-class CreateResearchEvent extends Component {
+class UpdateResearchEvent extends Component {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
@@ -16,6 +18,18 @@ class CreateResearchEvent extends Component {
     }
 
     componentDidMount() {
+
+        axios.get(`http://localhost:4002/ResearchEvent/${this.props.match.params.id}`)
+            .then(response => {
+                this.setState(
+                    {  res_presenterFee: response.data.data.con_name,
+                        res_topic : response.data.data.con_theme
+                    });
+            })
+            .catch(error => {
+                alert(error.message)
+            })
+
 
     }
 
@@ -31,10 +45,10 @@ class CreateResearchEvent extends Component {
             res_topic: this.state.res_topic,
             res_description: this.state.res_description
         };
-        console.log('DATA TO SEND', research)
-        axios.post('http://localhost:4002/ResearchEvent/', research)
+        console.log('DATA TO SEND', research);
+        axios.put(`http://localhost:4002/ResearchEvent/${this.props.match.params.id}`, research)
             .then(response => {
-                alert('Research Event Data successfully inserted')
+                alert('ResearchEvent Data successfully updated')
             })
             .catch(error => {
                 console.log(error.message);
@@ -45,37 +59,37 @@ class CreateResearchEvent extends Component {
     render() {
         return (
             <div className="container">
-                <h1>Create Research Events</h1>
+                <h1>Update Research Events</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="res_topic" className="form-label">Research Event Topic</label>
+                        <label htmlFor="topic" className="form-label">Research Event Topic</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="res_topic"
-                            name="res_topic"
+                            id="topic"
+                            name="topic"
                             value={this.state.res_topic}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="res_description" className="form-label">Description</label>
+                        <label htmlFor="description" className="form-label">Description</label>
                         <textarea
                             className="form-control"
-                            id="res_description"
+                            id="description"
                             rows="6"
-                            name="res_description"
+                            name="description"
                             value={this.state.res_description}
                             onChange={this.onChange}>
                         </textarea>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="res_presenterFee" className="form-label">Research Event Fee</label>
+                        <label htmlFor="researchFee" className="form-label">Research Event Fee</label>
                         <input
                             type="number"
                             className="form-control"
-                            id="res_presenterFee"
-                            name="res_presenterFee"
+                            id="researchFee"
+                            name="researchFee"
                             value={this.state.res_presenterFee}
                             onChange={this.onChange}
                         />
@@ -88,4 +102,4 @@ class CreateResearchEvent extends Component {
     }
 }
 
-export default CreateResearchEvent;
+export default UpdateResearchEvent;

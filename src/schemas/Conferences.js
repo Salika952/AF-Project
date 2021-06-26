@@ -8,7 +8,9 @@ const ConferenceSchema=new mongoose.Schema({
     con_researchList:[{type: mongoose.Schema.Types.ObjectId, required: false, ref: 'ResearchEvent'}],
     con_workshopList:[{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'WorkshopEvent'}],
     con_attendees: [{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Users'}],
-    con_amount:{type:Number, required:true}
+    con_amount:{type:Number, required:true},
+    con_validation:{ type: Boolean, default: false }
+
 });
 const Conferences = mongoose.model('Conferences', ConferenceSchema);
 module.exports = Conferences;
