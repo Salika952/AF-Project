@@ -20,11 +20,34 @@ class ShowResearchEventUser extends Component {
     }
 
     declineResearch(id){
+        let research = {
+            res_validation: false,
+        };
 
+        axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
+            .then(response => {
+                alert('Declined')
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
     }
 
     acceptResearch(id){
 
+        let research = {
+            res_validation: true,
+        };
+
+        axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
+            .then(response => {
+                alert('Accepted')
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
     }
 
 

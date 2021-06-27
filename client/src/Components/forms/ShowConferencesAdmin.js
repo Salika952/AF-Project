@@ -31,11 +31,33 @@ class ShowConferencesAdmin extends Component {
     // }
 
     declineConference(id){
+        let conference = {
+            con_validation: false,
+        };
 
+        axios.put(`http://localhost:4002/Conference/${id}`, conference)
+            .then(response => {
+                alert('Declined')
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
     }
 
     acceptConference(id){
+        let conference = {
+            con_validation: true,
+        };
 
+        axios.put(`http://localhost:4002/Conference/${id}`, conference)
+            .then(response => {
+                alert('Accepted')
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
     }
 
     render() {

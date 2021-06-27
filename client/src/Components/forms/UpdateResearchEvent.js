@@ -19,11 +19,12 @@ class UpdateResearchEvent extends Component {
 
     componentDidMount() {
 
-        axios.get(`http://localhost:4002/ResearchEvent/${this.props.match.params.id}`)
+        axios.get(`http://localhost:4002/ResearchEvent/60d81301576b4e2c048a7ee9`)
             .then(response => {
                 this.setState(
-                    {  res_presenterFee: response.data.data.con_name,
-                        res_topic : response.data.data.con_theme
+                    {  res_presenterFee: response.data.data.res_presenterFee,
+                        res_topic : response.data.data.res_topic,
+                        res_description:response.data.data.res_description,
                     });
             })
             .catch(error => {
@@ -46,7 +47,7 @@ class UpdateResearchEvent extends Component {
             res_description: this.state.res_description
         };
         console.log('DATA TO SEND', research);
-        axios.put(`http://localhost:4002/ResearchEvent/${this.props.match.params.id}`, research)
+        axios.put(`http://localhost:4002/ResearchEvent/60d81301576b4e2c048a7ee9`, research)
             .then(response => {
                 alert('ResearchEvent Data successfully updated')
             })
@@ -62,34 +63,34 @@ class UpdateResearchEvent extends Component {
                 <h1>Update Research Events</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="topic" className="form-label">Research Event Topic</label>
+                        <label htmlFor="res_topic" className="form-label">Research Event Topic</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="topic"
-                            name="topic"
+                            id="res_topic"
+                            name="res_topic"
                             value={this.state.res_topic}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="description" className="form-label">Description</label>
+                        <label htmlFor="res_description" className="form-label">Description</label>
                         <textarea
                             className="form-control"
-                            id="description"
+                            id="res_description"
                             rows="6"
-                            name="description"
+                            name="res_description"
                             value={this.state.res_description}
                             onChange={this.onChange}>
                         </textarea>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="researchFee" className="form-label">Research Event Fee</label>
+                        <label htmlFor="res_presenterFee" className="form-label">Research Event Fee</label>
                         <input
                             type="number"
                             className="form-control"
-                            id="researchFee"
-                            name="researchFee"
+                            id="res_presenterFee"
+                            name="res_presenterFee"
                             value={this.state.res_presenterFee}
                             onChange={this.onChange}
                         />

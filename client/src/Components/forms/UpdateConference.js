@@ -25,14 +25,14 @@ class UpdateConference extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.onResearchSelect = this.onResearchSelect.bind(this);
-        this.onWorkshopSelect = this.onWorkshopSelect.bind(this);
+        // this.onResearchSelect = this.onResearchSelect.bind(this);
+        // this.onWorkshopSelect = this.onWorkshopSelect.bind(this);
         this.state = initialState;
     }
 
     componentDidMount() {
 
-        axios.get(`http://localhost:4002/Conference/${this.props.match.params.id}`)
+        axios.get(`http://localhost:4002/Conference/60d811524cee61152c551ecc`)
             .then(response => {
                 this.setState(
                     {  con_name: response.data.data.con_name,
@@ -47,35 +47,35 @@ class UpdateConference extends Component {
                 alert(error.message)
             })
 
-        axios.get('http://localhost:4002/ResearchEvent/')
-            .then(response => {
-                this.setState({ con_researchList: response.data.data }, () => {
-                    let data = [];
-                    this.state.con_researchList.map((item, index) => {
-                        let research = {
-                            value: item._id,
-                            label: item.name
-                        }
-                        data.push(research)
-                    });
-                    this.setState({ con_researchList_options: data });
-                })
-            })
-
-        axios.get('http://localhost:4002/WorkshopEvent/')
-            .then(response => {
-                this.setState({ con_workshopList: response.data.data }, () => {
-                    let data = [];
-                    this.state.con_workshopList.map((item, index) => {
-                        let workshop = {
-                            value: item._id,
-                            label: item.name
-                        }
-                        data.push(workshop)
-                    });
-                    this.setState({ con_workshopList_options: data });
-                })
-            })
+        // axios.get('http://localhost:4002/ResearchEvent/')
+        //     .then(response => {
+        //         this.setState({ con_researchList: response.data.data }, () => {
+        //             let data = [];
+        //             this.state.con_researchList.map((item, index) => {
+        //                 let research = {
+        //                     value: item._id,
+        //                     label: item.res_topic
+        //                 }
+        //                 data.push(research)
+        //             });
+        //             this.setState({ con_researchList_options: data });
+        //         })
+        //     })
+        //
+        // axios.get('http://localhost:4002/WorkshopEvent/')
+        //     .then(response => {
+        //         this.setState({ con_workshopList: response.data.data }, () => {
+        //             let data = [];
+        //             this.state.con_workshopList.map((item, index) => {
+        //                 let workshop = {
+        //                     value: item._id,
+        //                     label: item.work_topic
+        //                 }
+        //                 data.push(workshop)
+        //             });
+        //             this.setState({ con_workshopList_options: data });
+        //         })
+        //     })
 
     }
 
@@ -83,13 +83,13 @@ class UpdateConference extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    onResearchSelect(e) {
-        this.setState({ con_researchList_selected: e ? e.map(item => item.value) : [] });
-    }
-
-    onWorkshopSelect(e) {
-        this.setState({ con_workshopList_selected: e ? e.map(item => item.value) : [] });
-    }
+    // onResearchSelect(e) {
+    //     this.setState({ con_researchList_selected: e ? e.map(item => item.value) : [] });
+    // }
+    //
+    // onWorkshopSelect(e) {
+    //     this.setState({ con_workshopList_selected: e ? e.map(item => item.value) : [] });
+    // }
 
     onSubmit(e) {
         e.preventDefault();
@@ -99,11 +99,11 @@ class UpdateConference extends Component {
             con_venue: this.state.con_venue,
             con_date: this.state.con_date,
             con_amount:this.state.con_amount,
-            con_researchList: this.state.con_researchList_selected,
-            con_workshopList: this.state.con_workshopList_selected
+            // con_researchList: this.state.con_researchList_selected,
+            // con_workshopList: this.state.con_workshopList_selected
         };
         console.log('DATA TO SEND', conference)
-        axios.put(`http://localhost:4002/Conference/${this.props.match.params.id}`, conference)
+        axios.put(`http://localhost:4002/Conference/60d811524cee61152c551ecc`, conference)
             .then(response => {
                 alert('Conference Data successfully updated')
             })
@@ -119,69 +119,69 @@ class UpdateConference extends Component {
                 <h1>Update Conference</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="conferenceName" className="form-label">Conference Name</label>
+                        <label htmlFor="con_name" className="form-label">Conference Name</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="conferenceName"
-                            name="conferenceName"
+                            id="con_name"
+                            name="con_name"
                             value={this.state.con_name}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="theme" className="form-label">Conference Theme</label>
+                        <label htmlFor="con_theme" className="form-label">Conference Theme</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="theme"
-                            name="theme"
+                            id="con_theme"
+                            name="con_theme"
                             value={this.state.con_theme}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="venue" className="form-label">Conference Venue</label>
+                        <label htmlFor="con_venue" className="form-label">Conference Venue</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="venue"
-                            name="venue"
+                            id="con_venue"
+                            name="con_venue"
                             value={this.state.con_venue}
                             onChange={this.onChange}
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="date1" className="form-label">Conference Date</label>
+                        <label htmlFor="con_date" className="form-label">Conference Date</label>
                         <input
                             type="date"
                             className="form-control"
-                            id="date1"
-                            name="date1"
+                            id="con_date"
+                            name="con_date"
                             value={this.state.con_date}
                             onChange={this.onChange}
                         />
                     </div>
-                    <Select
-                        options={this.state.con_researchList_options}
-                        onChange={this.onResearchSelect}
-                        className="basic-multi-select"
-                        isMulti
-                    />
-                    <Select
-                        options={this.state.con_workshopList_options}
-                        onChange={this.onWorkshopSelect}
-                        className="basic-multi-select"
-                        isMulti
-                    />
+                    {/*<Select*/}
+                    {/*    options={this.state.con_researchList_options}*/}
+                    {/*    onChange={this.onResearchSelect}*/}
+                    {/*    className="basic-multi-select"*/}
+                    {/*    isMulti*/}
+                    {/*/>*/}
+                    {/*<Select*/}
+                    {/*    options={this.state.con_workshopList_options}*/}
+                    {/*    onChange={this.onWorkshopSelect}*/}
+                    {/*    className="basic-multi-select"*/}
+                    {/*    isMulti*/}
+                    {/*/>*/}
 
                     <div className="mb-3">
-                        <label htmlFor="amount" className="form-label">Entry fee</label>
+                        <label htmlFor="con_amount" className="form-label">Entry fee</label>
                         <input
                             type="number"
                             className="form-control"
-                            id="amount"
-                            name="amount"
+                            id="con_amount"
+                            name="con_amount"
                             value={this.state.con_amount}
                             onChange={this.onChange}
                         />

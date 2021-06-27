@@ -20,7 +20,7 @@ class ShowConferencesUser extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4002/Conference/60d5cab0a6fed62464a5d88b')
+        axios.get('http://localhost:4002/Conference/60d811524cee61152c551ecc')
             .then(response => {
                 console.log(response.data.data.con_researchList);
                 this.setState({
@@ -55,7 +55,7 @@ class ShowConferencesUser extends Component {
 
         return (
             <div className="container">
-                <h1>Categories</h1>
+                <h1>Conference</h1>
 
 
                 <div className="p-3" >

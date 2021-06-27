@@ -20,7 +20,6 @@ const getAllResearchEvents = async (req, res) => {
         .populate('res_papers', 'paper_content paper_sign')
         .then(data => {
             res.status(200).send({ data: data });
-            console.log(data);
         })
         .catch(error => {
             res.status(500).send({ error: error.message });
