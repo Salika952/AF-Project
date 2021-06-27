@@ -9,13 +9,13 @@ const initialState = {
     con_venue: '',
     con_date: '',
 
-    con_researchList:[],
-    con_researchList_options:[],
-    con_researchList_selected:[],
-
-    con_workshopList:[],
-    con_workshopList_options:[],
-    con_workshopList_selected:[],
+    // con_researchList:[],
+    // con_researchList_options:[],
+    // con_researchList_selected:[],
+    //
+    // con_workshopList:[],
+    // con_workshopList_options:[],
+    // con_workshopList_selected:[],
 
     con_amount: 0
 }
@@ -32,7 +32,7 @@ class UpdateConference extends Component {
 
     componentDidMount() {
 
-        axios.get(`http://localhost:4002/Conference/60d811524cee61152c551ecc`)
+        axios.get(`http://localhost:4002/Conference/${this.props.location.conEditProps2.conferenceID}`)
             .then(response => {
                 this.setState(
                     {  con_name: response.data.data.con_name,

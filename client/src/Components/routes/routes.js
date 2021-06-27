@@ -10,7 +10,7 @@ import ShowResearchEventEditor from "../forms/ShowResearchEventEditor";
 import UpdateResearchEvent from "../forms/UpdateResearchEvent";
 import ShowConferencesUser from "../forms/ShowConferenceUser";
 import ShowResearchEventUser from "../forms/ShowResearchEventUser";
-import AddEventsToConference from "../forms/AddEventsToConference";
+import AddEventsToConference from "../forms/NotUsed/AddEventsToConference";
 import PayConference from "../forms/PayConference";
 
 

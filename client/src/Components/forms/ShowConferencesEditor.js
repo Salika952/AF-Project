@@ -26,13 +26,6 @@ class ShowConferencesEditor extends Component {
             })
     }
 
-    updateConference(id){
-        window.location = `/update-conference/${id}`
-    }
-
-    addResearch(id){
-        window.location = `/researchCreate/${id}`
-    }
 
 
     render() {
@@ -50,8 +43,14 @@ class ShowConferencesEditor extends Component {
 
 
                             <button className="btn btn-danger" onClick={() => this.deleteConference(item._id)}>Delete</button>
-                            <button className="btn btn-success" onClick={() => this.updateConference(item._id)}>Update</button>
-                            {/*<button className="btn btn-success" onClick={() => this.addResearch(item._id)}>Add Research Event</button>*/}
+
+                            <Link to = {{
+                                pathname:'/conferenceUpdate',
+                                conEditProps2:{
+                                    conferenceID: item._id
+                                }
+                            }}><button className="btn btn-success" >Update</button></Link>
+
 
                             <Link to = {{
                                 pathname:'/researchCreate',

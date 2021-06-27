@@ -47,7 +47,7 @@ class UpdateResearchEvent extends Component {
             res_description: this.state.res_description
         };
         console.log('DATA TO SEND', research);
-        axios.put(`http://localhost:4002/ResearchEvent/60d81301576b4e2c048a7ee9`, research)
+        axios.put(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`, research)
             .then(response => {
                 alert('ResearchEvent Data successfully updated')
             })

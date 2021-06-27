@@ -21,7 +21,6 @@ const getAllConferences = async (req, res) => {
             .populate('con_attendees', 'user_name user_email')
         .then(data => {
             res.status(200).send({ data: data });
-            console.log(data);
         })
         .catch(error => {
             res.status(500).send({ error: error.message });
@@ -119,6 +118,19 @@ const addResearch = async (req, res) => {
     }
 }
 
+const MainUpdate = async (req, res) => {
+
+    await Conferences.updateMany({con_main:false})
+        .then(response => {
+            res.status(200).send({ data: response });
+        })
+        .catch(error => {
+            res.status(500).send({ error: error.message });
+        });
+
+
+}
+
 const addWorkshop = async (req, res) => {
 
 }
@@ -132,5 +144,6 @@ module.exports = {
     deleteConference,
     addAttendee,
     addResearch,
-    addWorkshop
+    addWorkshop,
+    MainUpdate
 };

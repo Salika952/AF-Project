@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import {Link, Redirect} from "react-router-dom";
 import moment from 'moment'
 
 class ShowConferencesAdmin extends Component {
@@ -19,16 +18,6 @@ class ShowConferencesAdmin extends Component {
     }
 
 
-    // deleteResearch(id){
-    //     axios.delete(`http://localhost:4002/ResearchEvent/${id}`)
-    //         .then(response => {
-    //             this.setState({ categories: response.data.data });
-    //         })
-    // }
-    //
-    // updateResearch(id){
-    //     window.location = `/update-researchEvent/${id}`
-    // }
 
     declineConference(id){
         let conference = {
@@ -60,6 +49,29 @@ class ShowConferencesAdmin extends Component {
             })
     }
 
+    addToLanding(id){
+        axios.patch(`http://localhost:4002/Conference/main`)
+            .then(response => {
+
+                let conference = {
+                    con_main: true,
+                };
+
+                axios.put(`http://localhost:4002/Conference/${id}`, conference)
+                    .then(response => {
+                        alert('Added to Landing')
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
+    }
+
     render() {
         return (
             <div className="container">
@@ -76,7 +88,7 @@ class ShowConferencesAdmin extends Component {
 
                             <button className="btn btn-danger" onClick={() => this.declineConference(item._id)}>Decline</button>
                             <button className="btn btn-success" onClick={() => this.acceptConference(item._id)}>Accept</button>
-
+                            <button className="btn btn-success" onClick={() => this.addToLanding(item._id)}>Add to Main Page</button>
                         </div>
                     </div>
                 ))}

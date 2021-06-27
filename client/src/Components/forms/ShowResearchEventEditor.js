@@ -27,9 +27,6 @@ class ShowResearchEventEditor extends Component {
             })
     }
 
-    updateResearch(id){
-        window.location = `/update-researchEvent/${id}`
-    }
 
 
 
@@ -45,8 +42,13 @@ class ShowResearchEventEditor extends Component {
                             <h6>Fee: {item.res_presenterFee}</h6>
 
                             <button className="btn btn-danger" onClick={() => this.deleteResearch(item._id)}>Delete</button>
-                            <button className="btn btn-success" onClick={() => this.updateResearch(item._id)}>Update</button>
 
+                            <Link to = {{
+                                pathname:'/researchUpdate',
+                                resEditProps:{
+                                    researchID: item._id
+                                }
+                            }}><button className="btn btn-success" >Update</button></Link>
                         </div>
                     </div>
                 ))}
