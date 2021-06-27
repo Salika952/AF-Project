@@ -1,10 +1,11 @@
 import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import UserNavbar from "../navBars/UserNavBar";
 
 const initialState = {
-    pay_creditCardNo: '',
-    pay_amount: '',
+    pay_creditCardNo: 0,
+    pay_amount: 0,
     pay_description: '',
 
 }
@@ -40,6 +41,8 @@ class PaymentForm extends Component {
 
     render() {
         return (
+            <div>
+                <UserNavbar/>
             <div className="container">
                 <h1>Payment Details</h1>
                 <form onSubmit={this.onSubmit}>
@@ -79,6 +82,7 @@ class PaymentForm extends Component {
 
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+            </div>
             </div>
         )
     }

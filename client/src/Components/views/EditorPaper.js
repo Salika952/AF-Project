@@ -30,7 +30,10 @@ class EditorPaper extends Component {
                 console.log(error.message);
                 alert(error.message)
             })
-        // window.location = `/${paperId}`
+    }
+
+    declinePaper(paperId) {
+
     }
 
     render() {
@@ -47,7 +50,7 @@ class EditorPaper extends Component {
                             <h5>Sign: {item.paper_sign}</h5>
                             <h6>Validation: {item.paper_validation}</h6>
                             <button className="btn btn-success" onClick={e => this.acceptPaper(item._id)}>Accept</button>
-                            <button className="btn btn-danger" onClick={e => this.deleteCourse(e, item._id)}>Decline</button>
+                            <button className="btn btn-danger" onClick={e => this.declinePaper(item._id)}>Decline</button>
                         </div>
                     </div>
                 ))}
