@@ -95,6 +95,34 @@ const addAttendee = async (req, res) => {
     }
 }
 
+const addResearch = async (req, res) => {
+    if (req.params) {
+
+        const rID = req.body.researchID;
+
+        console.log("rid:",rID);
+
+        const post = await Conferences.findById(req.body.conferenceID);
+
+        console.log(post);
+
+        await post.con_researchList.push(rID);
+
+        await Conferences.findByIdAndUpdate(req.body.conferenceID,post)
+            .then(response => {
+                res.status(200).send({ data: response });
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+
+    }
+}
+
+const addWorkshop = async (req, res) => {
+
+}
+
 
 module.exports = {
     addConference,
@@ -102,5 +130,7 @@ module.exports = {
     getSpecificConference,
     editConference,
     deleteConference,
-    addAttendee
+    addAttendee,
+    addResearch,
+    addWorkshop
 };

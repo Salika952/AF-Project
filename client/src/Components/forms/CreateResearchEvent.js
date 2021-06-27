@@ -34,7 +34,27 @@ class CreateResearchEvent extends Component {
         console.log('DATA TO SEND', research)
         axios.post('http://localhost:4002/ResearchEvent/', research)
             .then(response => {
-                alert('Research Event Data successfully inserted')
+                alert('Research Event Data successfully inserted');
+
+
+                ///////////////////////////////////////////
+                let details = {
+                    //conferenceID: this.state.conference_id,
+                    conferenceID: this.props.location.conEditProps.conferenceID,
+                    researchID: response.data.data._id,
+                };
+                console.log('DATA TO SEND', details)
+                axios.patch(`http://localhost:4002/Conference/research`, details)
+                    .then(response => {
+                        alert('Research added')
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
+
+                ///////////////////////////////////////////
+
             })
             .catch(error => {
                 console.log(error.message);

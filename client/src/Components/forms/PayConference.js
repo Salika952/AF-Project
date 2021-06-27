@@ -22,10 +22,12 @@ class PayConference extends Component {
 
     componentDidMount() {
         this.state.pay_users = '60d8336614007e1848b89e92';
-        this.state.pay_amount = 2000;
-        this.state.conference_name = 'CCCC';
+        this.state.pay_amount = this.props.location.conProps.conferenceAmount;
+        this.state.conference_name = this.props.location.conProps.conferenceName;
         this.state.pay_description = 'Payment for Conference';
-        this.state.conference_id = "60d811524cee61152c551ecc";
+        this.state.conference_id = this.props.location.conProps.conferenceID;
+
+
 
     }
 
@@ -55,7 +57,7 @@ class PayConference extends Component {
                     attendeeID: this.state.pay_users,
                 };
                 console.log('DATA TO SEND', details)
-                axios.patch(`http://localhost:4002/Conference/`, details)
+                axios.patch(`http://localhost:4002/Conference/attend`, details)
                     .then(response => {
                         alert('Attendee added')
                     })

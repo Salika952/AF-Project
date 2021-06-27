@@ -2,6 +2,8 @@ import React, { Component, useState, useRef, useEffect} from 'react';
 import axios from 'axios';
 import Timer from './Timer/timer';
 import moment from 'moment';
+import {Link} from "react-router-dom";
+import {unmountComponentAtNode} from "react-dom";
 
 class ShowConferencesUser extends Component {
     constructor(props) {
@@ -22,7 +24,6 @@ class ShowConferencesUser extends Component {
     componentDidMount() {
         axios.get('http://localhost:4002/Conference/60d811524cee61152c551ecc')
             .then(response => {
-                console.log(response.data.data.con_researchList);
                 this.setState({
                     id: response.data.data._id,
                     name: response.data.data.con_name,
@@ -44,7 +45,9 @@ class ShowConferencesUser extends Component {
 
 
     joinConference(id){
-        window.location = `/conferencePay/${id}`
+        //window.location = `/conferencePay/${id}`
+        console.log(this.state.id);
+
     }
 
 
@@ -85,8 +88,16 @@ class ShowConferencesUser extends Component {
                 </div>
 
 
-                <button className="btn btn-danger" onClick={() => this.joinConference(this.state.id)}>Join</button>
+                {/*<button className="btn btn-danger" onClick={() => this.joinConference()}>Join</button>*/}
 
+                <Link to = {{
+                    pathname:'/conferencePay',
+                    conProps:{
+                        conferenceID: this.state.id,
+                        conferenceAmount: this.state.amount,
+                        conferenceName: this.state.name
+                    }
+                }}><button className="btn btn-danger" >Join</button></Link>
 
 
             </div>
