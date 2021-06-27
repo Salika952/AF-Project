@@ -44,7 +44,7 @@ class ShowConferencesUser extends Component {
 
 
     joinConference(id){
-
+        window.location = `/conferencePay/${id}`
     }
 
 
@@ -85,7 +85,7 @@ class ShowConferencesUser extends Component {
                 </div>
 
 
-                <button className="btn btn-danger" onClick={() => this.joinConference(this.state._id)}>Join</button>
+                <button className="btn btn-danger" onClick={() => this.joinConference(this.state.id)}>Join</button>
 
 
 

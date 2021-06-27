@@ -8,5 +8,6 @@ module.exports = function () {
     router.post('/',controller.addConference );
     router.put('/:id',controller.editConference);
     router.delete('/:id',controller.deleteConference);
+    router.patch('/',controller.addAttendee);
     return router;
 }

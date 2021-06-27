@@ -9,6 +9,7 @@ const UserAPI = require('./src/api/UsersApi');
 const WorkshopEventAPI = require('./src/api/WorkshopEventsApi');
 const PaperAPI = require('./src/api/PapersApi');
 const ProposalAPI = require('./src/api/ProposalsApi');
+const PaymentAPI = require('./src/api/PaymentApi');
 
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.use('/Users', UserAPI());
 app.use('/WorkshopEvent', WorkshopEventAPI());
 app.use('/Papers', PaperAPI());
 app.use('/Proposals', ProposalAPI());
+app.use('/Payment', PaymentAPI());
 
 mongoose.connection.once('open', () => {
     console.log('Database Connected');

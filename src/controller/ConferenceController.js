@@ -75,11 +75,32 @@ const deleteConference = async (req, res) => {
     }
 }
 
+const addAttendee = async (req, res) => {
+    if (req.params) {
+
+        const aID = req.body.attendeeID;
+
+        const post = await Conferences.findById(req.body.conferenceID);
+
+        await post.con_attendees.push(aID);
+
+        await Conferences.findByIdAndUpdate(req.body.conferenceID,post)
+            .then(response => {
+                res.status(200).send({ data: response });
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+
+    }
+}
+
 
 module.exports = {
     addConference,
     getAllConferences,
     getSpecificConference,
     editConference,
-    deleteConference
+    deleteConference,
+    addAttendee
 };

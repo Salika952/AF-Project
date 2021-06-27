@@ -11,6 +11,7 @@ import UpdateResearchEvent from "../forms/UpdateResearchEvent";
 import ShowConferencesUser from "../forms/ShowConferenceUser";
 import ShowResearchEventUser from "../forms/ShowResearchEventUser";
 import AddEventsToConference from "../forms/AddEventsToConference";
+import PayConference from "../forms/PayConference";
 
 
 function Routes() {
@@ -30,6 +31,7 @@ function Routes() {
                         <Route path="/researchUserShow" component={ShowResearchEventUser} />
                         <Route path="/researchUpdate" component={UpdateResearchEvent} />
                         <Route path="/conferenceAddEvent" component={AddEventsToConference} />
+                        <Route path="/conferencePay" component={PayConference} />
                         {/*<Route path="/keynotes" component={}  />*/}
                         {/*<Route path="/other" component={}  />*/}
                         {/*<Route path="/contactUs" component={}  />*/}
