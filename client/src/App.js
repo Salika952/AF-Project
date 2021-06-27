@@ -1,12 +1,17 @@
 import './App.css';
 import React from "react";
-import AdminNavBar from "./Components/navBars/adminNavBar";
-// import Routes from './Components/routes/routes';
+import Routes from "./Components/routes/routes";
+import UserNavbar from "./Components/navBars/UserNavBar";
+import Footer from "./Components/footer/footer";
+
 
 function App() {
     return (
         <div className="App">
-            <AdminNavBar/>
+            <UserNavbar/>
+
+            <Routes/>
+            <Footer/>
         </div>
     );
 }

@@ -23,6 +23,7 @@
     "react-script": "^2.0.5"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "multer": "^1.4.2"
   }
 }

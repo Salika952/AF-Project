@@ -3,10 +3,10 @@ const router = express.Router();
  const controller = require('../controller/ProposalController');
 
 module.exports = function () {
-    router.get('/', controller.getAllProposals);
+    router.get('/', controller.getAllProposal);
     router.get('/:id', controller.getSpecificProposal);
-    router.post('/',controller.addProposals );
-    router.put('/:id',controller.editProposals);
-    router.delete('/:id',controller.deleteProposals);
+    router.post('/',controller.addProposal );
+    router.put('/:id',controller.editProposal);
+    router.delete('/:id',controller.deleteProposal);
     return router;
 }

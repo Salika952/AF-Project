@@ -1,6 +1,7 @@
+
 const express = require('express');
 const router = express.Router();
- const controller = require('../controller/WorkshopEventsController');
+const controller = require('../controller/WorkshopEventsController');
 
 module.exports = function () {
     router.get('/', controller.getAllWorkshopEvents);
@@ -8,5 +9,6 @@ module.exports = function () {
     router.post('/',controller.addWorkshopEvents);
     router.put('/:id',controller.editWorkshopEvents);
     router.delete('/:id',controller.deleteWorkshopEvents);
+    // router.patch('/:id',controller.addProposalIdWorkshopEvents);
     return router;
 }

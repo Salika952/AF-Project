@@ -143,13 +143,13 @@ class CreateConference extends Component {
                     </div>
                     <Select
                         options={this.state.con_researchList_options}
-                        onChange={this.onResearchSelect()}
+                        onChange={this.onResearchSelect}
                         className="basic-multi-select"
                         isMulti
                     />
                     <Select
                         options={this.state.con_workshopList_options}
-                        onChange={this.onWorkshopSelect()}
+                        onChange={this.onWorkshopSelect}
                         className="basic-multi-select"
                         isMulti
                     />

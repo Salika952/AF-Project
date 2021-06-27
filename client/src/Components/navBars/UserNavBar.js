@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+import {Route, Switch} from "react-router-dom";
+import EditProposal from "../forms/Proposals/EditProposal";
+import UserProposal from "../forms/views/UserProposal";
+import CreateProposal from "../forms/Proposals/CreateProposal";
+import ReviewerProposal from "../forms/views/ReviewerProposal";
+import CreateWorkshopEditor from "../forms/Workshops/CreateWorkshopEditor";
+import AdminWorkshop from "../forms/views/AdminWorkshop";
+import UserWorkshop from "../forms/views/UserWorkShop";
+import EditWorkShopEditor from "../forms/Workshops/EditWorkShopEditor";
 
 class UserNavbar extends Component {
   constructor(props) {
@@ -19,20 +28,27 @@ class UserNavbar extends Component {
 
               <div className="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul className="navbar-nav">
+
+
+
                       <li className="nav-item">
-                          <a className="nav-link active" aria-current="page" href="/conferences">Conference</a>
+                          <a className="nav-link" href="/userProposal">UserProposal</a>
                       </li>
                       <li className="nav-item">
-                          <a className="nav-link" href="/keynotes">Keynote</a>
+                          <a className="nav-link" href="/reviewerProposal">ReviewerProposal</a>
+                      </li>
+
+                      <li className="nav-item">
+                          <a className="nav-link" href="/editorWorkshop">EditorEditWorkShop</a>
                       </li>
                       <li className="nav-item">
-                          <a className="nav-link" href="/researchEvents">Research Paper Events</a>
+                          <a className="nav-link" href="/addWorkshop">EditorCreateWorkshop</a>
                       </li>
                       <li className="nav-item">
-                          <a className="nav-link" href="/workshopEvents">Workshop Events</a>
+                          <a className="nav-link" href="/adminWorkshop">AdminWorkShopApprove</a>
                       </li>
                       <li className="nav-item">
-                          <a className="nav-link" href="/contactUs">Contact Us</a>
+                          <a className="nav-link" href="/userWorkshop">UserWorkShop</a>
                       </li>
                   </ul>
               </div>
@@ -48,3 +64,6 @@ class UserNavbar extends Component {
 }
 
 export default UserNavbar;
+
+
+

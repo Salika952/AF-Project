@@ -1,9 +1,48 @@
-const ProposalController = require('../schemas/Proposals');
+const Proposal = require('../schemas/Proposals');
 
-const addProposals = async (req, res) => {
+// const addProposal = async (req, res) => {
+//     if (req.body) {
+//         const Proposal = new Proposal(req.body);
+//         if(req.file){
+//             Proposal.pdf =req.file.path
+//         }
+//         await Proposal.save()
+//             .then(data => {
+//                 res.status(200).send({ data: data });
+//             })
+//             .catch(error => {
+//                 res.status(500).send({ error: error.message });
+//             });
+//     }
+
+    // let paper = new Paper({
+    //     auther: req.body.paper_author,
+    //     content: req.body.paper_content,
+    //     contact: req.body.paper_contact,
+    //     sign: req.body.paper_sign
+    // })
+    //
+    // if(req.file){
+    //             paper.avatar =req.file.path
+    //         }
+    //
+    // paper.save()
+    //     .then(data => {
+    //                     res.status(200).send({ data: data });
+    //                 })
+    //                 .catch(error => {
+    //                     res.status(500).send({ error: error.message });
+    //                 });
+
+// }
+
+const addProposal = async (req, res) => {
     if (req.body) {
-        const workshop = new ProposalController(req.body);
-        await workshop.save()
+        const proposal = new Proposal(req.body);
+        if(req.file){
+            Proposal.pdf =req.file.path
+        }
+        await proposal.save()
             .then(data => {
                 res.status(200).send({ data: data });
             })
@@ -13,10 +52,10 @@ const addProposals = async (req, res) => {
     }
 }
 
-const getAllProposals = async (req, res) => {
 
-    await ProposalController.find()
-        .populate('propo_author', 'user_name user_telephone')
+const getAllProposal = async (req, res) => {
+
+    await Proposal.find().populate('propo_author', 'user_name user_telephone')
         .then(data => {
             res.status(200).send({ data: data });
             console.log(data);
@@ -28,9 +67,8 @@ const getAllProposals = async (req, res) => {
 
 const getSpecificProposal = async (req, res) => {
     if (req.params && req.params.id) {
-        await ProposalController.findById(req.params.id)
+        await Proposal.findById(req.params.id)
             .populate('propo_author', 'user_name user_telephone')
-
             .then(response => {
                 res.status(200).send({ data: response });
             })
@@ -40,12 +78,12 @@ const getSpecificProposal = async (req, res) => {
     }
 }
 
-const editProposals = async (req, res) => {
+const editProposal = async (req, res) => {
     if (req.params && req.params.id) {
 
         const updated = req.body;
 
-        await ProposalController.findByIdAndUpdate(req.params.id,updated)
+        await Proposal.findByIdAndUpdate(req.params.id,updated)
             .then(response => {
                 res.status(200).send({ data: response });
             })
@@ -55,10 +93,10 @@ const editProposals = async (req, res) => {
     }
 }
 
-const deleteProposals = async (req, res) => {
+const deleteProposal = async (req, res) => {
     if (req.params && req.params.id) {
 
-        await ProposalController.findByIdAndDelete(req.params.id)
+        await Proposal.findByIdAndDelete(req.params.id)
             .then(response => {
                 res.status(200).send({ data: response });
             })
@@ -67,12 +105,14 @@ const deleteProposals = async (req, res) => {
             });
     }
 }
+
 
 
 module.exports = {
-    addProposals,
-    getAllProposals,
+    addProposal,
+    getAllProposal,
     getSpecificProposal,
-    editProposals,
-    deleteProposals
+    editProposal,
+    deleteProposal
+
 };

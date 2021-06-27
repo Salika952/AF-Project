@@ -1,9 +1,12 @@
 const WorkshopController = require('../schemas/WorkshopEvents');
- const Users=require('../schemas/Users')
+const Users=require('../schemas/Users')
 
 const addWorkshopEvents = async (req, res) => {
     if (req.body) {
         const workshop = new WorkshopController(req.body);
+        if(req.file){
+            WorkshopController.pdf =req.file.path
+        }
         await workshop.save()
             .then(data => {
                 res.status(200).send({ data: data });
@@ -27,6 +30,7 @@ const getAllWorkshopEvents = async (req, res) => {
             res.status(500).send({ error: error.message });
         });
 }
+
 
 const getSpecificWorkshopEvent = async (req, res) => {
     if (req.params && req.params.id) {
@@ -62,13 +66,55 @@ const deleteWorkshopEvents = async (req, res) => {
 
         await WorkshopController.findByIdAndDelete(req.params.id)
             .then(response => {
+                res.status(200).send({data: response});
+            })
+            .catch(error => {
+                res.status(500).send({error: error.message});
+            });
+    }
+}
+
+    //
+    // const addProposalIdWorkshopEvents = async (req, res) => {
+    //     if (req.params && req.params.id) {
+    //
+    //         const workShop_id = req.params.id;
+    //         const proposal_id=req.body.id;
+    //
+    //      const proposal=   await WorkshopController.findById(req.params.id);
+    //      const proposalArray =proposal.work_proposal;
+    //         proposalArray.append(proposal_id);
+    //
+    //         await WorkshopController.findByIdAndUpdate({ _id: workShop_id },
+    //             { work_proposal: proposalArray }
+    //         );
+    //     }
+
+const addProposalIdWorkshopEvents = async (req, res) => {
+    if (req.params) {
+
+        const rID = req.body.p;
+
+        console.log("rid:",rID);
+
+        const post = await Conferences.findById(req.body.conferenceID);
+
+        console.log(post);
+
+        await post.con_researchList.push(rID);
+
+        await Conferences.findByIdAndUpdate(req.body.conferenceID,post)
+            .then(response => {
                 res.status(200).send({ data: response });
             })
             .catch(error => {
                 res.status(500).send({ error: error.message });
             });
+
     }
 }
+
+
 
 
 module.exports = {
@@ -76,5 +122,6 @@ module.exports = {
     getAllWorkshopEvents,
     getSpecificWorkshopEvent,
     editWorkshopEvents,
-    deleteWorkshopEvents
+    deleteWorkshopEvents,
+    addProposalIdWorkshopEvents
 };
