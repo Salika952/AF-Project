@@ -2,6 +2,18 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import UserNavbar from "../navBars/UserNavBar";
 import EditorNavBar from "../navBars/editorNavBar";
+import swat from "sweetalert2";
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Paper Deleted Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
 
 class UserPaper extends Component {
     constructor(props) {
@@ -22,6 +34,7 @@ class UserPaper extends Component {
         axios.delete(`http://localhost:4002/paper/${id}`)
             .then(response => {
                 this.setState({ paper: response.data.data });
+                SubmissionAlert()
             })
         window.location = `/userPaper`
     }

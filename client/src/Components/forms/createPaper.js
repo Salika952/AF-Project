@@ -1,16 +1,38 @@
 import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import swat from "sweetalert2"
 import UserNavbar from "../navBars/UserNavBar";
 
 const initialState = {
     paper_content: '',
     paper_contact: 0,
     paper_sign: '',
-    pdf:''
+    pdf:'',
+    paper_author:'',
+    research_id:'',
 
 
 }
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Paper added successfully,Please check your Email for Confirmation!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Submission Error!'
+    })
+}
+
 class CreatePaper extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +41,13 @@ class CreatePaper extends Component {
         this.state = initialState;
     }
 
+    componentDidMount() {
+        this.state.paper_author = '60bcff2d5b1db804dc3a4181';
+        // this.state.research_id = this.props.location.conProps.conferencePay;
+
+    }
+
+
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -26,6 +55,7 @@ class CreatePaper extends Component {
     onSubmit(e) {
         e.preventDefault();
         let paper = {
+            paper_author: this.state.paper_author,
             paper_content: this.state.paper_content,
             paper_contact: this.state.paper_contact,
             paper_sign: this.state.paper_sign,
@@ -34,11 +64,19 @@ class CreatePaper extends Component {
         console.log('DATA TO SEND', paper);
         axios.post('http://localhost:4002/paper', paper)
             .then(response => {
-                alert('Data successfully inserted')
+                SubmissionAlert()
+
+                let details = {
+                    researchId:this.state.research_id,
+                    paperAuthor: this.state.paper_author,
+
+                };
+
+
             })
             .catch(error => {
                 console.log(error.message);
-                alert(error.message)
+                SubmissionFail()
             })
     }
 

@@ -17,10 +17,9 @@ const getAllResearchEvents = async (req, res) => {
 
     await ResearchEvents.find()
         .populate('res_presenters', 'user_name user_email')
-        .populate('res_papers', 'work_topic paper_sign')
+        .populate('res_papers', 'paper_content paper_sign')
         .then(data => {
             res.status(200).send({ data: data });
-            console.log(data);
         })
         .catch(error => {
             res.status(500).send({ error: error.message });
@@ -35,7 +34,7 @@ const getSpecificResearchEvent = async (req, res) => {
     if (req.params && req.params.id) {
         await ResearchEvents.findById(req.params.id)
             .populate('res_presenters', 'user_name user_telephone')
-            .populate('res_papers', 'work_topic paper_sign')
+            .populate('res_papers', 'paper_content paper_sign')
             .then(response => {
                 res.status(200).send({ data: response });
             })

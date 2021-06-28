@@ -2,6 +2,27 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import UserNavbar from "../navBars/UserNavBar";
 import EditorNavBar from "../navBars/editorNavBar";
+import swat from "sweetalert2";
+
+const SubmissionAlert1 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Paper Accepted!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionAlert2 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Paper Rejected!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
 
 class EditorPaper extends Component {
     constructor(props) {
@@ -24,7 +45,7 @@ class EditorPaper extends Component {
         };
         axios.put(`http://localhost:4002/paper/${paperId}`, paper)
             .then(response => {
-                alert('Category Data successfully updated')
+                SubmissionAlert1()
             })
             .catch(error => {
                 console.log(error.message);
@@ -33,6 +54,17 @@ class EditorPaper extends Component {
     }
 
     declinePaper(paperId) {
+        let paper = {
+            paper_validation: false,
+        };
+        axios.put(`http://localhost:4002/paper/${paperId}`, paper)
+            .then(response => {
+                SubmissionAlert2()
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
 
     }
 

@@ -6,6 +6,7 @@ const PaperSchema=new mongoose.Schema({
     paper_contact:{type:Number},
     paper_sign:{type:String},
     paper_validation:{ type: Boolean, default: false },
+    paper_event:[{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'ResearchEvent'}],
     pdf: {
         type: String,
 

@@ -2,13 +2,35 @@ import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import UserNavbar from "../navBars/UserNavBar";
+import swat from "sweetalert2";
 
 const initialState = {
-    pay_creditCardNo: 0,
-    pay_amount: 0,
+    pay_creditCardNo: '',
+    pay_amount: '',
     pay_description: '',
+    pay_email:'',
+    pay_users:''
 
 }
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Payment has been done,Please check your Email for Confirmation!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Submission Error!'
+    })
+}
+
 class PaymentForm extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +38,12 @@ class PaymentForm extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.state = initialState;
     }
+
+    componentDidMount() {
+        this.state.pay_users = '60bcff2d5b1db804dc3a4181';
+
+    }
+
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
@@ -25,17 +53,19 @@ class PaymentForm extends Component {
         e.preventDefault();
         let payment = {
             pay_creditCardNo: this.state.pay_creditCardNo,
+            pay_users: this.state.pay_users,
             pay_amount: this.state.pay_amount,
+            pay_email: this.state.pay_email,
             pay_description: this.state.pay_description
         }
         console.log('DATA TO SEND', payment);
         axios.post('http://localhost:4002/payment/', payment)
             .then(response => {
-                alert('Data successfully inserted')
+                SubmissionAlert()
             })
             .catch(error => {
                 console.log(error.message);
-                alert(error.message)
+                SubmissionFail()
             })
     }
 
@@ -65,6 +95,17 @@ class PaymentForm extends Component {
                             id="paymentAmount"
                             name="pay_amount"
                             value={this.state.pay_amount}
+                            onChange={this.onChange}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="paymentEmail" className="form-label">Email</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="paymentEmail"
+                            name="pay_email"
+                            value={this.state.pay_email}
                             onChange={this.onChange}
                         />
                     </div>

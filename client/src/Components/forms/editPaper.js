@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import UserNavbar from "../navBars/UserNavBar";
+import swat from "sweetalert2";
 
 const initialState = {
     paper_content: '',
@@ -9,6 +10,25 @@ const initialState = {
     pdf:''
 
 }
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Paper details Edited Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Submission Error!'
+    })
+}
+
 
 class EditPaper extends Component {
     constructor(props) {
@@ -54,11 +74,11 @@ class EditPaper extends Component {
         console.log('DATA TO SEND', paper)
         axios.put(`http://localhost:4002/paper/${this.props.match.params.id}`, paper)
             .then(response => {
-                alert('Category Data successfully updated')
+                SubmissionAlert()
             })
             .catch(error => {
                 console.log(error.message);
-                alert(error.message)
+                SubmissionFail()
             })
     }
 
