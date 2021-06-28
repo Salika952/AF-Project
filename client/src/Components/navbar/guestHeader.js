@@ -17,17 +17,18 @@ function Header() {
                                    href="/">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Keynotes</a>
+                                <a className="nav-link" href="/conferenceCreate">Keynotes</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Conferences</a>
+                                <a className="nav-link" href="/conferenceUserShowLanding">Conferences</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Workshops</a>
+                                <a className="nav-link" href="/conferenceAdminShow">Workshops</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Contact Us</a>
+                                <a className="nav-link" href="/conferenceEditorShow">Contact Us</a>
                             </li>
+
                             <li className="nav-item">
                                 <a className="nav-link" href="#">About Us</a>
                             </li>
