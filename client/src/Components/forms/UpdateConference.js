@@ -1,9 +1,10 @@
 import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import FileBase from 'react-file-base64';
 
 const initialState = {
-
+    con_img:'',
     con_name: '',
     con_theme: '',
     con_venue: '',
@@ -41,6 +42,7 @@ class UpdateConference extends Component {
                         con_date : response.data.data.con_date,
                         con_researchList_selected: response.data.data.con_researchList,
                         con_workshopList_selected: response.data.data.con_workshopList,
+                        con_img:this.state.con_img,
                     });
             })
             .catch(error => {
@@ -94,16 +96,18 @@ class UpdateConference extends Component {
     onSubmit(e) {
         e.preventDefault();
         let conference = {
+            con_img:this.state.con_img,
             con_name: this.state.con_name,
             con_theme: this.state.con_theme,
             con_venue: this.state.con_venue,
             con_date: this.state.con_date,
             con_amount:this.state.con_amount,
+            con_AdminStatus:'Updated'
             // con_researchList: this.state.con_researchList_selected,
             // con_workshopList: this.state.con_workshopList_selected
         };
         console.log('DATA TO SEND', conference)
-        axios.put(`http://localhost:4002/Conference/60d811524cee61152c551ecc`, conference)
+        axios.put(`http://localhost:4002/Conference/${this.props.location.conEditProps2.conferenceID}`, conference)
             .then(response => {
                 alert('Conference Data successfully updated')
             })
@@ -185,6 +189,13 @@ class UpdateConference extends Component {
                             value={this.state.con_amount}
                             onChange={this.onChange}
                         />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="con_img" className="form-label">Picture</label>
+                        <div>
+                            <FileBase type="file" multiple={false} onDone={({base64}) => this.state.con_img = base64} />
+                        </div>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

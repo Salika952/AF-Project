@@ -11,6 +11,8 @@ const ConferenceSchema=new mongoose.Schema({
     con_amount:{type:Number, required:true},
     con_validation:{ type: Boolean, default: false },
     con_main:{ type: Boolean, default: false },
+    con_AdminStatus:{type:String, default: 'New',  trim:true},
+    con_img:{type:String},
 
 });
 const Conferences = mongoose.model('Conferences', ConferenceSchema);

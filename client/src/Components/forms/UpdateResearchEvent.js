@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import FileBase from 'react-file-base64';
 
 const initialState = {
 
@@ -19,7 +20,7 @@ class UpdateResearchEvent extends Component {
 
     componentDidMount() {
 
-        axios.get(`http://localhost:4002/ResearchEvent/60d81301576b4e2c048a7ee9`)
+        axios.get(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`)
             .then(response => {
                 this.setState(
                     {  res_presenterFee: response.data.data.res_presenterFee,
@@ -44,7 +45,8 @@ class UpdateResearchEvent extends Component {
         let research = {
             res_presenterFee: this.state.res_presenterFee,
             res_topic: this.state.res_topic,
-            res_description: this.state.res_description
+            res_description: this.state.res_description,
+            res_AdminStatus:'Updated'
         };
         console.log('DATA TO SEND', research);
         axios.put(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`, research)
@@ -94,6 +96,13 @@ class UpdateResearchEvent extends Component {
                             value={this.state.res_presenterFee}
                             onChange={this.onChange}
                         />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="res_img" className="form-label">Picture</label>
+                        <div>
+                            <FileBase type="file" multiple={false} onDone={({base64}) => this.state.res_img = base64} />
+                        </div>
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>

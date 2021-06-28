@@ -1,8 +1,10 @@
 import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import FileBase from 'react-file-base64';
 
 const initialState = {
+    con_img:'',
     con_name: '',
     con_theme: '',
     con_venue: '',
@@ -80,6 +82,7 @@ class CreateConference extends Component {
             con_venue: this.state.con_venue,
             con_date: this.state.con_date,
             con_amount:this.state.con_amount,
+            con_img:this.state.con_img,
             // con_researchList: this.state.con_researchList_selected,
             // con_workshopList: this.state.con_workshopList_selected
         };
@@ -172,6 +175,13 @@ class CreateConference extends Component {
                             value={this.state.con_amount}
                             onChange={this.onChange}
                         />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="con_img" className="form-label">Picture</label>
+                        <div>
+                            <FileBase type="file" multiple={false} onDone={({base64}) => this.state.con_img = base64} />
+                        </div>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

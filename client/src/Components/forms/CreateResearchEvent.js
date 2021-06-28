@@ -1,10 +1,13 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import FileBase from 'react-file-base64';
 
 const initialState = {
     res_presenterFee: 0,
     res_topic: '',
-    res_description: ''
+    res_description: '',
+    res_img:''
+
 }
 
 class CreateResearchEvent extends Component {
@@ -29,7 +32,9 @@ class CreateResearchEvent extends Component {
         let research = {
             res_presenterFee: this.state.res_presenterFee,
             res_topic: this.state.res_topic,
-            res_description: this.state.res_description
+            res_description: this.state.res_description,
+            res_img:this.state.res_img
+
         };
         console.log('DATA TO SEND', research)
         axios.post('http://localhost:4002/ResearchEvent/', research)
@@ -99,6 +104,12 @@ class CreateResearchEvent extends Component {
                             value={this.state.res_presenterFee}
                             onChange={this.onChange}
                         />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="res_img" className="form-label">Picture</label>
+                        <div>
+                            <FileBase type="file" multiple={false} onDone={({base64}) => this.state.res_img = base64} />
+                        </div>
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>

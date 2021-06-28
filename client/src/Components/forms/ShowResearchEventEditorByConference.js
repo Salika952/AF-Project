@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import {Link, Redirect} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class ShowResearchEventEditor extends Component {
     constructor(props) {
@@ -11,9 +11,10 @@ class ShowResearchEventEditor extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4002/ResearchEvent/')
+        axios.get(`http://localhost:4002/Conference/${this.props.location.conEditProps3.conferenceID}`)
             .then(response => {
-                this.setState({ ResearchEvents: response.data.data });
+                this.setState({ ResearchEvents: response.data.data.con_researchList });
+                console.log(this.state.ResearchEvents);
             })
 
 
@@ -37,10 +38,11 @@ class ShowResearchEventEditor extends Component {
                 {this.state.ResearchEvents.length > 0 && this.state.ResearchEvents.map((item, index) => (
                     <div key={index} className="card mb-3">
                         <div className="p-3" >
+                            <img src={item.res_img} alt="Logo" />
                             <h4>Topic: {item.res_topic}</h4>
                             <h6>Description: {item.res_description}</h6>
                             <h6>Fee: {item.res_presenterFee}</h6>
-
+                            <h6><small> {item.res_AdminStatus}</small></h6>
                             <button className="btn btn-danger" onClick={() => this.deleteResearch(item._id)}>Delete</button>
 
                             <Link to = {{
