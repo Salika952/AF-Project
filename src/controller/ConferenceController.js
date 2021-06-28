@@ -137,6 +137,20 @@ const addWorkshop = async (req, res) => {
 
 }
 
+const getAcceptedConference = async (req, res) => {
+
+    if (req.params) {
+        await Conferences.find({con_validation:true})
+            .then(response => {
+                res.status(200).send({ data: response });
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+    }
+
+}
+
 const MailSend = async (req, res) => {
 
     try {
@@ -193,5 +207,6 @@ module.exports = {
     addResearch,
     addWorkshop,
     MainUpdate,
-    MailSend
+    MailSend,
+    getAcceptedConference
 };

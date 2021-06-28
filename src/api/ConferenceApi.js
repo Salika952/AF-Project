@@ -13,5 +13,6 @@ module.exports = function () {
     router.patch('/workshop',controller.addWorkshop);
     router.patch('/main',controller.MainUpdate);
     router.post('/mail',controller.MailSend);
+    router.get('/ConferenceAccepted',controller.getAcceptedConference);
     return router;
 }

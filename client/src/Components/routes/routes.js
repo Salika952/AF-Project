@@ -14,6 +14,7 @@ import AddEventsToConference from "../forms/NotUsed/AddEventsToConference";
 import PayConference from "../forms/PayConference";
 import ShowResearchEventAdminByConference from "../forms/ShowResearchEventAdminByConference";
 import ShowResearchEventEditorByConference from "../forms/ShowResearchEventEditorByConference";
+import ShowConferenceUser from "../forms/ShowConferenceUser";
 
 
 function Routes() {
@@ -29,13 +30,14 @@ function Routes() {
                         <Route path="/researchAdminShow" component={ShowResearchEventAdmin} />
                         <Route path="/researchEditorShow" component={ShowResearchEventEditor} />
                         <Route path="/researchCreate" component={CreateResearchEvent} />
-                        <Route path="/conferenceUserShow" component={ShowConferencesUserLanding} />
+                        <Route path="/conferenceUserShowLanding" component={ShowConferencesUserLanding} />
                         <Route path="/researchUserShow" component={ShowResearchEventUser} />
                         <Route path="/researchUpdate" component={UpdateResearchEvent} />
                         <Route path="/conferenceAddEvent" component={AddEventsToConference} />
                         <Route path="/conferencePay" component={PayConference} />
                         <Route path="/researchByConferenceAdmin" component={ShowResearchEventAdminByConference} />
                         <Route path="/researchByConferenceEditor" component={ShowResearchEventEditorByConference} />
+                        <Route path="/conferenceUserShow" component={ShowConferenceUser} />
                         {/*<Route path="/keynotes" component={}  />*/}
                         {/*<Route path="/other" component={}  />*/}
                         {/*<Route path="/contactUs" component={}  />*/}
