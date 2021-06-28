@@ -1,0 +1,46 @@
+.profile_page{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.profile_page .col-left{
+    max-width: 400px;
+    min-width: 300px;
+    padding: 0 10px;
+    margin: auto;
+}
+
+.profile_page .col-left .avatar{
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    margin: 15px auto;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.profile_page .col-left img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.profile_page .col-left .avatar span{
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #fff8;
+    text-align: center;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: rgb(255, 140, 45);
+    transition: 0.3s ease-in-out;
+}
+.profile_page .col-left .avatar:hover span{
+    bottom: -25%;
+}
+.

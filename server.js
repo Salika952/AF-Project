@@ -1,16 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const WorkshopEventsAPI = require('./src/api/WorkshopEventsApi');
-const ProposalAPI=require('./src/api/ProposalsApi');
+const userAPI=require('./src/api/UsersApi');
+const NotificationAPI=require('./src/api/NotificationApi');
+const fileUpload = require('express-fileupload');
 
-
-dotenv.config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(fileUpload({
+    useTempFiles:true
+}))
+app.use(bodyParser.json({ limit:"30mb",extended: true}));
+app.use(bodyParser.urlencoded({ limit:"30mb",extended: true}));
 
 const PORT = process.env.PORT || 4002;
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -27,14 +31,12 @@ mongoose.connect(MONGODB_URI, {
     }
 });
 
-app.use('/WorkshopEvents', WorkshopEventsAPI());
-app.use('/ProposalEvents', ProposalAPI());
-
 mongoose.connection.once('open', () => {
     console.log('Database Connected');
 });
 
-
+app.use('/users', userAPI());
+app.use('/notify', NotificationAPI());
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on PORT ${PORT}`);
