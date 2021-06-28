@@ -12,5 +12,6 @@ module.exports = function () {
     router.patch('/research',controller.addResearch);
     router.patch('/workshop',controller.addWorkshop);
     router.patch('/main',controller.MainUpdate);
+    router.post('/mail',controller.MailSend);
     return router;
 }

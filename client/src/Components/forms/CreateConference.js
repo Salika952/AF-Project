@@ -89,7 +89,8 @@ class CreateConference extends Component {
         console.log('DATA TO SEND', conference)
         axios.post('http://localhost:4002/Conference/', conference)
             .then(response => {
-                alert('Conference Data successfully inserted')
+                alert('Conference Data successfully inserted');
+
             })
             .catch(error => {
                 console.log(error.message);

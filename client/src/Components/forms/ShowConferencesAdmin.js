@@ -20,7 +20,7 @@ class ShowConferencesAdmin extends Component {
 
 
 
-    declineConference(id){
+    declineConference(id,name){
         let conference = {
             con_validation: false,
             con_AdminStatus:'Declined'
@@ -29,7 +29,17 @@ class ShowConferencesAdmin extends Component {
         axios.put(`http://localhost:4002/Conference/${id}`, conference)
             .then(response => {
                 alert('Declined');
-                // this.state.status = response.data.data.con_AdminStatus;
+                let sent = {
+                    status: name +" Conference Declined",
+                };
+                axios.post('http://localhost:4002/Conference/mail', sent)
+                    .then(response => {
+                        alert('Email Sent')
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
             })
             .catch(error => {
                 console.log(error.message);
@@ -37,7 +47,7 @@ class ShowConferencesAdmin extends Component {
             })
     }
 
-    acceptConference(id){
+    acceptConference(id,name){
         let conference = {
             con_validation: true,
             con_AdminStatus:'Accepted'
@@ -46,7 +56,17 @@ class ShowConferencesAdmin extends Component {
         axios.put(`http://localhost:4002/Conference/${id}`, conference)
             .then(response => {
                 alert('Accepted')
-                // this.state.status = response.data.data.con_AdminStatus;
+                let sent = {
+                    status: name +" Conference Accepted",
+                };
+                axios.post('http://localhost:4002/Conference/mail', sent)
+                    .then(response => {
+                        alert('Email Sent');
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
             })
             .catch(error => {
                 console.log(error.message);
@@ -94,8 +114,8 @@ class ShowConferencesAdmin extends Component {
 
                             <h6><small> {item.con_AdminStatus}</small></h6>
 
-                            <button className="btn btn-danger" onClick={() => this.declineConference(item._id)}>Decline</button>
-                            <button className="btn btn-success" onClick={() => this.acceptConference(item._id)}>Accept</button>
+                            <button className="btn btn-danger" onClick={() => this.declineConference(item._id,item.con_name)}>Decline</button>
+                            <button className="btn btn-success" onClick={() => this.acceptConference(item._id,item.con_name)}>Accept</button>
                             <button className="btn btn-warning" onClick={() => this.addToLanding(item._id)}>Add to Main Page</button>
 
                             <Link to = {{

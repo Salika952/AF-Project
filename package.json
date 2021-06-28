@@ -9,7 +9,8 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "test": "mocha --recursive **/test/runner.js"
   },
   "author": "umesh",
   "license": "ISC",
@@ -18,11 +19,16 @@
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "googleapis": "^78.0.0",
     "mongoose": "^5.12.12",
     "nodemon": "^2.0.7",
-    "react-script": "^2.0.5"
+    "react-script": "^2.0.5",
+    "should": "^13.2.3"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "mocha": "^9.0.1",
+    "mocha-logger": "^1.0.7",
+    "nodemailer": "^6.6.2"
   }
 }

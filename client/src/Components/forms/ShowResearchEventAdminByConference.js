@@ -19,7 +19,7 @@ class ShowResearchEventAdminByConference extends Component {
 
     }
 
-    declineResearch(id){
+    declineResearch(id,name){
         let research = {
             res_validation: false,
             res_AdminStatus:'Declined'
@@ -27,7 +27,18 @@ class ShowResearchEventAdminByConference extends Component {
 
         axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
             .then(response => {
-                alert('Declined')
+                alert('Declined');
+                let sent = {
+                    status: name +" Research Event Declined",
+                };
+                axios.post('http://localhost:4002/Conference/mail', sent)
+                    .then(response => {
+                        alert('Email Sent');
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
             })
             .catch(error => {
                 console.log(error.message);
@@ -35,7 +46,7 @@ class ShowResearchEventAdminByConference extends Component {
             })
     }
 
-    acceptResearch(id){
+    acceptResearch(id,name){
 
         let research = {
             res_validation: true,
@@ -44,7 +55,18 @@ class ShowResearchEventAdminByConference extends Component {
 
         axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
             .then(response => {
-                alert('Accepted')
+                alert('Accepted');
+                let sent = {
+                    status: name +" Research Event Accepted",
+                };
+                axios.post('http://localhost:4002/Conference/mail', sent)
+                    .then(response => {
+                        alert('Email Sent');
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
             })
             .catch(error => {
                 console.log(error.message);
@@ -66,8 +88,8 @@ class ShowResearchEventAdminByConference extends Component {
                             <h6>Fee: {item.res_presenterFee}</h6>
                             <h6><small> {item.res_AdminStatus}</small></h6>
 
-                            <button className="btn btn-success" onClick={() => this.acceptResearch(item._id)}>Accept</button>
-                            <button className="btn btn-danger" onClick={() => this.declineResearch(item._id)}>Decline</button>
+                            <button className="btn btn-success" onClick={() => this.acceptResearch(item._id,item.res_topic)}>Accept</button>
+                            <button className="btn btn-danger" onClick={() => this.declineResearch(item._id,item.res_topic)}>Decline</button>
                         </div>
                     </div>
                 ))}

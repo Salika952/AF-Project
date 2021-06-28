@@ -1,4 +1,6 @@
 const Conferences = require('../schemas/Conferences');
+const nodemailer = require("nodemailer");
+
 
 const addConference = async (req, res) => {
     if (req.body) {
@@ -135,6 +137,51 @@ const addWorkshop = async (req, res) => {
 
 }
 
+const MailSend = async (req, res) => {
+
+    try {
+        let status = req.body.status;
+
+        var transporter = nodemailer.createTransport({
+
+            service: 'Gmail',
+            auth: {
+                user: 'hugoproducts119@gmail.com',
+                pass: '123hugo@12'
+            },
+
+            tls: {
+                // do not fail on invalid certs
+                rejectUnauthorized: false
+            },
+        });
+
+        var mailOptions = {
+
+            from: 'hugoproducts119@gmail.com',
+            to: 'yasoja44@gmail.com',
+            subject: 'AF Conference Company',
+            html: `
+            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+            <h2 style="text-align: center; color: black;">${status}.</h2>
+            </div>`
+        };
+
+        await transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+        res.status(200).json({auth_token: 'token'})
+    } catch (e) {
+        console.log(e.message);
+        return res.status(500).json({msg: "server Error..."});
+    }
+}
+
 
 module.exports = {
     addConference,
@@ -145,5 +192,6 @@ module.exports = {
     addAttendee,
     addResearch,
     addWorkshop,
-    MainUpdate
+    MainUpdate,
+    MailSend
 };
