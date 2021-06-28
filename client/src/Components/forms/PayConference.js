@@ -9,7 +9,9 @@ const initialState = {
     expiry:'',
     digits:'',
     conference_name:'',
-    conference_id:''
+    conference_id:'',
+    token:'',
+    id:''
 
 }
 class PayConference extends Component {
@@ -21,7 +23,35 @@ class PayConference extends Component {
     }
 
     componentDidMount() {
-        this.state.pay_users = '60d8336614007e1848b89e92';
+        const token = localStorage.getItem('token');
+        if (!token) {
+            this.setState({
+                user: null
+            });
+            return;
+        }
+        this.setState({
+            token:token
+        })
+
+        axios({
+            method: 'get',
+            url: 'http://localhost:4002/users/',
+            headers: {
+                Authorization: token
+            },
+            data: {}
+        }).then(res => {
+            this.setState({
+                id:res.data._id,
+                isLoggedIn: true
+            })
+        }).catch(err => {
+            console.log(err.message);
+        })
+
+
+        this.state.pay_users = this.state.id;
         this.state.pay_amount = this.props.location.conProps.conferenceAmount;
         this.state.conference_name = this.props.location.conProps.conferenceName;
         this.state.pay_description = 'Payment for Conference';

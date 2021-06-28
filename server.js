@@ -1,21 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const userAPI=require('./src/api/UsersApi');
+const NotificationAPI=require('./src/api/NotificationApi');
+const fileUpload = require('express-fileupload');
 const ResearchEventApi = require('./src/api/ResearchEventApi');
 const ConferenceAPI=require('./src/api/ConferenceApi');
-const UserAPI = require('./src/api/UsersApi');
 const WorkshopEventAPI = require('./src/api/WorkshopEventsApi');
 const PaperAPI = require('./src/api/PapersApi');
 const ProposalAPI = require('./src/api/ProposalsApi');
 const PaymentAPI = require('./src/api/PaymentApi');
 
-
-dotenv.config();
 const app = express();
 app.use(cors());
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
+app.use(fileUpload({
+    useTempFiles:true
+}))
 app.use(bodyParser.json({ limit:"30mb",extended: true}));
 app.use(bodyParser.urlencoded({ limit:"30mb",extended: true}));
 
@@ -34,19 +37,18 @@ mongoose.connect(MONGODB_URI, {
     }
 });
 
-app.use('/ResearchEvent', ResearchEventApi());
-app.use('/Conference', ConferenceAPI());
-app.use('/Users', UserAPI());
-app.use('/WorkshopEvent', WorkshopEventAPI());
-app.use('/Papers', PaperAPI());
-app.use('/Proposals', ProposalAPI());
-app.use('/Payment', PaymentAPI());
-
 mongoose.connection.once('open', () => {
     console.log('Database Connected');
 });
 
-
+app.use('/users', userAPI());
+app.use('/notify', NotificationAPI());
+app.use('/ResearchEvent', ResearchEventApi());
+app.use('/Conference', ConferenceAPI());
+app.use('/WorkshopEvent', WorkshopEventAPI());
+app.use('/Papers', PaperAPI());
+app.use('/Proposals', ProposalAPI());
+app.use('/Payment', PaymentAPI());
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on PORT ${PORT}`);

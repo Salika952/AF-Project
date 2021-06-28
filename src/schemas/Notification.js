@@ -1,10 +1,27 @@
 const mongoose=require('mongoose');
 
 const NotificationSchema=new mongoose.Schema({
-    noti_users: [{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Users'}],
-    noti_message:{type:String,required:true,trim:true},
+    title : {
+        type : String,
+        required : true
+    },
+    type : {
+        type : String,
+        required : true
+    },
+    message : {
+        type : String,
+        required : true
+    },
+    expire : {
+        type : Date,
+    },
+    date:{
+        type : Date,
+        default : Date.now()
+    }
 },{
     timestamps:true
 });
-const Notification = mongoose.model('Payment', NotificationSchema);
+const Notification = mongoose.model('Notification', NotificationSchema);
 module.exports = Notification;

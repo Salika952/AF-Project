@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
- const controller = require('../controller/WorkshopEventsController');
+const controller = require('../controller/WorkshopEventsController');
 
 module.exports = function () {
     router.get('/', controller.getAllWorkshopEvents);

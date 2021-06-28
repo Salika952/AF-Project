@@ -18,9 +18,9 @@ const addConference = async (req, res) => {
 const getAllConferences = async (req, res) => {
 
     await Conferences.find()
-            .populate('con_researchList', 'res_topic res_presenterFee res_validation res_description res_img')
-            .populate('con_workshopList', 'work_topic')
-            .populate('con_attendees', 'user_name user_email')
+        .populate('con_researchList', 'res_topic res_presenterFee res_validation res_description res_img')
+        .populate('con_workshopList', 'work_topic')
+        .populate('con_attendees', 'user_name user_email')
         .then(data => {
             res.status(200).send({ data: data });
         })
