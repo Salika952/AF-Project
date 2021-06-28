@@ -1,16 +1,16 @@
 import React, { Component} from 'react';
+import Select from 'react-select';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
 
 const initialState = {
+
     res_presenterFee: 0,
     res_topic: '',
-    res_description: '',
-    res_img:''
-
+    res_description:''
 }
 
-class CreateResearchEvent extends Component {
+class UpdateResearchEvent extends Component {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
@@ -19,6 +19,19 @@ class CreateResearchEvent extends Component {
     }
 
     componentDidMount() {
+
+        axios.get(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`)
+            .then(response => {
+                this.setState(
+                    {  res_presenterFee: response.data.data.res_presenterFee,
+                        res_topic : response.data.data.res_topic,
+                        res_description:response.data.data.res_description,
+                    });
+            })
+            .catch(error => {
+                alert(error.message)
+            })
+
 
     }
 
@@ -33,33 +46,12 @@ class CreateResearchEvent extends Component {
             res_presenterFee: this.state.res_presenterFee,
             res_topic: this.state.res_topic,
             res_description: this.state.res_description,
-            res_img:this.state.res_img
-
+            res_AdminStatus:'Updated'
         };
-        console.log('DATA TO SEND', research)
-        axios.post('http://localhost:4002/ResearchEvent/', research)
+        console.log('DATA TO SEND', research);
+        axios.put(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`, research)
             .then(response => {
-                alert('Research Event Data successfully inserted');
-
-
-                ///////////////////////////////////////////
-                let details = {
-                    //conferenceID: this.state.conference_id,
-                    conferenceID: this.props.location.conEditProps.conferenceID,
-                    researchID: response.data.data._id,
-                };
-                console.log('DATA TO SEND', details)
-                axios.patch(`http://localhost:4002/Conference/research`, details)
-                    .then(response => {
-                        alert('Research added')
-                    })
-                    .catch(error => {
-                        console.log(error.message);
-                        alert(error.message)
-                    })
-
-                ///////////////////////////////////////////
-
+                alert('ResearchEvent Data successfully updated')
             })
             .catch(error => {
                 console.log(error.message);
@@ -70,7 +62,7 @@ class CreateResearchEvent extends Component {
     render() {
         return (
             <div className="container">
-                <h1>Create Research Events</h1>
+                <h1>Update Research Events</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
                         <label htmlFor="res_topic" className="form-label">Research Event Topic</label>
@@ -105,6 +97,7 @@ class CreateResearchEvent extends Component {
                             onChange={this.onChange}
                         />
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="res_img" className="form-label">Picture</label>
                         <div>
@@ -119,4 +112,4 @@ class CreateResearchEvent extends Component {
     }
 }
 
-export default CreateResearchEvent;
+export default UpdateResearchEvent;

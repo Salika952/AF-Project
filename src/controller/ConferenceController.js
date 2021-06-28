@@ -1,4 +1,6 @@
 const Conferences = require('../schemas/Conferences');
+const nodemailer = require("nodemailer");
+
 
 const addConference = async (req, res) => {
     if (req.body) {
@@ -16,12 +18,11 @@ const addConference = async (req, res) => {
 const getAllConferences = async (req, res) => {
 
     await Conferences.find()
-            .populate('con_researchList', 'res_topic res_presenterFee')
-            .populate('con_workshopList', 'work_topic')
-            .populate('con_attendees', 'user_name user_email')
+        .populate('con_researchList', 'res_topic res_presenterFee res_validation res_description res_img')
+        .populate('con_workshopList', 'work_topic')
+        .populate('con_attendees', 'user_name user_email')
         .then(data => {
             res.status(200).send({ data: data });
-            console.log(data);
         })
         .catch(error => {
             res.status(500).send({ error: error.message });
@@ -35,9 +36,9 @@ const getAllConferences = async (req, res) => {
 const getSpecificConference = async (req, res) => {
     if (req.params && req.params.id) {
         await Conferences.findById(req.params.id)
-            .populate('researchList', 'res_topic res_presenterFee')
-            .populate('workshopList', 'work_topic')
-            .populate('attendees', 'user_name user_email')
+            .populate('con_researchList', 'res_topic res_presenterFee res_validation res_description res_img res_AdminStatus')
+            .populate('con_workshopList', 'work_topic')
+            .populate('con_attendees', 'user_name user_email')
             .then(response => {
                 res.status(200).send({ data: response });
             })
@@ -75,11 +76,137 @@ const deleteConference = async (req, res) => {
     }
 }
 
+const addAttendee = async (req, res) => {
+    if (req.params) {
+
+        const aID = req.body.attendeeID;
+
+        const post = await Conferences.findById(req.body.conferenceID);
+
+        await post.con_attendees.push(aID);
+
+        await Conferences.findByIdAndUpdate(req.body.conferenceID,post)
+            .then(response => {
+                res.status(200).send({ data: response });
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+
+    }
+}
+
+const addResearch = async (req, res) => {
+    if (req.params) {
+
+        const rID = req.body.researchID;
+
+        console.log("rid:",rID);
+
+        const post = await Conferences.findById(req.body.conferenceID);
+
+        console.log(post);
+
+        await post.con_researchList.push(rID);
+
+        await Conferences.findByIdAndUpdate(req.body.conferenceID,post)
+            .then(response => {
+                res.status(200).send({ data: response });
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+
+    }
+}
+
+const MainUpdate = async (req, res) => {
+
+    await Conferences.updateMany({con_main:false})
+        .then(response => {
+            res.status(200).send({ data: response });
+        })
+        .catch(error => {
+            res.status(500).send({ error: error.message });
+        });
+
+
+}
+
+const addWorkshop = async (req, res) => {
+
+}
+
+const getAcceptedConference = async (req, res) => {
+
+    if (req.params) {
+        await Conferences.find({con_validation:true})
+            .then(response => {
+                res.status(200).send({ data: response });
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+    }
+
+}
+
+const MailSend = async (req, res) => {
+
+    try {
+        let status = req.body.status;
+
+        var transporter = nodemailer.createTransport({
+
+            service: 'Gmail',
+            auth: {
+                user: 'hugoproducts119@gmail.com',
+                pass: '123hugo@12'
+            },
+
+            tls: {
+                // do not fail on invalid certs
+                rejectUnauthorized: false
+            },
+        });
+
+        var mailOptions = {
+
+            from: 'hugoproducts119@gmail.com',
+            to: 'yasoja44@gmail.com',
+            subject: 'AF Conference Company',
+            html: `
+            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+            <h2 style="text-align: center; color: black;">${status}.</h2>
+            </div>`
+        };
+
+        await transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+        res.status(200).json({auth_token: 'token'})
+    } catch (e) {
+        console.log(e.message);
+        return res.status(500).json({msg: "server Error..."});
+    }
+}
+
 
 module.exports = {
     addConference,
     getAllConferences,
     getSpecificConference,
     editConference,
-    deleteConference
+    deleteConference,
+    addAttendee,
+    addResearch,
+    addWorkshop,
+    MainUpdate,
+    MailSend,
+    getAcceptedConference
 };

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-import {showErrMsg, showSuccessMsg} from '../component/Notification/notification'
+import {showErrMsg, showSuccessMsg} from '../Components/Notification/notification'
 
 function ConfirmEmail() {
     const {auth_token} = useParams()

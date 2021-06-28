@@ -3,7 +3,7 @@ import {LoadUser, LoadUserOther, LoginUser} from "../../Actions/Authentication";
 import {Redirect, Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import swat from "sweetalert2";
-import Header from "../../Component/navbar/guestHeader";
+import Header from "../../Components/navbar/guestHeader";
 const Login = ({loginUser, isLoggedIn}) => {
 
     let [data, setData] = useState({

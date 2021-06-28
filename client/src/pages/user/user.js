@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {Signout} from "../../Actions/Authentication";
 import { Redirect } from "react-router-dom";
-import UserNavbar from "../../Component/navbar/UserNavBar";
+import UserNavbar from "../../Components/navbar/UserNavBar";
 
 const UserPage = ({isLoggedIn,logOut}) => {
 

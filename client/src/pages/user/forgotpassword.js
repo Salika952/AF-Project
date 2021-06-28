@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import swat from "sweetalert2";
 import axios from "axios";
-import Header from "../../Component/navbar/guestHeader";
+import Header from "../../Components/navbar/guestHeader";
 
 const ForgotAlert = () => {
     swat.fire({

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import swat from "sweetalert2";
 import { Link } from 'react-router-dom'
-import Header from "../../Component/navbar/guestHeader";
+import Header from "../../Components/navbar/guestHeader";
 import FileBase from 'react-file-base64';
 
 
