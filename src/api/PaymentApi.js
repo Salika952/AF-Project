@@ -9,6 +9,7 @@ module.exports = function () {
     router.put('/:id',controller.editPayment);
     router.delete('/:id', controller.deletePayment);
     router.post('/',controller.addPayment);
+    router.post('/mail',controller.MailSend);
 
     return router;
 }

@@ -1,7 +1,7 @@
 const WorkshopController = require('../schemas/WorkshopEvents');
- const Users=require('../schemas/Users')
 
 const addWorkshopEvents = async (req, res) => {
+    console.log("aaaaa");
     if (req.body) {
         const workshop = new WorkshopController(req.body);
         await workshop.save()
@@ -69,12 +69,24 @@ const deleteWorkshopEvents = async (req, res) => {
             });
     }
 }
+const getAWork = async (req, res) => {
 
+    await WorkshopController.find({work_validation:true})
+        .then(response => {
+            res.status(200).send({ data: response });
+        })
+        .catch(error => {
+            res.status(500).send({ error: error.message });
+        });
+
+
+}
 
 module.exports = {
     addWorkshopEvents,
     getAllWorkshopEvents,
     getSpecificWorkshopEvent,
     editWorkshopEvents,
-    deleteWorkshopEvents
+    deleteWorkshopEvents,
+    getAWork
 };

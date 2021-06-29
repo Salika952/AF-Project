@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment'
 import {Link} from "react-router-dom";
 
-class ShowConferencesAdmin extends Component {
+class ShowConferencesAccepted extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,13 +12,11 @@ class ShowConferencesAdmin extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4002/Conference/ConferenceAccepted')
+        axios.get('http://localhost:4002/Conference/conAccepted/add')
             .then(response => {
                 this.setState({ Conferences: response.data.data });
             })
     }
-
-
 
     declineConference(id,name){
 
@@ -31,6 +29,7 @@ class ShowConferencesAdmin extends Component {
 
     render() {
         return (
+
             <div className="container">
                 <h1>Conferences</h1>
                 {this.state.Conferences.length > 0 && this.state.Conferences.map((item, index) => (
@@ -61,4 +60,4 @@ class ShowConferencesAdmin extends Component {
     }
 }
 
-export default ShowConferencesAdmin;
+export default ShowConferencesAccepted;

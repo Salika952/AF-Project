@@ -24,6 +24,8 @@ import Profile from "./pages/profile/profile";
 import GetallUsers from "./pages/admin/GetallUsers";
 import EditUsers from "./pages/admin/EditUsers";
 import Notification from "./pages/admin/Notification";
+import EditorProfile from "./pages/profile/editorProfile";
+import ReviewerProfile from "./pages/profile/reviewerProfile";
 
 ///Yasoja routes
 import CreateConference from "./Components/forms/CreateConference";
@@ -41,14 +43,37 @@ import PayConference from "./Components/forms/PayConference";
 import ShowResearchEventAdminByConference from "./Components/forms/ShowResearchEventAdminByConference";
 import ShowResearchEventEditorByConference from "./Components/forms/ShowResearchEventEditorByConference";
 import ShowConferenceUser from "./Components/forms/ShowConferenceUser";
+import ShowConferencesAccepted from "./Components/forms/ShowConferenceAccepted";
 
+///Binuka routes
+import ReviewerPaper from "./Components/views/ReviewerPaper";
+import CreatePaper from "./Components/forms/createPaper";
+import UserPaper from "./Components/views/UserPaper";
+import EditPaper from "./Components/forms/editPaper";
+import PaymentForm from "./Components/forms/paymentForm";
+import ReviewerPayView from "./Components/views/ReviewerPayView";
+import UserSpecfPaper from "./Components/views/UserSpecfPaper";
+
+//Salika
+import EditProposal from "./Components/Proposals/EditProposal";
+import CreateProposal from "./Components/Proposals/CreateProposal";
+import ReviewerProposal from "./Components/views/ReviewerProposal";
+import UserProposal from "./Components/views/UserProposal";
+import EditWorkShopEditor from "./Components/Workshops/EditWorkShopEditor";
+import EditorWorkshop from "./Components/views/EditorWorkshop";
+import CreateWorkshopEditor from "./Components/Workshops/CreateWorkshopEditor";
+import AdminWorkshop from "./Components/views/AdminWorkshop";
+import UserWorkshop from "./Components/views/UserWorkShop";
+
+
+if(localStorage.getItem('token')){
+    setToken(localStorage.getItem('token'));
+}
 const App = () => {
-    if(localStorage.getItem('token')){
-        setToken(localStorage.getItem('token'));
-    }
     useEffect(() => {
         store.dispatch(LoadUser())
     },[]);
+
     return (
         <div className="page-container">
             <div className="content-wrap">
@@ -56,19 +81,21 @@ const App = () => {
                     <Router>
                         <Switch>
                             {/*Umesh Routes*/}
-                            <Route path="/" component={Dashboard} exact/>
+                            <Route path="/" component={ShowConferencesUserLanding} exact/>
                             <Route path="/register" component={Register} exact/>
                             <Route path="/admin_register" component={AdminRegister} exact/>
                             <Route path="/user" component={UserPage}/>
                             <Route path="/editor" component={EditorPage}/>
                             <Route path="/admin" component={AdminPage}/>
                             <Route path="/reviewer" component={ReviewerPage}/>
-                            <Route path="/get_all" component={GetallUsers}/>
+                            <Route path="/get_all_users" component={GetallUsers}/>
                             <Route path="/notification" component={Notification}/>
                             <Route path="/edit_user/:id" component={EditUsers}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/forgot" component={ForgotPassword}/>
                             <Route path="/profile" component={Profile}/>
+                            <Route path="/editor_profile" component={EditorProfile}/>
+                            <Route path="/reviewer_profile" component={ReviewerProfile}/>
                             <Route path="/users/reset_password/:id" component={ResetPassword}/>
                             <Route path="/users/activate/:auth_token" component={ConfirmEmail}  />
 
@@ -85,16 +112,38 @@ const App = () => {
                             <Route path="/researchUpdate" component={UpdateResearchEvent} />
                             <Route path="/conferenceAddEvent" component={AddEventsToConference} />
                             <Route path="/conferencePay" component={PayConference} />
+                            <Route path="/conferenceAcceptedShow" component={ShowConferencesAccepted} />
                             <Route path="/researchByConferenceAdmin" component={ShowResearchEventAdminByConference} />
                             <Route path="/researchByConferenceEditor" component={ShowResearchEventEditorByConference} />
                             <Route path="/conferenceUserShow" component={ShowConferenceUser} />
 
+                            {/*Binuka Routes*/}
+                            <Route path="/userSpecfPaper/:id" component={UserSpecfPaper}  />
+                            <Route path="/payView" component={ReviewerPayView}  />
+                            <Route path="/addPay" component={PaymentForm}  />
+                            <Route path='/editPaper' component={EditPaper}/>
+                            <Route path='/userPaper' component={UserPaper}/>
+                            <Route path='/addPaper' component={CreatePaper}/>
+                            <Route path='/editorPaper' component={ReviewerPaper}/>
+
+                            {/*Salika Routes*/}
+                            <Route path='/editWorkshop/:id' component={EditWorkShopEditor}/>
+                            <Route path='/editorWorkshop' component={EditorWorkshop}/>
+                            <Route path='/addWorkshop' component={CreateWorkshopEditor}/>
+                            <Route path='/adminWorkshop' component={AdminWorkshop}/>
+                            <Route path='/userWorkshop' component={UserWorkshop}/>
+                            <Route path='/editProposal/:id' component={EditProposal}/>
+                            <Route path='/userProposal' component={UserProposal}/>
+                            <Route path='/addProposal' component={CreateProposal}/>
+                            <Route path='/reviewerProposal' component={ReviewerProposal}/>
                         </Switch>
                     </Router>
                 </Provider>
+
             </div>
 
         </div>
     );
+
 }
 export default App;

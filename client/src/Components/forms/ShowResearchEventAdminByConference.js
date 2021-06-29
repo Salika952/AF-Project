@@ -1,5 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import adminNavBar from "../navbar/adminNavBar";
+import AdminNavBar from "../navbar/adminNavBar";
 
 class ShowResearchEventAdminByConference extends Component {
     constructor(props) {
@@ -77,7 +79,9 @@ class ShowResearchEventAdminByConference extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div>
+                <AdminNavBar/>
+                <div className="container">
                 <h1>Research Events</h1>
                 {this.state.ResearchEvents.length > 0 && this.state.ResearchEvents.map((item, index) => (
                     <div key={index} className="card mb-3">
@@ -94,6 +98,8 @@ class ShowResearchEventAdminByConference extends Component {
                     </div>
                 ))}
             </div>
+            </div>
+
         )
     }
 }

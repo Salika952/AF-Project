@@ -4,6 +4,7 @@ import './profile.css'
 import {Button, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import swat from "sweetalert2";
 import FileBase from 'react-file-base64';
+import UserNavbar from "../../Components/navbar/UserNavBar";
 
 const SuccessAlert = (res) => {
     swat.fire({
@@ -145,6 +146,7 @@ class Profile extends Component {
     render() {
         return (
             <div>
+                <UserNavbar/>
                 <Form  onSubmit={this.onSubmitHandler}>
                  <div className="profile_page">
                         <div className="col-left">
@@ -277,14 +279,18 @@ class Profile extends Component {
                             &nbsp;
                             <div>
                                 &nbsp;
+
                                 {this.state.updateFields &&
-                                <a className = "btn btn-danger" href="#" onClick={()=>this.onDelete(this.state.id)}>
-                                    <i className="fas fa-trash" ></i>&nbsp;Delete
-                                </a>
+                                <div>
+                                    <h6>Delete Profile</h6>
+                                    <a className="btn btn-danger float-right" block href="/"
+                                       onClick={() => this.onDelete(this.state.id)}>
+                                        <i className="fas fa-trash"></i>&nbsp;Delete
+                                    </a>
+                                </div>
                                 }
                             </div>
                         </div>
-
                     </div>
                 </Form>
 

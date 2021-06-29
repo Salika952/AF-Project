@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
+import EditorNavbar from "../navbar/editorNavbar";
 
 const initialState = {
     con_img:'',
@@ -119,86 +120,89 @@ class UpdateConference extends Component {
 
     render() {
         return (
-            <div className="container">
-                <h1>Update Conference</h1>
-                <form onSubmit={this.onSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="con_name" className="form-label">Conference Name</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="con_name"
-                            name="con_name"
-                            value={this.state.con_name}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="con_theme" className="form-label">Conference Theme</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="con_theme"
-                            name="con_theme"
-                            value={this.state.con_theme}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="con_venue" className="form-label">Conference Venue</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="con_venue"
-                            name="con_venue"
-                            value={this.state.con_venue}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="con_date" className="form-label">Conference Date</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            id="con_date"
-                            name="con_date"
-                            value={this.state.con_date}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    {/*<Select*/}
-                    {/*    options={this.state.con_researchList_options}*/}
-                    {/*    onChange={this.onResearchSelect}*/}
-                    {/*    className="basic-multi-select"*/}
-                    {/*    isMulti*/}
-                    {/*/>*/}
-                    {/*<Select*/}
-                    {/*    options={this.state.con_workshopList_options}*/}
-                    {/*    onChange={this.onWorkshopSelect}*/}
-                    {/*    className="basic-multi-select"*/}
-                    {/*    isMulti*/}
-                    {/*/>*/}
-
-                    <div className="mb-3">
-                        <label htmlFor="con_amount" className="form-label">Entry fee</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="con_amount"
-                            name="con_amount"
-                            value={this.state.con_amount}
-                            onChange={this.onChange}
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label htmlFor="con_img" className="form-label">Picture</label>
-                        <div>
-                            <FileBase type="file" multiple={false} onDone={({base64}) => this.state.con_img = base64} />
+            <div>
+                <EditorNavbar/>
+                <div className="container">
+                    <h1>Update Conference</h1>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="con_name" className="form-label">Conference Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="con_name"
+                                name="con_name"
+                                value={this.state.con_name}
+                                onChange={this.onChange}
+                            />
                         </div>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                        <div className="mb-3">
+                            <label htmlFor="con_theme" className="form-label">Conference Theme</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="con_theme"
+                                name="con_theme"
+                                value={this.state.con_theme}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="con_venue" className="form-label">Conference Venue</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="con_venue"
+                                name="con_venue"
+                                value={this.state.con_venue}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="con_date" className="form-label">Conference Date</label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                id="con_date"
+                                name="con_date"
+                                value={this.state.con_date}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        {/*<Select*/}
+                        {/*    options={this.state.con_researchList_options}*/}
+                        {/*    onChange={this.onResearchSelect}*/}
+                        {/*    className="basic-multi-select"*/}
+                        {/*    isMulti*/}
+                        {/*/>*/}
+                        {/*<Select*/}
+                        {/*    options={this.state.con_workshopList_options}*/}
+                        {/*    onChange={this.onWorkshopSelect}*/}
+                        {/*    className="basic-multi-select"*/}
+                        {/*    isMulti*/}
+                        {/*/>*/}
+
+                        <div className="mb-3">
+                            <label htmlFor="con_amount" className="form-label">Entry fee</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="con_amount"
+                                name="con_amount"
+                                value={this.state.con_amount}
+                                onChange={this.onChange}
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="con_img" className="form-label">Picture</label>
+                            <div>
+                                <FileBase type="file" multiple={false} onDone={({base64}) => this.state.con_img = base64} />
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
         )
     }

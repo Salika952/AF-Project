@@ -8,5 +8,6 @@ module.exports = function () {
     router.post('/',controller.addWorkshopEvents);
     router.put('/:id',controller.editWorkshopEvents);
     router.delete('/:id',controller.deleteWorkshopEvents);
+    router.get('/workAccepted/add',controller.getAWork);
     return router;
 }

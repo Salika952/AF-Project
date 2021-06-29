@@ -1,40 +1,15 @@
-import React from "react";
-import {connect} from "react-redux";
-import {Signout} from "../../Actions/Authentication";
-import { Redirect } from "react-router-dom";
+import React, {Component} from 'react';
+import EditorNavbar from "../../Components/navbar/editorNavbar";
 
-const EditorPage = ({isLoggedIn,logOut}) => {
-
-    return (
-        <div>
+class Editor extends Component {
+    render() {
+        return (
             <div>
-                <h1>Editor Pages</h1>
-                {
-                    isLoggedIn ? (
-
-                            <div>
-                                <h1>You have log in</h1>
-                                <br/>
-
-                                <button onClick={() => logOut()}>
-                                    Log out
-                                </button>
-                            </div>
-                        ) :
-                        (
-                            <div>
-                                <Redirect to="/"></Redirect>
-                            </div>
-                        )
-                }
+                <EditorNavbar/>
+                <h1>Hello Editor</h1>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-
-const mapStateToProps = state => ({
-    isLoggedIn: state.isLoggedIn
-});
-
-export default connect(mapStateToProps,{ logOut: Signout})(EditorPage);
+export default Editor;
