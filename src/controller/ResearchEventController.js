@@ -72,11 +72,23 @@ const deleteResearchEvents = async (req, res) => {
     }
 }
 
+const getAcceptedResearchEvent = async (req, res) => {
+
+    await ResearchEvents.find({res_validation:true})
+        .then(data => {
+            res.status(200).send({ data: data });
+        })
+        .catch(error => {
+            res.status(500).send({ error: error.message });
+        });
+}
+
 
 module.exports = {
     addResearchEvents,
     getAllResearchEvents,
     getSpecificResearchEvent,
     editResearchEvents,
-    deleteResearchEvents
+    deleteResearchEvents,
+    getAcceptedResearchEvent
 };

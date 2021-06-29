@@ -3,7 +3,7 @@ import axios from 'axios';
 import Timer from './Timer/timer';
 import moment from 'moment';
 import {Link} from "react-router-dom";
-import UserNavbar from "../navbar/UserNavBar";
+import Header from "../navbar/guestHeader";
 
 
 
@@ -85,7 +85,7 @@ class ShowConferencesUserLanding extends Component {
         return (
 
             <div>
-                <UserNavbar/>
+                <Header/>
 
                 {/*<div>*/}
                 {/*    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">*/}
@@ -153,14 +153,14 @@ class ShowConferencesUserLanding extends Component {
 
                     {/*<button className="btn btn-danger" onClick={() => this.joinConference()}>Join</button>*/}
 
-                    <Link to = {{
-                        pathname:'/conferencePay',
-                        conProps:{
-                            conferenceID: this.state.id,
-                            conferenceAmount: this.state.amount,
-                            conferenceName: this.state.name
-                        }
-                    }}><button className="yas-button" >Join</button></Link>
+                    {/*<Link to = {{*/}
+                    {/*    pathname:'/conferencePay',*/}
+                    {/*    conProps:{*/}
+                    {/*        conferenceID: this.state.id,*/}
+                    {/*        conferenceAmount: this.state.amount,*/}
+                    {/*        conferenceName: this.state.name*/}
+                    {/*    }*/}
+                    {/*}}><button className="yas-button" >Join</button></Link>*/}
 
 
                     <br></br>

@@ -5,6 +5,7 @@ const controller = require('../controller/ResearchEventController');
 module.exports = function () {
     router.get('/', controller.getAllResearchEvents);
     router.get('/:id', controller.getSpecificResearchEvent);
+    router.get('/getAll/accepted', controller.getAcceptedResearchEvent);
     router.post('/',controller.addResearchEvents );
     router.put('/:id',controller.editResearchEvents);
     router.delete('/:id',controller.deleteResearchEvents);

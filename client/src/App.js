@@ -44,6 +44,8 @@ import ShowResearchEventAdminByConference from "./Components/forms/ShowResearchE
 import ShowResearchEventEditorByConference from "./Components/forms/ShowResearchEventEditorByConference";
 import ShowConferenceUser from "./Components/forms/ShowConferenceUser";
 import ShowConferencesAccepted from "./Components/forms/ShowConferenceAccepted";
+import ShowResearchEventAccepted from "./Components/forms/ShowResearchEventAccepted";
+import GuestShowConferenceLanding from "./Components/forms/GuestShowConferenceLanding";
 
 ///Binuka routes
 import ReviewerPaper from "./Components/views/ReviewerPaper";
@@ -81,7 +83,7 @@ const App = () => {
                     <Router>
                         <Switch>
                             {/*Umesh Routes*/}
-                            <Route path="/" component={ShowConferencesUserLanding} exact/>
+                            <Route path="/" component={GuestShowConferenceLanding} exact/>
                             <Route path="/register" component={Register} exact/>
                             <Route path="/admin_register" component={AdminRegister} exact/>
                             <Route path="/user" component={UserPage}/>
@@ -108,7 +110,7 @@ const App = () => {
                             <Route path="/researchEditorShow" component={ShowResearchEventEditor} />
                             <Route path="/researchCreate" component={CreateResearchEvent} />
                             <Route path="/conferenceUserShowLanding" component={ShowConferencesUserLanding} />
-                            <Route path="/researchUserShow" component={ShowResearchEventUser} />
+                            <Route path="/researchUserShow/:id" component={ShowResearchEventUser} />
                             <Route path="/researchUpdate" component={UpdateResearchEvent} />
                             <Route path="/conferenceAddEvent" component={AddEventsToConference} />
                             <Route path="/conferencePay" component={PayConference} />
@@ -116,6 +118,8 @@ const App = () => {
                             <Route path="/researchByConferenceAdmin" component={ShowResearchEventAdminByConference} />
                             <Route path="/researchByConferenceEditor" component={ShowResearchEventEditorByConference} />
                             <Route path="/conferenceUserShow" component={ShowConferenceUser} />
+                            <Route path="/researchAccepted/r" component={ShowResearchEventAccepted} />
+                            <Route path="/guestShowLanding" component={GuestShowConferenceLanding} />
 
                             {/*Binuka Routes*/}
                             <Route path="/userSpecfPaper/:id" component={UserSpecfPaper}  />

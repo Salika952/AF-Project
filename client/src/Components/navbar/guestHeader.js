@@ -21,7 +21,7 @@ function Header() {
                                 <a className="nav-link" href="/conferenceCreate">Keynotes</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/conferenceUserShowLanding">Conferences</a>
+                                <a className="nav-link" href="/guestShowLanding">Conferences</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/conferenceAdminShow">Workshops</a>

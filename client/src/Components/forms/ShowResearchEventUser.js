@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import {Link, Redirect} from "react-router-dom";
 
 class ShowResearchEventUser extends Component {
     constructor(props) {
@@ -15,8 +14,7 @@ class ShowResearchEventUser extends Component {
     }
 
     componentDidMount() {
-        //axios.get(`http://localhost:4002/ResearchEvent/${this.props.match.params.id}`)
-        axios.get(`http://localhost:4002/ResearchEvent/60d5c8dfc56d6a30ecfe6c20`)
+        axios.get(`http://localhost:4002/ResearchEvent/${this.props.match.params.id}`)
             .then(response => {
                 this.setState({
                     topic: response.data.data.res_topic,

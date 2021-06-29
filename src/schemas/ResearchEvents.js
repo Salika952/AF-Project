@@ -9,6 +9,7 @@ const ResearchSchema=new mongoose.Schema({
     res_papers:[{ type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Papers'}],
     res_img:{type:String},
     res_AdminStatus:{type:String, default: 'New',  trim:true},
+    res_conferenceName:{type:String, trim:true},
 },{
     timestamps:true
 });

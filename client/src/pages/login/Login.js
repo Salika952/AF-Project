@@ -38,7 +38,7 @@ const Login = ({loginUser, isLoggedIn}) => {
             case 'reviewer':
                 return <Redirect to="/reviewer"/>
             case 'user':
-                return <Redirect to="/user"/>
+                return <Redirect to="/conferenceUserShowLanding"/>
         }
     }
 
