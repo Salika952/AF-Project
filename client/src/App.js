@@ -24,7 +24,8 @@ import Profile from "./pages/profile/profile";
 import GetallUsers from "./pages/admin/GetallUsers";
 import EditUsers from "./pages/admin/EditUsers";
 import Notification from "./pages/admin/Notification";
-
+import EditorProfile from "./pages/profile/editorProfile";
+import ReviewerProfile from "./pages/profile/reviewerProfile";
 
 ///Yasoja routes
 import CreateConference from "./Components/forms/CreateConference";
@@ -55,7 +56,6 @@ import UserSpecfPaper from "./Components/views/UserSpecfPaper";
 
 //Salika
 import EditProposal from "./Components/Proposals/EditProposal";
-
 import CreateProposal from "./Components/Proposals/CreateProposal";
 import ReviewerProposal from "./Components/views/ReviewerProposal";
 import UserProposal from "./Components/views/UserProposal";
@@ -94,6 +94,8 @@ const App = () => {
                             <Route path="/login" component={Login}/>
                             <Route path="/forgot" component={ForgotPassword}/>
                             <Route path="/profile" component={Profile}/>
+                            <Route path="/editor_profile" component={EditorProfile}/>
+                            <Route path="/reviewer_profile" component={ReviewerProfile}/>
                             <Route path="/users/reset_password/:id" component={ResetPassword}/>
                             <Route path="/users/activate/:auth_token" component={ConfirmEmail}  />
 
@@ -123,20 +125,17 @@ const App = () => {
                             <Route path='/userPaper' component={UserPaper}/>
                             <Route path='/addPaper' component={CreatePaper}/>
                             <Route path='/editorPaper' component={ReviewerPaper}/>
-						
-						 {/*Salika Routes*/}
-						<Route path='/editWorkshop/:id' component={EditWorkShopEditor}/>
-                        <Route path='/editorWorkshop' component={EditorWorkshop}/>
-                        <Route path='/addWorkshop' component={CreateWorkshopEditor}/>
-                        <Route path='/adminWorkshop' component={AdminWorkshop}/>
-                        <Route path='/userWorkshop' component={UserWorkshop}/>
 
-                        <Route path='/editProposal/:id' component={EditProposal}/>
-                        <Route path='/userProposal' component={UserProposal}/>
-                        <Route path='/addProposal' component={CreateProposal}/>
-                        <Route path='/reviewerProposal' component={ReviewerProposal}/>
-
-							
+                            {/*Salika Routes*/}
+                            <Route path='/editWorkshop/:id' component={EditWorkShopEditor}/>
+                            <Route path='/editorWorkshop' component={EditorWorkshop}/>
+                            <Route path='/addWorkshop' component={CreateWorkshopEditor}/>
+                            <Route path='/adminWorkshop' component={AdminWorkshop}/>
+                            <Route path='/userWorkshop' component={UserWorkshop}/>
+                            <Route path='/editProposal/:id' component={EditProposal}/>
+                            <Route path='/userProposal' component={UserProposal}/>
+                            <Route path='/addProposal' component={CreateProposal}/>
+                            <Route path='/reviewerProposal' component={ReviewerProposal}/>
                         </Switch>
                     </Router>
                 </Provider>

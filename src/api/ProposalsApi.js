@@ -8,5 +8,6 @@ module.exports = function () {
     router.post('/',controller.addProposal );
     router.put('/:id',controller.editProposal);
     router.delete('/:id',controller.deleteProposal);
+    router.delete('/accepted/add',controller.getAProposal);
     return router;
 }

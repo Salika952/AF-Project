@@ -45,10 +45,10 @@ app.use('/users', userAPI());
 app.use('/notify', NotificationAPI());
 app.use('/ResearchEvent', ResearchEventApi());
 app.use('/Conference', ConferenceAPI());
-app.use('/WorkshopEvent', WorkshopEventAPI());
 app.use('/paper', PaperAPI());
-app.use('/Proposals', ProposalAPI());
 app.use('/payment', PaymentAPI());
+app.use('/WorkshopEvents', WorkshopEventAPI());
+app.use('/ProposalEvents', ProposalAPI());
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on PORT ${PORT}`);

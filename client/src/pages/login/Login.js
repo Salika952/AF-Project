@@ -3,6 +3,7 @@ import {LoadUser, LoadUserOther, LoginUser} from "../../Actions/Authentication";
 import {Redirect, Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import swat from "sweetalert2";
+import '../login/Login.css'
 import Header from "../../Components/navbar/guestHeader";
 const Login = ({loginUser, isLoggedIn}) => {
 
@@ -70,7 +71,7 @@ const Login = ({loginUser, isLoggedIn}) => {
                 <Header/>
                 <div className="container">
                     <h1>Login</h1>
-                    <form onSubmit={(event) => submitData(event)}>
+                    <form className="from-container" onSubmit={(event) => submitData(event)}>
                         <div className="form-group-1">
                             <label htmlFor="exampleDropdownFormEmail2" className="form-label">Email address</label>
                             <input
@@ -97,7 +98,7 @@ const Login = ({loginUser, isLoggedIn}) => {
                         </div>
                         <button type="submit" className="btn btn-primary">Login</button>
                     </form>
-                    <p>New Customer? <Link to="/register">Register</Link></p>
+                    <p >New Customer? <Link to="/register">Register</Link></p>
                     <p> <Link to="/forgot">Forgot Password</Link></p>
                 </div>
             </div>

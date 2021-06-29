@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
+import EditorNavbar from "../navbar/editorNavbar";
 
 const initialState = {
     work_topic:'',
@@ -49,6 +50,7 @@ class CreateWorkshopEditor extends Component {
     render() {
         return (
             <div>
+                <EditorNavbar/>
                 <div className="container">
                     <h1>Create WorkShop</h1>
                     <form onSubmit={this.onSubmit}>

@@ -15,24 +15,24 @@ const Proposal = require('../schemas/Proposals');
 //             });
 //     }
 
-    // let paper = new Paper({
-    //     auther: req.body.paper_author,
-    //     content: req.body.paper_content,
-    //     contact: req.body.paper_contact,
-    //     sign: req.body.paper_sign
-    // })
-    //
-    // if(req.file){
-    //             paper.avatar =req.file.path
-    //         }
-    //
-    // paper.save()
-    //     .then(data => {
-    //                     res.status(200).send({ data: data });
-    //                 })
-    //                 .catch(error => {
-    //                     res.status(500).send({ error: error.message });
-    //                 });
+// let paper = new Paper({
+//     auther: req.body.paper_author,
+//     content: req.body.paper_content,
+//     contact: req.body.paper_contact,
+//     sign: req.body.paper_sign
+// })
+//
+// if(req.file){
+//             paper.avatar =req.file.path
+//         }
+//
+// paper.save()
+//     .then(data => {
+//                     res.status(200).send({ data: data });
+//                 })
+//                 .catch(error => {
+//                     res.status(500).send({ error: error.message });
+//                 });
 
 // }
 
@@ -107,12 +107,25 @@ const deleteProposal = async (req, res) => {
 }
 
 
+const getAProposal = async (req, res) => {
+
+    await Proposal.find({propo_validation:true})
+        .then(response => {
+            res.status(200).send({ data: response });
+        })
+        .catch(error => {
+            res.status(500).send({ error: error.message });
+        });
+
+
+}
 
 module.exports = {
     addProposal,
     getAllProposal,
     getSpecificProposal,
     editProposal,
-    deleteProposal
+    deleteProposal,
+    getAProposal
 
 };

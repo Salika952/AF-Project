@@ -1,95 +1,61 @@
-.login_page{
-    max-width: 500px;
-    margin: auto;
-    color: #444;
-    padding: 0 15px;
-}
-.login_page h2{
-    text-transform: uppercase;
-    font-size: 2rem;
-    margin: 20px 0;
-    letter-spacing: 1.5px;
+.container{
+    height: 75vh;
+    margin: 20vh;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px black;
+    width:80%;
 }
 
-.login_page input{
-    width: 100%;
-    height: 45px;
-    margin: 10px 0;
-    border: 2px solid #777;
-    outline: none;
-    padding: 0 10px;
+
+.form-group-1 {
+    color: white;
 }
-.login_page .row{
+
+.login_msg{
+    margin-top: 3vh;
+    background-color: lightseagreen;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+}
+
+.parent-heading-1{
+    background-color: white;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap-reverse;
-    align-items: flex-start;
-}
-.login_page .row a{
-    color: crimson;
-}
-.login_page .row button{
-    width: 150px;
-    padding: 10px 0;
-    color: white;
-    background: black;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-right: 10px;
-}
-.login_page p{
-    margin: 10px 0;
-}
-.login_page a{
-    color: #111;
-    font-weight: 600;
-}
-
-/* ------------- Forgot Password --------------- */
-.fg_pass h2{
-    color: #555;
-    text-transform: uppercase;
+    padding: 10px;
     text-align: center;
-    font-size: 2rem;
-    margin: 50px 0;
-    letter-spacing: 1.3px;
-}
-.fg_pass .row{
-    max-width: 500px;
-    margin: auto;
-    padding: 0 10px;
-}
-.fg_pass .row input{
-    width: 100%;
-    height: 45px;
-    border: 1px solid #ccc;
-    outline: none;
-    padding: 0 15px;
-    border-radius: 3px;
-    margin: 5px 0;
-}
-.fg_pass .row button{
-    background: #333;
-    color: white;
-    padding: 10px 30px;
-    text-transform: uppercase;
-    letter-spacing: 1.3px;
-    border-radius: 3px;
-    margin-top: 15px;
-}
-/* ---------- Facebook / Google ---------------- */
-.login_page .hr{
-    margin: 15px 0;
-    color: crimson;
+    margin-left: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
-.login_page .social button{
-    width: 100%;
-    margin: 10px 0;
-    height: 50px;
-    font-size: 14px;
-    font-weight: 200;
-    text-transform: capitalize;
-    letter-spacing: 1.3px;
-    box-shadow: 0 2px 4px #777;
+.heading1{
+    color: #282c34;
+    width: 150px;
+    margin:auto;
+}
+
+.heading1 p{
+    font-size: 20px;
+}
+
+.btn{
+    margin-top: 3vh;
+    margin-left: auto;
+    color: black;
+}
+
+.register-anchor{
+    color:white;
+}
+
+.register-anchor:hover{
+    color:white;
+
+}
+
+.login-btns{
+    margin-top: 50px;
+    padding: 10px;
 }

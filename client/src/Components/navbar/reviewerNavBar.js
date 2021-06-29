@@ -95,7 +95,7 @@ class reviewerNav extends Component {
                                         <a className="nav-link" href="/payView">Payment</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/#">Workshops Proposal</a>
+                                        <a className="nav-link" href="/reviewerProposal">Workshops Proposal</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/#">Contact Us</a>
@@ -109,7 +109,7 @@ class reviewerNav extends Component {
                                         <div className="float-right">
                                             <img src={this.state.image} alt=""/>{this.state.fullName}<i className="fa fa-angle-down"></i>
                                             <ul className="dropdown">
-                                                <li><a href='/profile'>Profile</a></li>
+                                                <li><a href='/reviewer_profile'>Profile</a></li>
                                                 <li><a onClick={this.logoutOnClick}>Logout</a></li>
                                             </ul>
                                         </div>

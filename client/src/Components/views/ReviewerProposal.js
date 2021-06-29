@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-
+import reviewerNavBar from "../navbar/reviewerNavBar";
 
 class ReviewerProposal extends Component {
     constructor(props) {
@@ -38,6 +38,7 @@ class ReviewerProposal extends Component {
     render() {
         return (
             <div>
+                <reviewerNavBar/>
                 <div className="container">
                     <h1>Proposal</h1>
                     {this.state.proposal.length > 0 && this.state.proposal.map((item, index) => (

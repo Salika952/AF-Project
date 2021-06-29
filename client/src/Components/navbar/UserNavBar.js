@@ -94,13 +94,13 @@ class UserNavbar extends Component {
                                         <a className="nav-link" href="#">Research Events</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Workshops Events</a>
+                                        <a className="nav-link" href="/userWorkshop">Workshops Events</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="#">Research Papers</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Workshops Proposal</a>
+                                        <a className="nav-link" href="/userProposal">Workshops Proposal</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="#">Contact Us</a>

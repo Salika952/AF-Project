@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import UserNavbar from "../navbar/UserNavBar";
 
 
 class UserWorkshop extends Component {
@@ -11,10 +12,11 @@ class UserWorkshop extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4002/WorkshopEvents/')
+        axios.get(' http://localhost:4002/WorkshopEvents/workAccepted/add')
             .then(response => {
                 this.setState({ workshop: response.data.data });
             })
+        console.log(this.state.workshop)
     }
 
     // acceptPaper(workshopId) {
@@ -39,6 +41,7 @@ class UserWorkshop extends Component {
     render() {
         return (
             <div>
+                <UserNavbar/>
                 <div className="container">
                     <h1>Workshop</h1>
                     {this.state.workshop.length > 0 && this.state.workshop.map((item, index) => (

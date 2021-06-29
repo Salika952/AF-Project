@@ -85,7 +85,7 @@ class EditorNavbar extends Component {
                                         <a className="nav-link" href="/researchEditorShow">Research Events</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/#">Workshops Events</a>
+                                        <a className="nav-link" href="/addWorkshop">Create Workshops</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/#">Contact Us</a>
@@ -99,7 +99,7 @@ class EditorNavbar extends Component {
                                         <div className="float-right">
                                             <img src={this.state.image} alt=""/>{this.state.fullName}<i className="fa fa-angle-down"></i>
                                             <ul className="dropdown">
-                                                <li><a href='/profile'>Profile</a></li>
+                                                <li><a href='/editor_profile'>Profile</a></li>
                                                 <li><a onClick={this.logoutOnClick}>Logout</a></li>
                                             </ul>
                                         </div>

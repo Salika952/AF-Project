@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import EditorNavbar from "../navbar/editorNavbar";
 
 
 
@@ -33,6 +34,7 @@ class EditorWorkshop extends Component {
     render() {
         return (
             <div>
+                <EditorNavbar/>
                 <div className="container">
                     <h1>Workshops</h1>
                     {this.state.workshops.length > 0 && this.state.workshops.map((item, index) => (

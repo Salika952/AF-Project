@@ -147,7 +147,7 @@ const getACon = async (req, res) => {
                 res.status(500).send({ error: error.message });
             });
 
-    console.log("aaaaaa");
+
 }
 
 const MailSend = async (req, res) => {

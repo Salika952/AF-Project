@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import AdminNavBar from "../navbar/adminNavBar";
 
 
 class AdminWorkshop extends Component {
@@ -38,6 +39,7 @@ class AdminWorkshop extends Component {
     render() {
         return (
             <div>
+                <AdminNavBar/>
                 <div className="container">
                     <h1>Workshop</h1>
                     {this.state.workshop.length > 0 && this.state.workshop.map((item, index) => (
