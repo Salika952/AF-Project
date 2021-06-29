@@ -53,6 +53,19 @@ import PaymentForm from "./Components/forms/paymentForm";
 import ReviewerPayView from "./Components/views/ReviewerPayView";
 import UserSpecfPaper from "./Components/views/UserSpecfPaper";
 
+//Salika
+import EditProposal from "./Components/Proposals/EditProposal";
+
+import CreateProposal from "./Components/Proposals/CreateProposal";
+import ReviewerProposal from "./Components/views/ReviewerProposal";
+import UserProposal from "./Components/views/UserProposal";
+import EditWorkShopEditor from "./Components/Workshops/EditWorkShopEditor";
+import EditorWorkshop from "./Components/views/EditorWorkshop";
+import CreateWorkshopEditor from "./Components/Workshops/CreateWorkshopEditor";
+import AdminWorkshop from "./Components/views/AdminWorkshop";
+import UserWorkshop from "./Components/views/UserWorkShop";
+
+
 if(localStorage.getItem('token')){
     setToken(localStorage.getItem('token'));
 }
@@ -110,6 +123,20 @@ const App = () => {
                             <Route path='/userPaper' component={UserPaper}/>
                             <Route path='/addPaper' component={CreatePaper}/>
                             <Route path='/editorPaper' component={ReviewerPaper}/>
+						
+						 {/*Salika Routes*/}
+						<Route path='/editWorkshop/:id' component={EditWorkShopEditor}/>
+                        <Route path='/editorWorkshop' component={EditorWorkshop}/>
+                        <Route path='/addWorkshop' component={CreateWorkshopEditor}/>
+                        <Route path='/adminWorkshop' component={AdminWorkshop}/>
+                        <Route path='/userWorkshop' component={UserWorkshop}/>
+
+                        <Route path='/editProposal/:id' component={EditProposal}/>
+                        <Route path='/userProposal' component={UserProposal}/>
+                        <Route path='/addProposal' component={CreateProposal}/>
+                        <Route path='/reviewerProposal' component={ReviewerProposal}/>
+
+							
                         </Switch>
                     </Router>
                 </Provider>
