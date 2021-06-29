@@ -1,40 +1,15 @@
-import React from "react";
-import {connect} from "react-redux";
-import {Signout} from "../../Actions/Authentication";
-import { Redirect } from "react-router-dom";
+import React, {Component} from 'react';
+import reviewerNavBar from "../../Components/navbar/reviewerNavBar";
 
-const ReviewerPage = ({isLoggedIn,logOut}) => {
-
-    return (
-        <div>
+class Reviewer extends Component {
+    render() {
+        return (
             <div>
-                <h1>Reviewer Pages</h1>
-                {
-                    isLoggedIn ? (
-
-                            <div>
-                                <h1>You have log in</h1>
-                                <br/>
-
-                                <button onClick={() => logOut()}>
-                                    Log out
-                                </button>
-                            </div>
-                        ) :
-                        (
-                            <div>
-                                <Redirect to="/"></Redirect>
-                            </div>
-                        )
-                }
+                <reviewerNavBar/>
+                <h1>Hello Reviewer</h1>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-
-const mapStateToProps = state => ({
-    isLoggedIn: state.isLoggedIn
-});
-
-export default connect(mapStateToProps,{ logOut: Signout})(ReviewerPage);
+export default Reviewer;

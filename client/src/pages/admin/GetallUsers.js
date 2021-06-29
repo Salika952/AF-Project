@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from "axios";
 import swat from "sweetalert2";
 import {Redirect } from "react-router-dom";
+import AdminNavBar from "../../Components/navbar/adminNavBar";
 
 
 const usersAlert = () => {
@@ -67,7 +68,7 @@ class GetallUsers extends Component {
             }
         }).then(res=>{
             usersAlert()
-            return <Redirect to="/getAll"/>
+            return <Redirect to="/get_all_users"/>
         }).catch(err=>{
             usersFail()
             console.log(err.message);
@@ -77,6 +78,7 @@ class GetallUsers extends Component {
     render() {
         return (
             <div>
+                <AdminNavBar/>
                 <h1>All Users</h1>
                 <table className="table">
                     <thead>

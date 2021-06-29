@@ -43,17 +43,14 @@ class PayConference extends Component {
             data: {}
         }).then(res => {
             this.setState({
-                id:res.data._id,
+                pay_users:res.data._id,
                 isLoggedIn: true
             })
+
         }).catch(err => {
             console.log(err.message);
         })
 
-
-
-
-        this.state.pay_users = this.state.id;
         this.state.pay_amount = this.props.location.conProps.conferenceAmount;
         this.state.conference_name = this.props.location.conProps.conferenceName;
         this.state.pay_description = 'Payment for Conference';

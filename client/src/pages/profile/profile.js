@@ -4,6 +4,7 @@ import './profile.css'
 import {Button, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import swat from "sweetalert2";
 import FileBase from 'react-file-base64';
+import UserNavbar from "../../Components/navbar/UserNavBar";
 
 const SuccessAlert = (res) => {
     swat.fire({
@@ -145,6 +146,7 @@ class Profile extends Component {
     render() {
         return (
             <div>
+                <UserNavbar/>
                 <Form  onSubmit={this.onSubmitHandler}>
                  <div className="profile_page">
                         <div className="col-left">

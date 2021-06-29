@@ -25,6 +25,7 @@ import GetallUsers from "./pages/admin/GetallUsers";
 import EditUsers from "./pages/admin/EditUsers";
 import Notification from "./pages/admin/Notification";
 
+
 ///Yasoja routes
 import CreateConference from "./Components/forms/CreateConference";
 import ShowConferencesAdmin from "./Components/forms/ShowConferencesAdmin";
@@ -41,14 +42,16 @@ import PayConference from "./Components/forms/PayConference";
 import ShowResearchEventAdminByConference from "./Components/forms/ShowResearchEventAdminByConference";
 import ShowResearchEventEditorByConference from "./Components/forms/ShowResearchEventEditorByConference";
 import ShowConferenceUser from "./Components/forms/ShowConferenceUser";
+import ShowConferencesAccepted from "./Components/forms/ShowConferenceAccepted";
 
+if(localStorage.getItem('token')){
+    setToken(localStorage.getItem('token'));
+}
 const App = () => {
-    if(localStorage.getItem('token')){
-        setToken(localStorage.getItem('token'));
-    }
     useEffect(() => {
         store.dispatch(LoadUser())
     },[]);
+
     return (
         <div className="page-container">
             <div className="content-wrap">
@@ -56,14 +59,14 @@ const App = () => {
                     <Router>
                         <Switch>
                             {/*Umesh Routes*/}
-                            <Route path="/" component={Dashboard} exact/>
+                            <Route path="/" component={ShowConferencesUserLanding} exact/>
                             <Route path="/register" component={Register} exact/>
                             <Route path="/admin_register" component={AdminRegister} exact/>
                             <Route path="/user" component={UserPage}/>
                             <Route path="/editor" component={EditorPage}/>
                             <Route path="/admin" component={AdminPage}/>
                             <Route path="/reviewer" component={ReviewerPage}/>
-                            <Route path="/get_all" component={GetallUsers}/>
+                            <Route path="/get_all_users" component={GetallUsers}/>
                             <Route path="/notification" component={Notification}/>
                             <Route path="/edit_user/:id" component={EditUsers}/>
                             <Route path="/login" component={Login}/>
@@ -85,16 +88,18 @@ const App = () => {
                             <Route path="/researchUpdate" component={UpdateResearchEvent} />
                             <Route path="/conferenceAddEvent" component={AddEventsToConference} />
                             <Route path="/conferencePay" component={PayConference} />
+                            <Route path="/conferenceAcceptedShow" component={ShowConferencesAccepted} />
                             <Route path="/researchByConferenceAdmin" component={ShowResearchEventAdminByConference} />
                             <Route path="/researchByConferenceEditor" component={ShowResearchEventEditorByConference} />
                             <Route path="/conferenceUserShow" component={ShowConferenceUser} />
-
                         </Switch>
                     </Router>
                 </Provider>
+
             </div>
 
         </div>
     );
+
 }
 export default App;

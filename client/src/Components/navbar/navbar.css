@@ -1,0 +1,38 @@
+img{
+    width: 50px;
+    height: 50px;
+    transform: translateY(3px);
+    border-radius: 50%;
+}
+.drop-nav{
+    position: relative;
+    display: inline-block;
+}
+.drop-nav a{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.drop-nav .dropdown{
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    color: #000;
+    font-size: 12px;
+    -webkit-appearance: none;
+}
+.drop-nav .dropdown li{
+    display: block;
+    color: #61dafb;
+}
+.drop-nav e{
+    color: white;
+}
+.drop-nav:hover .dropdown{
+    display: block;
+}
