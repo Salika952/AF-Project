@@ -44,6 +44,15 @@ import ShowResearchEventEditorByConference from "./Components/forms/ShowResearch
 import ShowConferenceUser from "./Components/forms/ShowConferenceUser";
 import ShowConferencesAccepted from "./Components/forms/ShowConferenceAccepted";
 
+///Binuka routes
+import ReviewerPaper from "./Components/views/ReviewerPaper";
+import CreatePaper from "./Components/forms/createPaper";
+import UserPaper from "./Components/views/UserPaper";
+import EditPaper from "./Components/forms/editPaper";
+import PaymentForm from "./Components/forms/paymentForm";
+import ReviewerPayView from "./Components/views/ReviewerPayView";
+import UserSpecfPaper from "./Components/views/UserSpecfPaper";
+
 if(localStorage.getItem('token')){
     setToken(localStorage.getItem('token'));
 }
@@ -92,6 +101,15 @@ const App = () => {
                             <Route path="/researchByConferenceAdmin" component={ShowResearchEventAdminByConference} />
                             <Route path="/researchByConferenceEditor" component={ShowResearchEventEditorByConference} />
                             <Route path="/conferenceUserShow" component={ShowConferenceUser} />
+
+                            {/*Binuka Routes*/}
+                            <Route path="/userSpecfPaper/:id" component={UserSpecfPaper}  />
+                            <Route path="/payView" component={ReviewerPayView}  />
+                            <Route path="/addPay" component={PaymentForm}  />
+                            <Route path='/editPaper' component={EditPaper}/>
+                            <Route path='/userPaper' component={UserPaper}/>
+                            <Route path='/addPaper' component={CreatePaper}/>
+                            <Route path='/editorPaper' component={ReviewerPaper}/>
                         </Switch>
                     </Router>
                 </Provider>

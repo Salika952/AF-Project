@@ -23,7 +23,7 @@ app.use(bodyParser.json({ limit:"30mb",extended: true}));
 app.use(bodyParser.urlencoded({ limit:"30mb",extended: true}));
 
 const PORT = process.env.PORT || 4002;
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI3;
 
 mongoose.connect(MONGODB_URI, {
     useCreateIndex: true,
@@ -46,9 +46,9 @@ app.use('/notify', NotificationAPI());
 app.use('/ResearchEvent', ResearchEventApi());
 app.use('/Conference', ConferenceAPI());
 app.use('/WorkshopEvent', WorkshopEventAPI());
-app.use('/Papers', PaperAPI());
+app.use('/paper', PaperAPI());
 app.use('/Proposals', ProposalAPI());
-app.use('/Payment', PaymentAPI());
+app.use('/payment', PaymentAPI());
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on PORT ${PORT}`);
