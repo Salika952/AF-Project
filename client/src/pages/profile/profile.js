@@ -279,14 +279,18 @@ class Profile extends Component {
                             &nbsp;
                             <div>
                                 &nbsp;
+
                                 {this.state.updateFields &&
-                                <a className = "btn btn-danger" href="#" onClick={()=>this.onDelete(this.state.id)}>
-                                    <i className="fas fa-trash" ></i>&nbsp;Delete
-                                </a>
+                                <div>
+                                    <h6>Delete Profile</h6>
+                                    <a className="btn btn-danger float-right" block href="/"
+                                       onClick={() => this.onDelete(this.state.id)}>
+                                        <i className="fas fa-trash"></i>&nbsp;Delete
+                                    </a>
+                                </div>
                                 }
                             </div>
                         </div>
-
                     </div>
                 </Form>
 

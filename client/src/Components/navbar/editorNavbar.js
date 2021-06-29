@@ -45,6 +45,20 @@ class EditorNavbar extends Component {
         }).catch(err => {
             console.log(err.message);
         })
+        axios({
+            method: 'get',
+            url: 'http://localhost:4002/notify/'+"editor",
+            headers: {
+                Authorization: token
+            },
+            data: {}
+        }).then(res => {
+            this.setState({
+                notification: res.data,
+                isLoggedIn: true
+            })
+            console.log(this.state.notification)
+        })
     }
     render() {
         return (

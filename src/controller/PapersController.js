@@ -177,7 +177,4 @@ module.exports = {
     deletePaper,
     MailSend,
     downloadPaper,
-
-
 };
-

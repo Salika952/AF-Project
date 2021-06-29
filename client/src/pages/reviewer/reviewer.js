@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import reviewerNavBar from "../../Components/navbar/reviewerNavBar";
+import ReviewerNavBar from "../../Components/navbar/reviewerNavBar";
 
 class Reviewer extends Component {
     render() {
         return (
             <div>
-                <reviewerNavBar/>
-                <h1>Hello Reviewer</h1>
+                <ReviewerNavBar/>
+                <h1>Hello </h1>
             </div>
         );
     }

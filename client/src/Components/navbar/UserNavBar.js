@@ -8,7 +8,9 @@ class UserNavbar extends Component {
         super(props);
         this.state={
             image:'',
-            fullName: ''
+            fullName: '',
+            userType:'',
+            notification:[]
         }
     }
     logoutOnClick = e => {
@@ -42,10 +44,26 @@ class UserNavbar extends Component {
             this.setState({
                 image: res.data.user_imageUrl,
                 fullName: res.data.user_name,
+                userType:res.data.user_position,
                 isLoggedIn: true
             })
+
         }).catch(err => {
             console.log(err.message);
+        })
+        axios({
+            method: 'get',
+            url: 'http://localhost:4002/notify/'+"user",
+            headers: {
+                Authorization: token
+            },
+            data: {}
+        }).then(res => {
+            this.setState({
+                notification: res.data,
+                isLoggedIn: true
+            })
+            console.log(this.state.notification)
         })
     }
     render() {
@@ -94,7 +112,7 @@ class UserNavbar extends Component {
                                 <ul className="navbar-nav mb-2 mb-lg-0">
                                     <div className="drop-nav">
                                         <div className="float-right">
-                                            <img src={this.state.image} alt=""/>{this.state.fullName}<i className="fa fa-angle-down"></i>
+                                            <div className="image"><img src={this.state.image} alt=""/>{this.state.fullName}<i className="fa fa-angle-down"></i></div>
                                             <ul className="dropdown">
                                                 <li><a href='/profile'>Profile</a></li>
                                                 <li><a onClick={this.logoutOnClick}>Logout</a></li>

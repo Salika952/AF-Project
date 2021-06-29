@@ -285,4 +285,3 @@ module.exports = {
     addPaymentMail,
     MailSend
 };
-

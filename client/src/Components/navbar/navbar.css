@@ -14,6 +14,10 @@ img{
     text-decoration: none;
     display: block;
 }
+.image{
+    color: #f6f7fa;
+    position: relative;
+}
 .drop-nav .dropdown{
     display: none;
     position: absolute;
@@ -28,7 +32,7 @@ img{
 }
 .drop-nav .dropdown li{
     display: block;
-    color: #61dafb;
+
 }
 .drop-nav e{
     color: white;

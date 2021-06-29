@@ -86,6 +86,9 @@ class AdminNavBar extends Component {
                                     <li className="nav-item">
                                         <a className="nav-link" href="/admin_register">Create Privileged User</a>
                                     </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/notification">Create Notification</a>
+                                    </li>
                                 </ul>
                                 <ul className="navbar-nav mb-2 mb-lg-0">
                                       <div className="drop-nav">

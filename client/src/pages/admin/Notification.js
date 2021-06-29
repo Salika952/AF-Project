@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {SERVER_ADDRESS} from "../../Constants/Constants";
 import swat from "sweetalert2";
+import AdminNavBar from "../../Components/navbar/adminNavBar";
 
 const RegisteredAlert = () => {
     swat.fire({
@@ -81,63 +82,65 @@ class Notification extends Component {
     }
     render() {
         return (
-            <div className="container">
-                <h1>Create Notification</h1>
-                <form onSubmit={this.onSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Notification Title</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="title"
-                            id="title"
-                            placeholder="Notification Title"
-                            value={this.state.title}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Message</label>
-                        <textarea
-                            className="form-control"
-                            name="message"
-                            id="message"
-                            placeholder="Notification Message"
-                            rows="3"
-                            value={this.state.message}
-                            onChange={this.onChange}
-                        >
+            <div>
+                <AdminNavBar/>
+                <div className="container">
+                    <h1>Create Notification</h1>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="exampleFormControlInput1" className="form-label">Notification Title</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="title"
+                                id="title"
+                                placeholder="Notification Title"
+                                value={this.state.title}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Message</label>
+                            <textarea
+                                className="form-control"
+                                name="message"
+                                id="message"
+                                placeholder="Notification Message"
+                                rows="3"
+                                value={this.state.message}
+                                onChange={this.onChange}
+                            >
                     </textarea>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Type</label>
-                        <select
-                            className="form-control"
-                            name="type"
-                            id="exampleInputPosition"
-                            value={this.state.type}
-                            onChange={this.onChange}
-                            required>
-                            <option value="" selected disabled>Select&nbsp;Type</option>
-                            <option value={'user'}>User</option>
-                            <option value={'editor'}>Editor</option>
-                            <option value={'reviewer'}>Reviewer</option>
-                            <option value={'admin'}>Administrator</option>
-                        </select>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">password</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            name="expire"
-                            id="expire"
-                            value={this.state.expire}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleFormControlInput1" className="form-label">Type</label>
+                            <select
+                                className="form-control"
+                                name="type"
+                                id="exampleInputPosition"
+                                value={this.state.type}
+                                onChange={this.onChange}
+                                required>
+                                <option value="" selected disabled>Select&nbsp;Type</option>
+                                <option value={'user'}>User</option>
+                                <option value={'editor'}>Editor</option>
+                                <option value={'reviewer'}>Reviewer</option>
+                            </select>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleFormControlInput1" className="form-label">password</label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                name="expire"
+                                id="expire"
+                                value={this.state.expire}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
         );
     }

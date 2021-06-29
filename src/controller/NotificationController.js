@@ -1,7 +1,8 @@
 const NotifySchema = require('../schemas/Notification');
 
 const getSpecificNotification = async (req, res) => {
-        await NotifySchema.find(req.params.userType)
+
+    await NotifySchema.find({type: req.params.userType})
             .then(response => {
                 res.status(200).send({ data: response });
             })

@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
-import UserNavbar from "../navBars/UserNavBar";
+import UserNavbar from "../navbar/UserNavBar";
 import swat from "sweetalert2";
 
 const initialState = {

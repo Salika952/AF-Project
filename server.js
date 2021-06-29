@@ -23,7 +23,7 @@ app.use(bodyParser.json({ limit:"30mb",extended: true}));
 app.use(bodyParser.urlencoded({ limit:"30mb",extended: true}));
 
 const PORT = process.env.PORT || 4002;
-const MONGODB_URI = process.env.MONGODB_URI3;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI, {
     useCreateIndex: true,

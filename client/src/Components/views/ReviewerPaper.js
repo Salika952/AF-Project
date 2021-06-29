@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import UserNavbar from "../navBars/UserNavBar";
-import ReviewerNavBar from "../navBars/reviewerNavBar";
+
+import ReviewerNavBar from "../navbar/reviewerNavBar";
 import swat from "sweetalert2";
 
 const SubmissionAlert1 = () => {

@@ -46,6 +46,20 @@ class reviewerNav extends Component {
         }).catch(err => {
             console.log(err.message);
         })
+        axios({
+            method: 'get',
+            url: 'http://localhost:4002/notify/'+"reviewer",
+            headers: {
+                Authorization: token
+            },
+            data: {}
+        }).then(res => {
+            this.setState({
+                notification: res.data,
+                isLoggedIn: true
+            })
+            console.log(this.state.notification)
+        })
     }
     render() {
         return (
@@ -75,7 +89,10 @@ class reviewerNav extends Component {
                                         <a className="nav-link" href="/#">Workshops Events</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/#">Research Papers</a>
+                                        <a className="nav-link" href="/editorPaper">Research Papers</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/payView">Payment</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/#">Workshops Proposal</a>

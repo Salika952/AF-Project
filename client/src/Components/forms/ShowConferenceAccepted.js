@@ -12,13 +12,11 @@ class ShowConferencesAccepted extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4002/Conference/ConferenceAccepted')
+        axios.get('http://localhost:4002/Conference/conAccepted/add')
             .then(response => {
                 this.setState({ Conferences: response.data.data });
             })
     }
-
-
 
     declineConference(id,name){
 

@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import UserNavbar from "../navBars/UserNavBar";
+import UserNavbar from "../navbar/UserNavBar";
 import swat from "sweetalert2";
 
 const initialState = {

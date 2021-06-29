@@ -3,9 +3,7 @@ import {LoadUser, LoadUserOther, LoginUser} from "../../Actions/Authentication";
 import {Redirect, Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import swat from "sweetalert2";
-import './Login.css'
 import Header from "../../Components/navbar/guestHeader";
-import adminNavBar from "../../Components/navbar/adminNavBar";
 const Login = ({loginUser, isLoggedIn}) => {
 
     let [data, setData] = useState({

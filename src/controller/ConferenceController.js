@@ -137,18 +137,17 @@ const addWorkshop = async (req, res) => {
 
 }
 
-const getAcceptedConference = async (req, res) => {
+const getACon = async (req, res) => {
 
-    if (req.params) {
-        await Conferences.find({con_validation:true})
+        await Conferences.find({con_AdminStatus:"Accepted"})
             .then(response => {
                 res.status(200).send({ data: response });
             })
             .catch(error => {
                 res.status(500).send({ error: error.message });
             });
-    }
 
+    console.log("aaaaaa");
 }
 
 const MailSend = async (req, res) => {
@@ -208,5 +207,5 @@ module.exports = {
     addWorkshop,
     MainUpdate,
     MailSend,
-    getAcceptedConference
+    getACon
 };
