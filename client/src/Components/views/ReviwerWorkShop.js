@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 
-class EditorWorkshop extends Component {
+class ReviewerWorkshop extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,16 +18,10 @@ class EditorWorkshop extends Component {
             })
     }
 
-    deletePaper(id){
-        axios.delete(`http://localhost:4002/WorkshopEvents/${id}`)
-            .then(response => {
-                this.setState({ workshops: response.data.data });
-            })
-        window.location = `/editorWorkshop`
-    }
 
-    navigateEditWorkShopPage(e, workShopId) {
-        window.location = `/editWorkshop/${workShopId}`
+
+    navigateProposalWorkShopPage(e, workShopId) {
+        window.location = `/reviewerProposal/${workShopId}`
     }
 
     render() {
@@ -38,12 +32,12 @@ class EditorWorkshop extends Component {
                     {this.state.workshops.length > 0 && this.state.workshops.map((item, index) => (
                         <div key={index} className="card mb-3">
                             <div className="p-3">
+                                <img src={item.work_image} alt="WorkShops"  width="600px"  height="600px" />
                                 <h4>Topic: {item.work_topic}</h4>
                                 <h6>Description: {item.work_description}</h6>
                                 <h6>Place: {item.work_place}</h6>
                                 <h6>Validation: {item.work_validation}</h6>
-                                <button className="btn btn-success" onClick={e => this.navigateEditWorkShopPage(e, item._id)}>Edit</button>
-                                <button className="btn btn-danger" onClick={e => this.deletePaper(item._id)}>Delete</button>
+                                <button className="btn btn-success" onClick={e => this.navigateProposalWorkShopPage(e, item._id)}>Go To Proposals</button>
                             </div>
                         </div>
                     ))}
@@ -53,4 +47,4 @@ class EditorWorkshop extends Component {
     }
 }
 
-export default EditorWorkshop;
+export default ReviewerWorkshop;

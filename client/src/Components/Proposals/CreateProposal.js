@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
-import UserNavbar from "../navbar/UserNavBar";
+import Template1 from "url:../../../Assets/ProposalTemplate/Presentation1.pptx"
 
 
 const initialState = {
@@ -55,14 +55,29 @@ class CreateProposal extends Component {
             propo_content: this.state.propo_content,
             propo_contact: this.state.propo_contact,
             propo_sign: this.state.propo_sign,
-            propo_pres: this.state.propo_pres
+            propo_pres: this.state.propo_pres,
 
         };
 
         console.log('DATA TO SEND', proposals);
         axios.post('http://localhost:4002/ProposalEvents', proposals)
             .then(response => {
-                alert('Data successfully inserted')
+                alert('Data successfully inserted');
+
+                let details = {
+                    //conferenceID: this.state.conference_id,
+                    workshopID: this.props.match.params.id,
+                    proposalsID: response.data.data._id,
+                };
+                console.log('DATA TO SEND', details)
+                axios.patch(`http://localhost:4002/WorkshopEvents/proposals`, details)
+                    .then(response => {
+                        console.log('Proposal added');
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
 
             })
             .catch(error => {
@@ -74,9 +89,21 @@ class CreateProposal extends Component {
     render() {
         return (
             <div>
-                <UserNavbar/>
                 <div className="container">
                     <h1>Create Proposal</h1>
+
+                    <div className="row">
+                        <div className="col-11">
+                            If You want Use a Template
+                        </div>
+                        <div className="col-1 text-right">
+                            <form method="get" action={Template1}>
+                                <button type="submit" className="btn btn-primary">Download!</button>
+                            </form>
+                        </div>
+                    </div>
+
+
                     <form onSubmit={this.onSubmit}>
                         <div className="mb-3">
                             <label htmlFor="proposalContent" className="form-label">Content</label>

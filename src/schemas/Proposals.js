@@ -13,3 +13,4 @@ const ProposalSchema=new mongoose.Schema({
 });
 const Proposal = mongoose.model('Proposals', ProposalSchema);
 module.exports = Proposal;
+    

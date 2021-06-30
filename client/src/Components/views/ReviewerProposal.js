@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import reviewerNavBar from "../navbar/reviewerNavBar";
+
 
 class ReviewerProposal extends Component {
     constructor(props) {
@@ -10,20 +10,44 @@ class ReviewerProposal extends Component {
         }
     }
 
+    // componentDidMount() {
+    //     axios.get('http://localhost:4002/ProposalEvents/')
+    //         .then(response => {
+    //             this.setState({ proposal: response.data.data });
+    //         })
+    // }
+
     componentDidMount() {
-        axios.get('http://localhost:4002/ProposalEvents/')
+        axios.get(`http://localhost:4002/WorkshopEvents/${this.props.match.params.id}`)
             .then(response => {
-                this.setState({ proposal: response.data.data });
+                this.setState({ proposal: response.data.data.work_proposal});
             })
     }
 
-    acceptPaper(proposalId) {
+
+    acceptProposal(proposalId,name) {
         let proposal = {
             propo_validation: true,
         };
         axios.put(`http://localhost:4002/ProposalEvents/${proposalId}`, proposal)
             .then(response => {
-                alert('Category Data successfully updated')
+                alert('Proposal Data successfully updated')
+
+                let sent = {
+                    status: name +"  accepted proposal",
+                };
+                axios.post('http://localhost:4002/WorkshopEvents/mail/send', sent)
+                    .then(response => {
+                        alert('Email Sent');
+                        window.location.reload(false);
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
+
+
+
             })
             .catch(error => {
                 console.log(error.message);
@@ -31,14 +55,39 @@ class ReviewerProposal extends Component {
             })
     }
 
-    declinePaper(proposalId) {
+    declineProposal(proposalId,name) {
+
+        let proposal = {
+            propo_validation: false,
+        };
+        axios.put(`http://localhost:4002/ProposalEvents/${proposalId}`, proposal)
+            .then(response => {
+                alert('Proposal Data successfully updated')
+
+                let sent = {
+                    status: name +"  decline proposal",
+                };
+                axios.post('http://localhost:4002/WorkshopEvents/mail/send', sent)
+                    .then(response => {
+                        alert('Email Sent');
+                        window.location.reload(false);
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        alert(error.message)
+                    })
+
+            })
+            .catch(error => {
+                console.log(error.message);
+                alert(error.message)
+            })
 
     }
 
     render() {
         return (
             <div>
-                <reviewerNavBar/>
                 <div className="container">
                     <h1>Proposal</h1>
                     {this.state.proposal.length > 0 && this.state.proposal.map((item, index) => (
@@ -49,8 +98,8 @@ class ReviewerProposal extends Component {
                                 <h5>Contact: {item.propo_contact}</h5>
                                 <h5>Sign: {item.propo_sign}</h5>
                                 <h6>Validation: {item.propo_validation}</h6>
-                                <button className="btn btn-success" onClick={e => this.acceptPaper(item._id)}>Accept</button>
-                                <button className="btn btn-danger" onClick={e => this.declinePaper(item._id)}>Decline</button>
+                                <button className="btn btn-success" onClick={e => this.acceptProposal(item._id,item.propo_content)}>Accept</button>
+                                <button className="btn btn-danger" onClick={e => this.declineProposal(item._id,item.propo_content)}>Decline</button>
                             {/*</div>*/}
                         </div>
                     ))}

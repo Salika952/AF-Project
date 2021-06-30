@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
-import UserNavbar from "../navbar/UserNavBar";
 
 
 const initialState = {
@@ -66,7 +65,6 @@ class EditProposal extends Component {
     render() {
         return (
             <div>
-                <UserNavbar/>
                 <div className="container">
                     <h1>Edit Paper</h1>
                     <form onSubmit={this.onSubmit}>

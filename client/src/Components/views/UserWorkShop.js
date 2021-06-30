@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import UserNavbar from "../navbar/UserNavBar";
 
 
 class UserWorkshop extends Component {
@@ -12,11 +11,10 @@ class UserWorkshop extends Component {
     }
 
     componentDidMount() {
-        axios.get(' http://localhost:4002/WorkshopEvents/workAccepted/add')
+        axios.get('http://localhost:4002/WorkshopEvents/')
             .then(response => {
                 this.setState({ workshop: response.data.data });
             })
-        console.log(this.state.workshop)
     }
 
     // acceptPaper(workshopId) {
@@ -41,7 +39,6 @@ class UserWorkshop extends Component {
     render() {
         return (
             <div>
-                <UserNavbar/>
                 <div className="container">
                     <h1>Workshop</h1>
                     {this.state.workshop.length > 0 && this.state.workshop.map((item, index) => (
@@ -52,13 +49,13 @@ class UserWorkshop extends Component {
                             <h6>Description: {item.work_description}</h6>
                             <h6>Place: {item.work_place}</h6>
                             <h6>Validation: {item.work_validation}</h6>
-                            <iframe
-                                src={item.work_template}
-                                width="60px"
-                                height="60px"
-                                frameBorder="0"
-                            >
-                            </iframe>
+                            {/*<iframe*/}
+                            {/*    src={item.work_template}*/}
+                            {/*    width="60px"*/}
+                            {/*    height="60px"*/}
+                            {/*    frameBorder="0"*/}
+                            {/*>*/}
+                            {/*</iframe>*/}
 
                             <button className="btn btn-success" onClick={e => this.navigateProposalPage(e, item._id)}>Be a Conductor</button>
                             {/*</div>*/}

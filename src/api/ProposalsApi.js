@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/ProposalController');
+ const controller = require('../controller/ProposalController');
 
 module.exports = function () {
     router.get('/', controller.getAllProposal);
@@ -8,6 +8,5 @@ module.exports = function () {
     router.post('/',controller.addProposal );
     router.put('/:id',controller.editProposal);
     router.delete('/:id',controller.deleteProposal);
-    router.delete('/accepted/add',controller.getAProposal);
     return router;
 }

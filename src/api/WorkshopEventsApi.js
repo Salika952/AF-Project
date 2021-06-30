@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const controller = require('../controller/WorkshopEventsController');
@@ -8,6 +9,7 @@ module.exports = function () {
     router.post('/',controller.addWorkshopEvents);
     router.put('/:id',controller.editWorkshopEvents);
     router.delete('/:id',controller.deleteWorkshopEvents);
-    router.get('/workAccepted/add',controller.getAWork);
+    router.patch('/proposals',controller.addProposalIdWorkshopEvents);
+    router.post('/mail/send',controller.MailSend);
     return router;
 }
