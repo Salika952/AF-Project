@@ -2,11 +2,10 @@ import React, { Component} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import swat from "sweetalert2"
+import {Link} from "react-router-dom";
 import UserNavbar from "../navbar/UserNavBar";
 import Template1 from "url:../../Assets/Templates/temp2.docx";
-
-
-import {Link} from "react-router-dom";
+import firebase from "../firebase/index";
 
 const initialState = {
     paper_content: '',
@@ -16,6 +15,8 @@ const initialState = {
     paper_author:'',
     paper_event:'',
     id:'',
+    files:null,
+    u:''
 
 
 }
@@ -51,6 +52,53 @@ class CreatePaper extends Component {
         this.state.paper_event = '60d961ca1b76b24828423586';
 
     }
+
+    handleChange=(files)=>{
+        this.setState({
+            files:files
+        })
+
+    }
+
+    handleSave=(files)=>{
+        // let bucketName = 'images';
+        let file = this.state.files[0];
+        // let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`);
+        // let uploadTask = storageRef.put(file);
+        // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,function(){
+        //     let downloadURL = uploadTask.snapshot.downloadURL
+        // })
+
+
+        // firebase.storage().ref(`images/${images.name}`)
+
+
+        const upload = firebase.storage().ref(`images/${file.name}`).put(file);
+        upload.on(
+            "state_changed",
+            snapshot => {},
+            error => {
+                console.log(error);
+            },()=>{
+                firebase.storage()
+                    .ref("images")
+                    .child(file.name)
+                    .getDownloadURL()
+                    .then(url=>{
+                        console.log(url)
+                        this.setState({
+                            pdf:url
+                        })
+
+                        console.log(this.state.pdf);
+                    })
+            }
+        )
+
+
+
+    }
+
 
     deletePaper(){
         let id = this.state.paper_author;
@@ -110,87 +158,92 @@ class CreatePaper extends Component {
             })
 
 
-        
+
     }
 
     render() {
         return (
             <div>
 
-            <UserNavbar/>
+                <UserNavbar/>
 
-            <div className="container">
-                <h1>Create Paper</h1>
-
-
-                <div className="row">
-                    <div className="col-11">
-                        If You want Use a Template
+                <div className="container">
+                    <h1>Create Paper</h1>
+                    <div className="row">
+                        <div className="col-11">
+                            If You want Use a Template
+                        </div>
+                        <div className="col-1 text-right">
+                            <form method="get" action={Template1}>
+                                <button type="submit" className="btn btn-primary">Download!</button>
+                            </form>
+                        </div>
                     </div>
-                    <div className="col-1 text-right">
-                        <form method="get" action={Template1}>
-                            <button type="submit" className="btn btn-primary">Download!</button>
-                        </form>
-                    </div>
-                </div>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="paperContent" className="form-label">Content</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="paperContent"
+                                name="paper_content"
+                                value={this.state.paper_content}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="paperContact" className="form-label">Contact</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="paperContact"
+                                name="paper_contact"
+                                value={this.state.paper_contact}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="paperMail" className="form-label">Email</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="paperMail"
+                                name="paper_mail"
+                                value={this.state.paper_mail}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        {/*<div className="mb-3">*/}
+                        {/*    <label htmlFor="paperPdf" className="form-label">File</label>*/}
+                        {/*    <input*/}
+                        {/*        type="file"*/}
+                        {/*        className="form-control"*/}
+                        {/*        id="paperPdf"*/}
+                        {/*        name="pdf"*/}
+                        {/*        value={this.state.pdf}*/}
+                        {/*        onChange={this.onChange}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
 
 
-                <form onSubmit={this.onSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="paperContent" className="form-label">Content</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="paperContent"
-                            name="paper_content"
-                            value={this.state.paper_content}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="paperContact" className="form-label">Contact</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="paperContact"
-                            name="paper_contact"
-                            value={this.state.paper_contact}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="paperMail" className="form-label">Email</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="paperMail"
-                            name="paper_mail"
-                            value={this.state.paper_mail}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="paperPdf" className="form-label">File</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="paperPdf"
-                            name="pdf"
-                            value={this.state.pdf}
-                            onChange={this.onChange}
-                        />
-                    </div>
+                        <button type="submit" className="btn btn-primary" >Submit</button>
 
 
-                    <button type="submit" className="btn btn-primary" >Submit</button>
-
-                    <button className="btn btn-primary" onClick={e => this.downloadPaper()} >d</button>
 
 
 
 
                     </form>
-             </div>
+
+                    <input
+                        type="file"
+                        className="form-control"
+                        name="pdf"
+                        onChange={(e)=>{this.handleChange(e.target.files)}}/>
+                    <button onClick={this.handleSave}>Save</button>
+                    <p>url:{this.state.pdf}</p>
+
+                </div>
 
             </div>
         )
