@@ -3,6 +3,25 @@ import axios from 'axios';
 import {Link, Redirect} from "react-router-dom";
 import moment from 'moment';
 import EditorNavbar from "../navbar/editorNavbar";
+import swat from "sweetalert2";
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Deleted Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error!'
+    })
+}
 
 class ShowConferencesEditor extends Component {
     constructor(props) {
@@ -21,10 +40,10 @@ class ShowConferencesEditor extends Component {
 
 
     deleteConference(id){
-        axios.delete(`http://localhost:4002/Conference/${id}`)
-            .then(response => {
-                this.setState({ Conferences: response.data.data });
-            })
+        axios.delete(`http://localhost:4002/Conference/${id}`);
+
+        SubmissionAlert();
+        window.location.reload(false);
     }
 
 
@@ -74,6 +93,9 @@ class ShowConferencesEditor extends Component {
                         </div>
                     </div>
                 ))}
+                    <Link to = {{
+                        pathname:'/conferenceCreate'
+                    }}><button className="btn btn-dark" >Create Conferences</button></Link>
             </div>
             </div>
         )

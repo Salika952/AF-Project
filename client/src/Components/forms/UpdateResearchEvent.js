@@ -3,12 +3,31 @@ import Select from 'react-select';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
 import EditorNavbar from "../navbar/editorNavbar";
+import swat from "sweetalert2";
 
 const initialState = {
 
     res_presenterFee: 0,
     res_topic: '',
     res_description:''
+}
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Research Event Updated Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Submission Error!'
+    })
 }
 
 class UpdateResearchEvent extends Component {
@@ -52,11 +71,11 @@ class UpdateResearchEvent extends Component {
         console.log('DATA TO SEND', research);
         axios.put(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`, research)
             .then(response => {
-                alert('ResearchEvent Data successfully updated')
+                SubmissionAlert();
             })
             .catch(error => {
                 console.log(error.message);
-                alert(error.message)
+                SubmissionFail();
             })
     }
 

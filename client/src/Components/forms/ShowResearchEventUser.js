@@ -9,7 +9,8 @@ class ShowResearchEventUser extends Component {
             topic:'',
             description: '',
             fee:0,
-            img:''
+            img:'',
+            con:''
         }
     }
 
@@ -21,7 +22,8 @@ class ShowResearchEventUser extends Component {
                     description: response.data.data.res_description,
                     fee: response.data.data.res_presenterFee,
                     id: response.data.data._id,
-                    img: response.data.data.res_img
+                    img: response.data.data.res_img,
+                    con:response.data.data.res_conferenceName
                 });
             })
 
@@ -40,6 +42,7 @@ class ShowResearchEventUser extends Component {
 
                         <div className="p-3" >
                             <img src={this.state.img} alt="Logo" />
+                            <h3>Conference: {this.state.con}</h3>
                             <h4>Topic: {this.state.topic}</h4>
                             <h6>Description: {this.state.description}</h6>
                             <h6>Fee: {this.state.fee}</h6>

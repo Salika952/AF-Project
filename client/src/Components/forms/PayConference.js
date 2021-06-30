@@ -1,5 +1,43 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import swat from "sweetalert2";
+import UserNavbar from "../navbar/UserNavBar";
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Payment Successful!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionAlert2 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Mail Sent!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Payment Error!'
+    })
+}
+
+const SubmissionFail2 = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Email Error!'
+    })
+}
 
 const initialState = {
     pay_creditCardNo: '',
@@ -11,7 +49,8 @@ const initialState = {
     conference_name:'',
     conference_id:'',
     token:'',
-    id:''
+    id:'',
+    email:''
 
 }
 class PayConference extends Component {
@@ -53,7 +92,7 @@ class PayConference extends Component {
 
         this.state.pay_amount = this.props.location.conProps.conferenceAmount;
         this.state.conference_name = this.props.location.conProps.conferenceName;
-        this.state.pay_description = 'Payment for Conference';
+        this.state.pay_description = 'Payment for '+this.props.location.conProps.conferenceName+' Conference';
         this.state.conference_id = this.props.location.conProps.conferenceID;
 
 
@@ -73,11 +112,12 @@ class PayConference extends Component {
             pay_users: this.state.pay_users,
             pay_amount: this.state.pay_amount,
             pay_description: this.state.pay_description,
+            pay_email:this.state.email
         };
         console.log('DATA TO SEND', pay)
-        axios.post('http://localhost:4002/Payment/', pay)
+        axios.post('http://localhost:4002/payment/', pay)
             .then(response => {
-                alert('Payment Data successfully inserted');
+                SubmissionAlert();
 
                 ////////////////////////////////////////////
 
@@ -88,12 +128,29 @@ class PayConference extends Component {
                 console.log('DATA TO SEND', details)
                 axios.patch(`http://localhost:4002/Conference/attend`, details)
                     .then(response => {
-                        alert('Attendee added')
+                        //alert('Attendee added');
+
+                        let mail = {
+                            to: this.state.email,
+                            conferenceName: this.state.conference_name,
+                            fee: this.state.pay_amount
+                        };
+
+                        console.log('DATA TO SEND', details)
+                        axios.post(`http://localhost:4002/Conference/join/mail/to`, mail)
+                            .then(response => {
+                                SubmissionAlert2();
+                            })
+                            .catch(error => {
+                                console.log(error.message);
+                                SubmissionFail2();
+                            })
                     })
                     .catch(error => {
                         console.log(error.message);
                         alert(error.message)
                     })
+
 
 
 
@@ -104,18 +161,30 @@ class PayConference extends Component {
             })
             .catch(error => {
                 console.log(error.message);
-                alert(error.message)
+                SubmissionFail();
             })
     }
 
     render() {
         return (
-
-            <div className="container">
+            <div>
+                <UserNavbar/>
+                <div className="container">
                 <h1>Conference:{this.state.conference_name} Payment</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
                         <label htmlFor="con_name" className="form-label">Charge:{this.state.pay_amount}</label>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email:</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.onChange}
+                        />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="pay_creditCardNo" className="form-label">CreditCard No:</label>
@@ -152,6 +221,7 @@ class PayConference extends Component {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+            </div>
             </div>
         )
     }

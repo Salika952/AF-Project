@@ -3,6 +3,39 @@ import axios from 'axios';
 import moment from 'moment'
 import {Link} from "react-router-dom";
 import AdminNavBar from "../navbar/adminNavBar";
+import swat from "sweetalert2";
+
+const SubmissionAlert1 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Declined Conference Event!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionAlert2 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Accepted Conference Event!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionAlert3 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Added to Landing Page!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+
 class ShowConferencesAdmin extends Component {
     constructor(props) {
         super(props);
@@ -28,13 +61,14 @@ class ShowConferencesAdmin extends Component {
 
         axios.put(`http://localhost:4002/Conference/${id}`, conference)
             .then(response => {
-                alert('Declined');
+                SubmissionAlert1();
                 let sent = {
                     status: name +" Conference Declined",
                 };
                 axios.post('http://localhost:4002/Conference/mail', sent)
                     .then(response => {
                         alert('Email Sent')
+                        window.location.reload(false);
                     })
                     .catch(error => {
                         console.log(error.message);
@@ -55,13 +89,14 @@ class ShowConferencesAdmin extends Component {
 
         axios.put(`http://localhost:4002/Conference/${id}`, conference)
             .then(response => {
-                alert('Accepted')
+                SubmissionAlert2();
                 let sent = {
                     status: name +" Conference Accepted",
                 };
                 axios.post('http://localhost:4002/Conference/mail', sent)
                     .then(response => {
                         alert('Email Sent');
+                        window.location.reload(false);
                     })
                     .catch(error => {
                         console.log(error.message);
@@ -84,7 +119,7 @@ class ShowConferencesAdmin extends Component {
 
                 axios.put(`http://localhost:4002/Conference/${id}`, conference)
                     .then(response => {
-                        alert('Added to Landing')
+                        SubmissionAlert3();
                     })
                     .catch(error => {
                         console.log(error.message);

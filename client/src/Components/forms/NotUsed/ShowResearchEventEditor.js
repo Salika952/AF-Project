@@ -2,6 +2,19 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import {Link, Redirect} from "react-router-dom";
 import EditorNavbar from "../../navbar/editorNavbar";
+import swat from "sweetalert2";
+
+
+const SubmissionAlert2 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Research Event Deleted!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
 
 class ShowResearchEventEditor extends Component {
     constructor(props) {
@@ -25,7 +38,10 @@ class ShowResearchEventEditor extends Component {
         axios.delete(`http://localhost:4002/ResearchEvent/${id}`)
             .then(response => {
                 this.setState({ ResearchEvents: response.data.data });
+                SubmissionAlert2();
+
             })
+        window.location.reload(false);
     }
 
 
@@ -36,11 +52,12 @@ class ShowResearchEventEditor extends Component {
             <div>
                 <EditorNavbar/>
                 <div className="container">
-                    <h1>Categories</h1>
+                    <h1>Research Events</h1>
                     {this.state.ResearchEvents.length > 0 && this.state.ResearchEvents.map((item, index) => (
                         <div key={index} className="card mb-3">
                             <div className="p-3" >
                                 <img src={item.res_img} alt="Logo" />
+                                <h3>Conference: {item.res_conferenceName}</h3>
                                 <h4>Topic: {item.res_topic}</h4>
                                 <h6>Description: {item.res_description}</h6>
                                 <h6>Fee: {item.res_presenterFee}</h6>

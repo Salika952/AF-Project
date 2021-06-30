@@ -5,7 +5,7 @@ const controller = require('../controller/ConferenceController');
 module.exports = function () {
     router.get('/', controller.getAllConferences);
     router.get('/:id', controller.getSpecificConference);
-    router.get('/conAccepted/add',controller.getACon);
+    router.get('/conAccepted/add/add',controller.getACon);
     router.post('/',controller.addConference );
     router.put('/:id',controller.editConference);
     router.delete('/:id',controller.deleteConference);
@@ -14,5 +14,6 @@ module.exports = function () {
     router.patch('/workshop',controller.addWorkshop);
     router.patch('/main',controller.MainUpdate);
     router.post('/mail',controller.MailSend);
+    router.post('/join/mail/to',controller.JoinMail);
     return router;
 }

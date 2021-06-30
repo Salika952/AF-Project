@@ -3,6 +3,8 @@ import Select from 'react-select';
 import axios from 'axios';
 import swat from "sweetalert2"
 import UserNavbar from "../navbar/UserNavBar";
+import Template1 from "url:../../Assets/Templates/temp2.docx";
+
 
 import {Link} from "react-router-dom";
 
@@ -119,6 +121,20 @@ class CreatePaper extends Component {
 
             <div className="container">
                 <h1>Create Paper</h1>
+
+
+                <div className="row">
+                    <div className="col-11">
+                        If You want Use a Template
+                    </div>
+                    <div className="col-1 text-right">
+                        <form method="get" action={Template1}>
+                            <button type="submit" className="btn btn-primary">Download!</button>
+                        </form>
+                    </div>
+                </div>
+
+
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
                         <label htmlFor="paperContent" className="form-label">Content</label>

@@ -29,7 +29,7 @@ class ShowResearchEventAccepted extends Component {
             <div>
                 <UserNavbar/>
                 <div className="container">
-                <h1>Categories</h1>
+                <h1>Research Events</h1>
                 {this.state.ResearchEvents.length > 0 && this.state.ResearchEvents.map((item, index) => (
                     <div key={index} className="card mb-3">
                         <div className="p-3" onClick={e => this.chooseResearch(e, item._id)}>
@@ -39,7 +39,7 @@ class ShowResearchEventAccepted extends Component {
                             <h6>Description: {item.res_description}</h6>
                             <h6>Fee: {item.res_presenterFee}</h6>
 
-                            <button className="btn btn-success" onClick={() => this.acceptResearch(item._id)}>Accept</button>
+                            <button className="btn btn-success" onClick={() => this.chooseResearch(item._id)}>Choose</button>
 
                         </div>
                     </div>

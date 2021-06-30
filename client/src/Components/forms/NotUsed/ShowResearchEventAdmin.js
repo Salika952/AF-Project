@@ -2,6 +2,35 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import {Link, Redirect} from "react-router-dom";
 import AdminNavBar from "../../navbar/adminNavBar";
+import swat from "sweetalert2";
+
+const SubmissionAlert1 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Research Event Declined!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionAlert2 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Research Event Accepted!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Submission Error!'
+    })
+}
 
 class ShowResearchEventUser extends Component {
     constructor(props) {
@@ -28,7 +57,8 @@ class ShowResearchEventUser extends Component {
 
         axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
             .then(response => {
-                alert('Declined')
+                SubmissionAlert1();
+                window.location.reload(false);
             })
             .catch(error => {
                 console.log(error.message);
@@ -45,7 +75,8 @@ class ShowResearchEventUser extends Component {
 
         axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
             .then(response => {
-                alert('Accepted')
+                SubmissionAlert2();
+                window.location.reload(false);
             })
             .catch(error => {
                 console.log(error.message);
@@ -59,11 +90,12 @@ class ShowResearchEventUser extends Component {
             <div>
                 <AdminNavBar/>
                 <div className="container">
-                    <h1>Categories</h1>
+                    <h1>Research Events</h1>
                     {this.state.ResearchEvents.length > 0 && this.state.ResearchEvents.map((item, index) => (
                         <div key={index} className="card mb-3">
                             <div className="p-3" >
                                 <img src={item.res_img} alt="Logo" />
+                                <h3>Conference: {item.res_conferenceName}</h3>
                                 <h4>Topic: {item.res_topic}</h4>
                                 <h6>Description: {item.res_description}</h6>
                                 <h6>Fee: {item.res_presenterFee}</h6>

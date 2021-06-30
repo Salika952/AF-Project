@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
 import EditorNavbar from "../navbar/editorNavbar";
+import swat from "sweetalert2";
 
 const initialState = {
     res_presenterFee: 0,
@@ -10,6 +11,24 @@ const initialState = {
     res_img:'',
     res_conferenceName:''
 
+}
+
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Research Event Created Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Submission Error!'
+    })
 }
 
 class CreateResearchEvent extends Component {
@@ -42,7 +61,7 @@ class CreateResearchEvent extends Component {
         console.log('DATA TO SEND', research)
         axios.post('http://localhost:4002/ResearchEvent/', research)
             .then(response => {
-                alert('Research Event Data successfully inserted');
+                SubmissionAlert();
 
 
                 ///////////////////////////////////////////
@@ -54,7 +73,7 @@ class CreateResearchEvent extends Component {
                 console.log('DATA TO SEND', details)
                 axios.patch(`http://localhost:4002/Conference/research`, details)
                     .then(response => {
-                        alert('Research added')
+                        console.log('Research added');
                     })
                     .catch(error => {
                         console.log(error.message);
@@ -66,7 +85,7 @@ class CreateResearchEvent extends Component {
             })
             .catch(error => {
                 console.log(error.message);
-                alert(error.message)
+                SubmissionFail();
             })
     }
 

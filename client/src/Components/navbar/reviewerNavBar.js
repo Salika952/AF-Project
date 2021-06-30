@@ -75,10 +75,10 @@ class reviewerNav extends Component {
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li className="nav-item">
-                                        <a className="nav-link active" aria-current="page"
-                                           href="/reviewer">Home</a>
-                                    </li>
+                                    {/*<li className="nav-item">*/}
+                                    {/*    <a className="nav-link active" aria-current="page"*/}
+                                    {/*       href="/reviewer">Home</a>*/}
+                                    {/*</li>*/}
                                     {/*<li className="nav-item">*/}
                                     {/*    <a className="nav-link" href="#">Conferences</a>*/}
                                     {/*</li>*/}
@@ -89,7 +89,7 @@ class reviewerNav extends Component {
                                     {/*    <a className="nav-link" href="/#">Workshops Events</a>*/}
                                     {/*</li>*/}
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/editorPaper">Research Papers</a>
+                                        <a className="nav-link active" href="/editorPaper">Research Papers</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/payView">Research Payments</a>

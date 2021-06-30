@@ -2,6 +2,35 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import adminNavBar from "../navbar/adminNavBar";
 import AdminNavBar from "../navbar/adminNavBar";
+import swat from "sweetalert2";
+
+const SubmissionAlert1 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Declined Research Event!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionAlert2 = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Accepted Research Event!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = () => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error!'
+    })
+}
 
 class ShowResearchEventAdminByConference extends Component {
     constructor(props) {
@@ -29,7 +58,7 @@ class ShowResearchEventAdminByConference extends Component {
 
         axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
             .then(response => {
-                alert('Declined');
+                SubmissionAlert1();
                 let sent = {
                     status: name +" Research Event Declined",
                 };
@@ -57,7 +86,7 @@ class ShowResearchEventAdminByConference extends Component {
 
         axios.put(`http://localhost:4002/ResearchEvent/${id}`, research)
             .then(response => {
-                alert('Accepted');
+                SubmissionAlert2();
                 let sent = {
                     status: name +" Research Event Accepted",
                 };
@@ -87,6 +116,7 @@ class ShowResearchEventAdminByConference extends Component {
                     <div key={index} className="card mb-3">
                         <div className="p-3" >
                             <img src={item.res_img} alt="Logo" />
+                            <h3>Conference: {item.res_conferenceName}</h3>
                             <h4>Topic: {item.res_topic}</h4>
                             <h6>Description: {item.res_description}</h6>
                             <h6>Fee: {item.res_presenterFee}</h6>

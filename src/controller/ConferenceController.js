@@ -139,6 +139,7 @@ const addWorkshop = async (req, res) => {
 
 const getACon = async (req, res) => {
 
+
         await Conferences.find({con_AdminStatus:"Accepted"})
             .then(response => {
                 res.status(200).send({ data: response });
@@ -146,6 +147,7 @@ const getACon = async (req, res) => {
             .catch(error => {
                 res.status(500).send({ error: error.message });
             });
+
 
 
 }
@@ -164,7 +166,6 @@ const MailSend = async (req, res) => {
             },
 
             tls: {
-                // do not fail on invalid certs
                 rejectUnauthorized: false
             },
         });
@@ -195,6 +196,53 @@ const MailSend = async (req, res) => {
     }
 }
 
+const JoinMail = async (req, res) => {
+
+    try {
+        let mailTo = req.body.to;
+        let conference = req.body.conferenceName;
+        let fee = req.body.fee;
+
+        var transporter = nodemailer.createTransport({
+
+            service: 'Gmail',
+            auth: {
+                user: 'hugoproducts119@gmail.com',
+                pass: '123hugo@12'
+            },
+
+            tls: {
+                rejectUnauthorized: false
+            },
+        });
+
+        var mailOptions = {
+
+            from: 'hugoproducts119@gmail.com',
+            to: mailTo,
+            subject: 'AF Conference Company',
+            html: `
+            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+            <h2 style="text-align: center; color: black;">You have successfully become an attendee for the ${conference}.</h2>
+            <h3 style="text-align: center; color: darkred;">Rs. ${fee}.</h3>
+            </div>`
+        };
+
+        await transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+        res.status(200).json({auth_token: 'token'})
+    } catch (e) {
+        console.log(e.message);
+        return res.status(500).json({msg: "server Error..."});
+    }
+}
+
 
 module.exports = {
     addConference,
@@ -207,5 +255,6 @@ module.exports = {
     addWorkshop,
     MainUpdate,
     MailSend,
-    getACon
+    getACon,
+    JoinMail
 };
