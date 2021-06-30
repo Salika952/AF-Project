@@ -12,7 +12,8 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "test": "mocha --recursive **/test/runner1.js",
     "testYas": "mocha --recursive **/test/runner.js",
-    "testSha": "mocha --recursive **/test/SalikaRunner.js"
+    "testSha": "mocha --recursive **/test/SalikaRunner.js",
+    "testBin": "mocha --recursive **/test/binukaRunner.js"
   },
   "author": "umesh",
   "license": "ISC",
