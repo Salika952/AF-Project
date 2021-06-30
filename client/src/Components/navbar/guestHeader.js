@@ -18,33 +18,19 @@ function Header() {
                                    href="/">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/conferenceCreate">Keynotes</a>
+                                <a className="nav-link" href="#">Keynotes</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/guestShowLanding">Conferences</a>
+                                <a className="nav-link" href="#">Conferences</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/conferenceAdminShow">Workshops</a>
+                                <a className="nav-link" href="/contactUs">Contact Us</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/conferenceEditorShow">Contact Us</a>
+                                <a className="nav-link" href="/aboutUs">About Us</a>
                             </li>
 
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">About Us</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Downloads</a>
-                            </li>
                         </ul>
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search"
-                                   placeholder="Search"
-                                   aria-label="Search"/>
-                            <button className="btn btn-outline-success"
-                                    type="submit">Search
-                            </button>
-                        </form>
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <a className="nav-link" href="/login">Login</a>

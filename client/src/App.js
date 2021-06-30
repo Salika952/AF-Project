@@ -26,6 +26,8 @@ import EditUsers from "./pages/admin/EditUsers";
 import Notification from "./pages/admin/Notification";
 import EditorProfile from "./pages/profile/editorProfile";
 import ReviewerProfile from "./pages/profile/reviewerProfile";
+import ContactUs from "./Components/forms/ContactUs";
+import AboutUs from "./Components/forms/AboutUs";
 
 ///Yasoja routes
 import CreateConference from "./Components/forms/CreateConference";
@@ -100,6 +102,8 @@ const App = () => {
                             <Route path="/reviewer_profile" component={ReviewerProfile}/>
                             <Route path="/users/reset_password/:id" component={ResetPassword}/>
                             <Route path="/users/activate/:auth_token" component={ConfirmEmail}  />
+                            <Route path="/contactUs" component={ContactUs}/>
+                            <Route path="/aboutUs" component={AboutUs} />
 
                             {/*Yasoja Routes*/}
                             <Route path="/conferenceCreate" component={CreateConference} />

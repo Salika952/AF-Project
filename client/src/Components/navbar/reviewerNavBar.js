@@ -79,20 +79,20 @@ class reviewerNav extends Component {
                                         <a className="nav-link active" aria-current="page"
                                            href="/reviewer">Home</a>
                                     </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Conferences</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Research Events</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/#">Workshops Events</a>
-                                    </li>
+                                    {/*<li className="nav-item">*/}
+                                    {/*    <a className="nav-link" href="#">Conferences</a>*/}
+                                    {/*</li>*/}
+                                    {/*<li className="nav-item">*/}
+                                    {/*    <a className="nav-link" href="#">Research Events</a>*/}
+                                    {/*</li>*/}
+                                    {/*<li className="nav-item">*/}
+                                    {/*    <a className="nav-link" href="/#">Workshops Events</a>*/}
+                                    {/*</li>*/}
                                     <li className="nav-item">
                                         <a className="nav-link" href="/editorPaper">Research Papers</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/payView">Payment</a>
+                                        <a className="nav-link" href="/payView">Research Payments</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/reviewerProposal">Workshops Proposal</a>

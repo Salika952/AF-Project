@@ -88,10 +88,10 @@ class UserNavbar extends Component {
                                         <a className="nav-link" href="#">Keynote</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Conferences</a>
+                                        <a className="nav-link" href="/conferenceAcceptedShow">Conferences</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Research Events</a>
+                                        <a className="nav-link" href="/researchAccepted/r">Research Events</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/userWorkshop">Workshops Events</a>
@@ -103,10 +103,10 @@ class UserNavbar extends Component {
                                         <a className="nav-link" href="/userProposal">Workshops Proposal</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Contact Us</a>
+                                        <a className="nav-link" href="/contactUs">Contact Us</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">About Us</a>
+                                        <a className="nav-link" href="/aboutUs">About Us</a>
                                     </li>
                                 </ul>
                                 <ul className="navbar-nav mb-2 mb-lg-0">

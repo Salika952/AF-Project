@@ -85,13 +85,16 @@ class EditorNavbar extends Component {
                                         <a className="nav-link" href="/researchEditorShow">Research Events</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/addWorkshop">Create Workshops</a>
+                                        <a className="nav-link" href="/addWorkshop">Workshop Event</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/#">Contact Us</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/#">About Us</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/#">Downloads</a>
                                     </li>
                                 </ul>
                                 <ul className="navbar-nav mb-2 mb-lg-0">
