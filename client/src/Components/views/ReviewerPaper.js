@@ -90,8 +90,8 @@ class ReviewerPaper extends Component {
         return (
             <div>
                 <ReviewerNavBar/>
-                <div className="container">
-                    <h1>Papers</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Papers</h1>
                     {this.state.paper.length > 0 && this.state.paper.map((item, index) => (
                         <div key={index} className="card mb-3">
                             <div className="p-3" onClick={e => this.navigateSubjectPage(e, item._id)}>
@@ -100,6 +100,7 @@ class ReviewerPaper extends Component {
                                 <h5>Mail: {item.paper_mail}</h5>
                                 <p><a href={item.pdf}>PDF</a></p>
                                 <button className="btn btn-success"  onClick={e => this.acceptPaper(item._id,item.paper_mail)}>Accept</button>
+                                &nbsp;
                                 <button className="btn btn-danger" onClick={e => this.declinePaper(item._id)}>Decline</button>
                             </div>
                         </div>

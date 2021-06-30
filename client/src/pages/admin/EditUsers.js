@@ -81,65 +81,79 @@ class AdminRegister extends Component {
         return (
             <div>
                 <AdminNavBar/>
-                <div className="container">
-                    <h1>Update User</h1>
-                    <form onSubmit={this.onSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Full Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="fullName"
-                                id="fullName"
-                                placeholder="Full Name"
-                                value={this.state.fullName}
-                                onChange={this.onChange}
-                                required
-                            />
+                <section className="space-section">
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="col-md-7 col-lg-5">
+                                <div className="con-control p-4 p-md-5">
+                                    <h1 className="text-center mb-4">Update User</h1>
+                                    <form  onSubmit={this.onSubmit}>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Full Name</label>
+                                        <div className="form-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="fullName"
+                                                id="fullName"
+                                                placeholder="Full Name"
+                                                value={this.state.fullName}
+                                                onChange={this.onChange}
+                                                required
+                                            />
+                                        </div>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Telephone Number</label>
+                                        <div className="form-group d-flex">
+                                            <input
+                                                type="tel"
+                                                className="form-control"
+                                                name="telephone"
+                                                id="telephone"
+                                                placeholder="Tel No"
+                                                value={this.state.telephone}
+                                                onChange={this.onChange}
+                                                required
+                                            />
+                                        </div>
+                                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Address</label>
+                                        <div className="form-group d-flex">
+                                              <textarea
+                                                  className="form-control"
+                                                  name="address"
+                                                  id="address"
+                                                  rows="3"
+                                                  value={this.state.address}
+                                                  onChange={this.onChange}
+                                                  required
+                                              >
+                                         </textarea>
+                                        </div>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Position</label>
+                                        <div className="form-group d-flex">
+                                            <select className="form-select form-select-sm"
+                                                    aria-label=".form-select-sm example"
+                                                    name="position"
+                                                    id="exampleInputPosition"
+                                                    value={this.state.position}
+                                                    onChange={this.onChange}
+                                                    required>
+                                                <option value="" selected disabled>Select&nbsp;Position</option>
+                                                <option value='user'>User</option>
+                                                <option value='editor'>Editor</option>
+                                                <option value='reviewer'>Reviewer</option>
+                                                <option value='admin'>Administrator</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
+                                            <button type="submit"
+                                                    className="form-control btn btn-primary">Update Details
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Telephone Number</label>
-                            <input
-                                type="tel"
-                                className="form-control"
-                                name="telephone"
-                                id="telephone"
-                                placeholder="Tel No"
-                                value={this.state.telephone}
-                                onChange={this.onChange}
-                                required
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Address</label>
-                            <textarea
-                                className="form-control"
-                                name="address"
-                                id="address"
-                                rows="3"
-                                value={this.state.address}
-                                onChange={this.onChange}
-                                required
-                            >
-                    </textarea>
-                        </div>
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Position</label>
-                        <select className="form-select form-select-sm"
-                                aria-label=".form-select-sm example"
-                                name="position"
-                                id="exampleInputPosition"
-                                value={this.state.position}
-                                onChange={this.onChange}
-                                required>
-                            <option value="" selected disabled>Select&nbsp;Position</option>
-                            <option value='user'>User</option>
-                            <option value='editor'>Editor</option>
-                            <option value='reviewer'>Reviewer</option>
-                            <option value='admin'>Administrator</option>
-                        </select>
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+                    </div>
+                </section>
             </div>
 
         );

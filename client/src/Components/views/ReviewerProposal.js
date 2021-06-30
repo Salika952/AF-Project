@@ -88,8 +88,8 @@ class ReviewerProposal extends Component {
     render() {
         return (
             <div>
-                <div className="container">
-                    <h1>Proposal</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Proposal</h1>
                     {this.state.proposal.length > 0 && this.state.proposal.map((item, index) => (
                         <div key={index} className="card mb-3">
                             {/*<div className="p-3" onClick={e => this.navigateSubjectPage(e, item._id)}>*/}
@@ -99,6 +99,7 @@ class ReviewerProposal extends Component {
                                 <h5>Sign: {item.propo_sign}</h5>
                                 <h6>Validation: {item.propo_validation}</h6>
                                 <button className="btn btn-success" onClick={e => this.acceptProposal(item._id,item.propo_content)}>Accept</button>
+                                &nbsp;
                                 <button className="btn btn-danger" onClick={e => this.declineProposal(item._id,item.propo_content)}>Decline</button>
                             {/*</div>*/}
                         </div>

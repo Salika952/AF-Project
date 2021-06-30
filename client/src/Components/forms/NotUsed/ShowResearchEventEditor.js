@@ -51,8 +51,8 @@ class ShowResearchEventEditor extends Component {
         return (
             <div>
                 <EditorNavbar/>
-                <div className="container">
-                    <h1>Research Events</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Research Events</h1>
                     {this.state.ResearchEvents.length > 0 && this.state.ResearchEvents.map((item, index) => (
                         <div key={index} className="card mb-3">
                             <div className="p-3" >

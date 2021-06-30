@@ -89,11 +89,11 @@ class ShowResearchEventUser extends Component {
         return (
             <div>
                 <AdminNavBar/>
-                <div className="container">
-                    <h1>Research Events</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Research Events</h1>
                     {this.state.ResearchEvents.length > 0 && this.state.ResearchEvents.map((item, index) => (
                         <div key={index} className="card mb-3">
-                            <div className="p-3" >
+                            <div className="p-3 " >
                                 <img src={item.res_img} alt="Logo" />
                                 <h3>Conference: {item.res_conferenceName}</h3>
                                 <h4>Topic: {item.res_topic}</h4>
@@ -102,6 +102,7 @@ class ShowResearchEventUser extends Component {
                                 <h6><small> {item.res_AdminStatus}</small></h6>
 
                                 <button className="btn btn-success" onClick={() => this.acceptResearch(item._id)}>Accept</button>
+                                &nbsp;
                                 <button className="btn btn-danger" onClick={() => this.declineResearch(item._id)}>Decline</button>
                             </div>
                         </div>

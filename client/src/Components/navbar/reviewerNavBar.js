@@ -75,19 +75,7 @@ class reviewerNav extends Component {
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                    {/*<li className="nav-item">*/}
-                                    {/*    <a className="nav-link active" aria-current="page"*/}
-                                    {/*       href="/reviewer">Home</a>*/}
-                                    {/*</li>*/}
-                                    {/*<li className="nav-item">*/}
-                                    {/*    <a className="nav-link" href="#">Conferences</a>*/}
-                                    {/*</li>*/}
-                                    {/*<li className="nav-item">*/}
-                                    {/*    <a className="nav-link" href="#">Research Events</a>*/}
-                                    {/*</li>*/}
-                                    {/*<li className="nav-item">*/}
-                                    {/*    <a className="nav-link" href="/#">Workshops Events</a>*/}
-                                    {/*</li>*/}
+
                                     <li className="nav-item">
                                         <a className="nav-link active" href="/editorPaper">Research Papers</a>
                                     </li>
@@ -95,7 +83,10 @@ class reviewerNav extends Component {
                                         <a className="nav-link" href="/payView">Research Payments</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/reviewerProposal">Workshops Proposal</a>
+                                        <a className="nav-link" href="/reviewerWorkShop">Workshops Proposal</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/notify">Show Notification</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/#">Contact Us</a>
@@ -107,9 +98,9 @@ class reviewerNav extends Component {
                                 <ul className="navbar-nav mb-2 mb-lg-0">
                                     <div className="drop-nav">
                                         <div className="float-right">
-                                            <img src={this.state.image} alt=""/>{this.state.fullName}<i className="fa fa-angle-down"></i>
+                                            <div className="image"> <img src={this.state.image} alt=""/>{this.state.fullName}<i className="fa fa-angle-down"></i></div>
                                             <ul className="dropdown">
-                                                <li><a href='/reviewer_profile'>Profile</a></li>
+                                                <li><a href='/profile'>Profile</a></li>
                                                 <li><a onClick={this.logoutOnClick}>Logout</a></li>
                                             </ul>
                                         </div>

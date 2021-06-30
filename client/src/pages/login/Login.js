@@ -3,8 +3,9 @@ import {LoadUser, LoadUserOther, LoginUser} from "../../Actions/Authentication";
 import {Redirect, Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import swat from "sweetalert2";
-import '../login/Login.css'
+import '../login/login.css'
 import Header from "../../Components/navbar/guestHeader";
+import UserNavbar from "../../Components/navbar/UserNavBar";
 const Login = ({loginUser, isLoggedIn}) => {
 
     let [data, setData] = useState({
@@ -32,9 +33,9 @@ const Login = ({loginUser, isLoggedIn}) => {
 
         switch (user.position) {
             case 'admin':
-                return <Redirect to="/admin"/>
+                return <Redirect to="/conferenceAdminShow"/>
             case 'editor':
-                return <Redirect to="/editor"/>
+                return <Redirect to="/conferenceEditorShow"/>
             case 'reviewer':
                 return <Redirect to="/reviewer"/>
             case 'user':
@@ -66,44 +67,65 @@ const Login = ({loginUser, isLoggedIn}) => {
             //console.log(loginValue);
         }
     };
-        return (
-            <div>
-                <Header/>
+    return (
+        <div>
+            <Header/>
+            <section className="space-section">
                 <div className="container">
-                    <h1>Login</h1>
-                    <form className="from-container" onSubmit={(event) => submitData(event)}>
-                        <div className="form-group-1">
-                            <label htmlFor="exampleDropdownFormEmail2" className="form-label">Email address</label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="user_email"
-                                placeholder="email@example.com"
-                                onChange={(e) => onChange(e)}
-                                value={user_email}
-                                name="user_email"
-                            />
+                    <div className="row justify-content-center">
+                        <div className="col-md-7 col-lg-5">
+                            <div className="con-control p-4 p-md-5">
+                                <div className="icon d-flex align-items-center justify-content-center">
+                                    <span className="fa fa-user-o"></span>
+                                </div>
+                                <h1 className="text-center mb-4">Login</h1>
+                                <form  onSubmit={(event) => submitData(event)}>
+                                    <label htmlFor="exampleDropdownFormEmail2" className="form-label">Email address</label>
+                                    <div className="form-group">
+                                        <input
+                                            type="email"
+                                            className="form-control"
+                                            id="user_email"
+                                            placeholder="email@example.com"
+                                            onChange={(e) => onChange(e)}
+                                            value={user_email}
+                                            name="user_email"
+                                            required
+                                        />
+                                    </div>
+                                    <label htmlFor="exampleDropdownFormPassword2" className="form-label">Password</label>
+                                    <div className="form-group d-flex">
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            id="user_password"
+                                            placeholder="Password"
+                                            onChange={(e) => onChange(e)}
+                                            value={user_password}
+                                            name="user_password"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="w-80 forgot1">
+                                        <a href="/forgot">Forgot Password</a>
+                                    </div>
+                                    <div className="form-group">
+                                        <button type="submit"
+                                                className="form-control btn btn-primary">Login
+                                        </button>
+                                    </div>
+                                </form>
+                                <div className="w-50 register" >
+                                    <h6>Create an Account? <Link to="/register">Register</Link></h6>
+                                </div>
+                            </div>
                         </div>
-                        <div className="form-group-1">
-                            <label htmlFor="exampleDropdownFormPassword2" className="form-label">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="user_password"
-                                placeholder="Password"
-                                onChange={(e) => onChange(e)}
-                                value={user_password}
-                                name="user_password"
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary">Login</button>
-                    </form>
-                    <p >New Customer? <Link to="/register">Register</Link></p>
-                    <p> <Link to="/forgot">Forgot Password</Link></p>
+                    </div>
                 </div>
-            </div>
-        );
-    }
+            </section>
+        </div>
+    );
+}
 
 const mapStateToProps = state => ({
     isLoggedIn: state.isLoggedIn

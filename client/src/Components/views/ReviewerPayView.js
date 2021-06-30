@@ -96,8 +96,8 @@ class ReviewerPayView extends Component {
         return (
             <div>
                 <ReviewerNavBar/>
-                <div className="container">
-                    <h1>Payments</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Payments</h1>
                     {this.state.payment.length > 0 && this.state.payment.map((item, index) => (
                         <div key={index} className="card mb-3">
                             <div className="p-3">
@@ -107,6 +107,7 @@ class ReviewerPayView extends Component {
                                 <h6>{item.pay_email}</h6>
                                 <h6><small>{item.pay_note}</small></h6>
                                 <button className="btn btn-success" onClick={e => this.acceptPaper(item._id,item.pay_email)}>Accept</button>
+                                &nbsp;
                                 <button className="btn btn-danger" onClick={e => this.declinePaper(item._id)}>Decline</button>
                             </div>
                         </div>

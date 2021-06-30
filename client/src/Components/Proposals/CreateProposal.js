@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
-import Template1 from "url:../../../Assets/ProposalTemplate/Presentation1.pptx"
+import Template1 from "url:../../Assets/ProposalTemplate/Presentation1.pptx"
 
 
 const initialState = {

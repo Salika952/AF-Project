@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import swat from "sweetalert2";
 import axios from "axios";
 import Header from "../../Components/navbar/guestHeader";
+import {Link} from "react-router-dom";
 
 const ForgotAlert = () => {
     swat.fire({
@@ -54,25 +55,40 @@ class ForgotPassword extends Component {
         return (
             <div>
                 <Header/>
-                <div className="container">
-                    <h1>Forgot Password</h1>
-                    <form onSubmit={this.onSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Enter your email address</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="email"
-                                id="email"
-                                placeholder="Enter Your Email"
-                                value={this.state.email}
-                                onChange={this.onChange}
-                            />
-                            <button type="submit" className="btn btn-primary">Verify your email</button>
-                            <p>please enter the work email</p>
+                <section className="space-section">
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="col-md-7 col-lg-5">
+                                <div className="con-control p-4 p-md-5">
+
+                                    <h1 className="text-center mb-4">Forgot Password</h1>
+                                    <form onSubmit={this.onSubmit}>
+                                        <label htmlFor="exampleDropdownFormEmail2" className="form-label">Email address</label>
+                                        <div className="form-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="email"
+                                                id="email"
+                                                placeholder="Enter Your Email"
+                                                value={this.state.email}
+                                                onChange={this.onChange}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <button type="submit"
+                                                    className="form-control btn btn-primary">Forgot Password
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div className="w-50 register" >
+                                        <h6>Login Page <Link to="/login">Login</Link></h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </section>
             </div>
         );
     }

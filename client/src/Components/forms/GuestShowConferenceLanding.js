@@ -86,40 +86,6 @@ class ShowConferencesUserLanding extends Component {
 
             <div>
                 <Header/>
-
-                {/*<div>*/}
-                {/*    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">*/}
-                {/*        <ol className="carousel-indicators">*/}
-                {/*            <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>*/}
-                {/*            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>*/}
-                {/*            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>*/}
-                {/*        </ol>*/}
-                {/*        <div className="carousel-inner">*/}
-                {/*            <div className="carousel-item active">*/}
-                {/*                <img className="d-block w-100" src="../../../" alt="First slide"/>*/}
-                {/*            </div>*/}
-                {/*            <div className="carousel-item">*/}
-                {/*                <img className="d-block w-100" src="../../yasPic.jpg" alt="Second slide"/>*/}
-                {/*            </div>*/}
-                {/*            <div className="carousel-item">*/}
-                {/*                <img className="d-block w-100" src="../../yasPic.jpg" alt="Third slide"/>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*        <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button"*/}
-                {/*           data-slide="prev">*/}
-                {/*            <span className="carousel-control-prev-icon" aria-hidden="true"></span>*/}
-                {/*            <span className="sr-only">Previous</span>*/}
-                {/*        </a>*/}
-                {/*        <a className="carousel-control-next" href="#carouselExampleIndicators" role="button"*/}
-                {/*           data-slide="next">*/}
-                {/*            <span className="carousel-control-next-icon" aria-hidden="true"></span>*/}
-                {/*            <span className="sr-only">Next</span>*/}
-                {/*        </a>*/}
-                {/*    </div>*/}
-
-                {/*</div>*/}
-
-
                 <div className="parallax">
 
                     <div className="parallax-container" >
@@ -130,39 +96,13 @@ class ShowConferencesUserLanding extends Component {
                         <h3 className="h3-yas">{moment(this.state.date).format('Do of MMMM YYYY')}</h3>
                         {/*<h6>{this.state.amount}</h6>*/}
 
-                        {/*////////////////////////*/}
+
                         <div>
                             <Timer dueDate = {this.state.date}/>
                         </div>
-                        {/*////////////////////////*/}
+
 
                     </div>
-
-                    {/*<h3>Research Events</h3>*/}
-                    {/*<div>*/}
-                    {/*    {this.state.researchList.length > 0 && this.state.researchList.map((item, index) => (*/}
-                    {/*        <div key={index} className="card mb-3" >*/}
-                    {/*            <div className="p-3"  >*/}
-                    {/*                <h4>Topic: {item.res_topic}</h4>*/}
-                    {/*                <h5>Fee: {item.res_presenterFee}</h5>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    ))}*/}
-                    {/*</div>*/}
-
-
-                    {/*<button className="btn btn-danger" onClick={() => this.joinConference()}>Join</button>*/}
-
-                    {/*<Link to = {{*/}
-                    {/*    pathname:'/conferencePay',*/}
-                    {/*    conProps:{*/}
-                    {/*        conferenceID: this.state.id,*/}
-                    {/*        conferenceAmount: this.state.amount,*/}
-                    {/*        conferenceName: this.state.name*/}
-                    {/*    }*/}
-                    {/*}}><button className="yas-button" >Join</button></Link>*/}
-
-
                     <br></br>
                 </div>
             </div>

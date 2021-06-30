@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import swat from "sweetalert2";
-
 const RegisteredAlert = () => {
     swat.fire({
         position: 'center',
@@ -50,51 +49,68 @@ class ResetPassword extends Component {
         let user = {
             user_password: this.state.password
         }
-        console.log('DATA TO SEND', user);
-        axios.post('http://localhost:4002/users/reset_password', user,{
-            headers: {Authorization: this.state.token}
-        })
-            .then(response => {
-                RegisteredAlert();
+        if(isMatch(this.state.password,this.state.confirm_password)) {
+            console.log('DATA TO SEND', user);
+            axios.post('http://localhost:4002/users/reset_password', user, {
+                headers: {Authorization: this.state.token}
             })
-            .catch(error => {
-                console.log(error.message);
-                RegisterFail();
-            })
+                .then(response => {
+                    RegisteredAlert();
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    RegisterFail();
+                })
+        }
     }
     render() {
         return (
             <div>
-                <div className="container">
-                    <h1>Reset Password</h1>
-                    <form onSubmit={this.onSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="password"
-                                id="password"
-                                placeholder="password"
-                                value={this.state.password}
-                                onChange={this.onChange}
-                            />
+                <section className="space-section">
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="col-md-7 col-lg-5">
+                                <div className="con-control p-4 p-md-5">
+                                    <h1 className="text-center mb-4">Reset Password</h1>
+                                    <form onSubmit={this.onSubmit}>
+                                        <label htmlFor="exampleDropdownFormEmail2" className="form-label">Email address</label>
+                                        <div className="form-group">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                name="password"
+                                                id="password"
+                                                placeholder="password"
+                                                value={this.state.password}
+                                                onChange={this.onChange}
+                                            />
+                                        </div>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Confirm Password</label>
+                                        <div className="form-group">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                name="confirm_password"
+                                                id="confirm_password"
+                                                placeholder="Confirm Password"
+                                                value={this.state.confirm_password}
+                                                onChange={this.onChange}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <button type="submit"
+                                                    className="form-control btn btn-primary">Reset Password
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div className="w-50 register" >
+                                        <h6>Login Page <Link to="/login">Login</Link></h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Confirm Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="confirm_password"
-                                id="confirm_password"
-                                placeholder="Confirm Password"
-                                value={this.state.confirm_password}
-                                onChange={this.onChange}
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary">Reset Password</button>
-                    </form>
-                </div>
+                    </div>
+                </section>
             </div>
         );
     }

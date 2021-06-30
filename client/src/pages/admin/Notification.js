@@ -3,6 +3,7 @@ import axios from 'axios';
 import {SERVER_ADDRESS} from "../../Constants/Constants";
 import swat from "sweetalert2";
 import AdminNavBar from "../../Components/navbar/adminNavBar";
+import {Link} from "react-router-dom";
 
 const RegisteredAlert = () => {
     swat.fire({
@@ -84,63 +85,75 @@ class Notification extends Component {
         return (
             <div>
                 <AdminNavBar/>
-                <div className="container">
-                    <h1>Create Notification</h1>
-                    <form onSubmit={this.onSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Notification Title</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="title"
-                                id="title"
-                                placeholder="Notification Title"
-                                value={this.state.title}
-                                onChange={this.onChange}
-                            />
+                <section className="space-section">
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="col-md-7 col-lg-5">
+                                <div className="con-control p-4 p-md-5">
+                                    <h1 className="text-center mb-4">Add Notification</h1>
+                                    <form  onSubmit={this.onSubmit}>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Notification Title</label>
+                                        <div className="form-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="title"
+                                                id="title"
+                                                placeholder="Notification Title"
+                                                value={this.state.title}
+                                                onChange={this.onChange}
+                                            />
+                                        </div>
+                                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Message</label>
+                                        <div className="form-group d-flex">
+                                           <textarea
+                                               className="form-control"
+                                               name="message"
+                                               id="message"
+                                               placeholder="Notification Message"
+                                               rows="3"
+                                               value={this.state.message}
+                                               onChange={this.onChange}
+                                           >
+                                      </textarea>
+                                        </div>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Type</label>
+                                        <div className="form-group d-flex">
+                                            <select
+                                                className="form-control"
+                                                name="type"
+                                                id="exampleInputPosition"
+                                                value={this.state.type}
+                                                onChange={this.onChange}
+                                                required>
+                                                <option value="" selected disabled>Select&nbsp;Type</option>
+                                                <option value={'user'}>User</option>
+                                                <option value={'editor'}>Editor</option>
+                                                <option value={'reviewer'}>Reviewer</option>
+                                            </select>
+                                        </div>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Expire Date</label>
+                                        <div className="form-group d-flex">
+                                            <input
+                                                type="date"
+                                                className="form-control"
+                                                name="expire"
+                                                id="expire"
+                                                value={this.state.expire}
+                                                onChange={this.onChange}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <button type="submit"
+                                                    className="form-control btn btn-primary">Create Notification
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Message</label>
-                            <textarea
-                                className="form-control"
-                                name="message"
-                                id="message"
-                                placeholder="Notification Message"
-                                rows="3"
-                                value={this.state.message}
-                                onChange={this.onChange}
-                            >
-                    </textarea>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">Type</label>
-                            <select
-                                className="form-control"
-                                name="type"
-                                id="exampleInputPosition"
-                                value={this.state.type}
-                                onChange={this.onChange}
-                                required>
-                                <option value="" selected disabled>Select&nbsp;Type</option>
-                                <option value={'user'}>User</option>
-                                <option value={'editor'}>Editor</option>
-                                <option value={'reviewer'}>Reviewer</option>
-                            </select>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleFormControlInput1" className="form-label">password</label>
-                            <input
-                                type="date"
-                                className="form-control"
-                                name="expire"
-                                id="expire"
-                                value={this.state.expire}
-                                onChange={this.onChange}
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+                    </div>
+                </section>
             </div>
         );
     }

@@ -136,8 +136,8 @@ class ShowConferencesAdmin extends Component {
         return (
             <div>
                 <AdminNavBar/>
-                    <div className="container">
-                        <h1>Conferences</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Conferences</h1>
                         {this.state.Conferences.length > 0 && this.state.Conferences.map((item, index) => (
                             <div key={index} className="card mb-3">
                                 <div className="p-3" >
@@ -161,8 +161,14 @@ class ShowConferencesAdmin extends Component {
                                             conferenceID: item._id
                                         }
                                     }}><button className="btn btn-primary">Research Events</button></Link>
-
-                                    <button className="btn btn-primary">Workshop Events</button>
+                                   &nbsp;
+                                    <Link to = {{
+                                        pathname:'/adminWorkshop',
+                                        conAdminProps:{
+                                            conferenceID: item._id
+                                        }
+                                    }}>&nbsp;
+                                        <button className="btn btn-primary">Workshop Events</button></Link>
                                 </div>
                             </div>
                         ))}

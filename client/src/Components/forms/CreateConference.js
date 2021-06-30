@@ -168,6 +168,7 @@ class CreateConference extends Component {
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
+                    <br/>
                 </div>
             </div>
 

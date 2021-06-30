@@ -5,6 +5,8 @@ import {Button, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import swat from "sweetalert2";
 import FileBase from 'react-file-base64';
 import UserNavbar from "../../Components/navbar/UserNavBar";
+import EditorNavbar from "../../Components/navbar/editorNavbar";
+import reviewerNavBar from "../../Components/navbar/reviewerNavBar";
 
 const SuccessAlert = (res) => {
     swat.fire({
@@ -40,7 +42,8 @@ class Profile extends Component {
             confirmPassword:'',
             image:'',
             PImage:'',
-            id:''
+            id:'',
+            type:''
         }
         this.onChange=this.onChange.bind(this);
         this.onSubmitHandler=this.onSubmitHandler.bind(this);
@@ -53,6 +56,7 @@ class Profile extends Component {
     }
     componentDidMount() {
         const token = localStorage.getItem('token');
+        const type = localStorage.getItem('userPosition');
         if (!token) {
             this.setState({
                 user: null
@@ -60,7 +64,9 @@ class Profile extends Component {
             return;
         }
         this.setState({
-            token:token
+            token:token,
+            type:type
+
         })
 
         axios({
@@ -96,12 +102,12 @@ class Profile extends Component {
         axios.put('http://localhost:4002/users/update',user,{
             headers: {Authorization: this.state.token}
         })
-        .then(response => {
-            let message = "User Update"
-            SuccessAlert(message)
-            this.props.history.push('/profile');
+            .then(response => {
+                let message = "User Update"
+                SuccessAlert(message)
+                this.props.history.push('/profile');
 
-        }).catch(error => {
+            }).catch(error => {
             let message = " Update"
             console.log(error);
             FailAlert(message)
@@ -146,9 +152,17 @@ class Profile extends Component {
     render() {
         return (
             <div>
+                {this.state.type==="user"&&
                 <UserNavbar/>
+                }
+                {this.state.type==="editor"&&
+                <EditorNavbar/>
+                }
+                {this.state.type==="reviewer"&&
+                <reviewerNavBar/>
+                }
                 <Form  onSubmit={this.onSubmitHandler}>
-                 <div className="profile_page">
+                    <div className="profile_page">
                         <div className="col-left">
 
                             <div className="avatar">
@@ -158,18 +172,18 @@ class Profile extends Component {
                             <p>Change</p>
                             <input type="file" name="file" id="fileUp" />
                         </span>
-                        </div>
+                            </div>
                             {this.state.updateFields &&
                             <Row form>
                                 <Col md={25}>
                                     <FormGroup>
                                         <Label for="">Position</Label>
                                         <Input disabled
-                                            value={this.state.position}
-                                            type="text"
-                                            name="position"
-                                            id="position"
-                                            onChange={this.onChange}
+                                               value={this.state.position}
+                                               type="text"
+                                               name="position"
+                                               id="position"
+                                               onChange={this.onChange}
                                         >
                                         </Input>
                                     </FormGroup>
@@ -178,10 +192,10 @@ class Profile extends Component {
                                     <FormGroup>
                                         <Label for="">Full Name</Label>
                                         <Input
-                                               value={this.state.fullName}                                               type="text"
-                                               name="fullName"
-                                               id="fullName"
-                                               onChange={this.onChange}
+                                            value={this.state.fullName}                                               type="text"
+                                            name="fullName"
+                                            id="fullName"
+                                            onChange={this.onChange}
                                         >
                                         </Input>
                                     </FormGroup>
@@ -203,11 +217,11 @@ class Profile extends Component {
                                     <FormGroup>
                                         <Label for="">Mobile No</Label>
                                         <Input
-                                               value={this.state.telephone}
-                                               type="tel"
-                                               name="telephone"
-                                               id="telephone"
-                                               onChange={this.onChange}
+                                            value={this.state.telephone}
+                                            type="tel"
+                                            name="telephone"
+                                            id="telephone"
+                                            onChange={this.onChange}
                                         >
                                         </Input>
                                     </FormGroup>
@@ -216,11 +230,11 @@ class Profile extends Component {
                                     <FormGroup>
                                         <Label for="">Address</Label>
                                         <Input
-                                               value={this.state.address}
-                                               type="text"
-                                               name="address"
-                                               id="address"
-                                               onChange={this.onChange}
+                                            value={this.state.address}
+                                            type="text"
+                                            name="address"
+                                            id="address"
+                                            onChange={this.onChange}
                                         >
                                         </Input>
                                     </FormGroup>
@@ -274,7 +288,7 @@ class Profile extends Component {
                             }
                             &nbsp;
                             {this.state.updateFields &&
-                                <Button size="lg" block color="primary">Update Profile</Button>
+                            <Button size="lg" block color="primary">Update Profile</Button>
                             }
                             &nbsp;
                             <div>

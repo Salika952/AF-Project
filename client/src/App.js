@@ -24,10 +24,10 @@ import Profile from "./pages/profile/profile";
 import GetallUsers from "./pages/admin/GetallUsers";
 import EditUsers from "./pages/admin/EditUsers";
 import Notification from "./pages/admin/Notification";
-import EditorProfile from "./pages/profile/editorProfile";
-import ReviewerProfile from "./pages/profile/reviewerProfile";
 import ContactUs from "./Components/forms/ContactUs";
 import AboutUs from "./Components/forms/AboutUs";
+import Notify from "./Components/Notification/notify";
+
 
 ///Yasoja routes
 import CreateConference from "./Components/forms/CreateConference";
@@ -70,6 +70,7 @@ import CreateWorkshopEditor from "./Components/Workshops/CreateWorkshopEditor";
 import AdminWorkshop from "./Components/views/AdminWorkshop";
 import UserWorkshop from "./Components/views/UserWorkShop";
 import ReviewerWorkshop from "./Components/views/ReviwerWorkShop";
+import Footer from "./Components/footer/footer";
 
 
 if(localStorage.getItem('token')){
@@ -96,12 +97,11 @@ const App = () => {
                             <Route path="/reviewer" component={ReviewerPage}/>
                             <Route path="/get_all_users" component={GetallUsers}/>
                             <Route path="/notification" component={Notification}/>
+                            <Route path="/notify" component={Notify}/>
                             <Route path="/edit_user/:id" component={EditUsers}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/forgot" component={ForgotPassword}/>
                             <Route path="/profile" component={Profile}/>
-                            <Route path="/editor_profile" component={EditorProfile}/>
-                            <Route path="/reviewer_profile" component={ReviewerProfile}/>
                             <Route path="/users/reset_password/:id" component={ResetPassword}/>
                             <Route path="/users/activate/:auth_token" component={ConfirmEmail}  />
                             <Route path="/contactUs" component={ContactUs}/>
@@ -150,7 +150,7 @@ const App = () => {
                         </Switch>
                     </Router>
                 </Provider>
-
+                <Footer/>
             </div>
 
         </div>

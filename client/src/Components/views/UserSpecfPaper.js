@@ -69,8 +69,8 @@ class UserSpecfPaper extends Component {
         return (
             <div>
                 <UserNavbar/>
-                <div className="container">
-                    <h1>Papers</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Papers</h1>
                         <div className="card mb-3">
                             <div className="p-3">
                                 <h4>Name: {this.state.content}</h4>
@@ -81,10 +81,12 @@ class UserSpecfPaper extends Component {
                                     conProps:{
                                         paperID: this.state.id,
                                     }
-                                }}><button className="btn btn-success" >Edit</button></Link>
+                                }}>  &nbsp;<button className="btn btn-success" >Edit</button></Link>
+                                &nbsp;
                                 <button className="btn btn-danger" onClick={e => this.deletePaper(this.state.id)}>Delete</button>
                             </div>
                         </div>
+                          &nbsp;
                         <button type="button" className="btn btn-primary btn-lg btn-block" onClick={e => this.navigatePayment(this.state.id)}>Make Your Payment</button>
 
                 </div>

@@ -47,8 +47,8 @@ class UserPaper extends Component {
         return (
             <div>
                 <UserNavbar/>
-                <div className="container">
-                    <h1>Papers</h1>
+                <div className="container p-3 my-3 bg-dark text-black-100">
+                    <h1  className="text-white">Papers</h1>
                     {this.state.paper.length > 0 && this.state.paper.map((item, index) => (
                         <div key={index} className="card mb-3">
                             <div className="p-3">
@@ -57,6 +57,7 @@ class UserPaper extends Component {
                                 <h5>Sign: {item.paper_sign}</h5>
                                 <h6></h6>
                                 <button className="btn btn-success" onClick={e => this.navigateEditPage(e, item._id)}>Edit</button>
+                                &nbsp;
                                 <button className="btn btn-danger" onClick={e => this.deletePaper(item._id)}>Delete</button>
                             </div>
                         </div>
