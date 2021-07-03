@@ -44,6 +44,8 @@ const addUsers= async (req, res) => {
         return res.status(500).json({alert: "Server Error..."});
     }
 }
+
+
 const UserActiveEmail= async (req, res) => {
     try {
         const {auth_token} = req.body
@@ -72,6 +74,8 @@ const UserActiveEmail= async (req, res) => {
         return res.status(500).json({msg: err.message})
     }
 }
+
+
 const loginUser = async (req, res)=>{
     try{
         const {user_email,user_password} =req.body;
@@ -104,6 +108,8 @@ const loginUser = async (req, res)=>{
         return res.status(500).json({alert:"server Error"});
     }
 }
+
+
 const getSpecificUser = async (req,res) =>{
     try {
         const user = await UserSchema.findById(req.user.id).select('-user_password')
@@ -114,6 +120,8 @@ const getSpecificUser = async (req,res) =>{
         return res.status(500).json({alert:"server Error"});
     }
 }
+
+
 const getSpecificAdminUsers = async (req, res) => {
     try {
         if (req.params && req.params.id) {
@@ -130,6 +138,7 @@ const getSpecificAdminUsers = async (req, res) => {
         return res.status(500).json({msg:"server Error..."});
     }
 }
+
 
 const adminAddUsers = async (req, res) => {
     try {
@@ -201,6 +210,8 @@ const adminAddUsers = async (req, res) => {
         return res.status(500).json({msg: "server Error..."});
     }
 }
+
+
 const forgotPassword = async (req, res)=>{
     try{
         const {user_email} = req.body;
@@ -223,6 +234,8 @@ const forgotPassword = async (req, res)=>{
         return res.status(500).json({alert:"server Error"});
     }
 }
+
+
 const resetPassword = async (req, res)=>{
     try{
         const {user_password}= req.body;
@@ -238,6 +251,8 @@ const resetPassword = async (req, res)=>{
         return res.status(500).json({alert:"server Error"});
     }
 }
+
+
 const getUserAll =async (req,res)=>{
     try{
         const users = await UserSchema.find().select('-user_password')
@@ -248,6 +263,8 @@ const getUserAll =async (req,res)=>{
         return res.status(500).json({alert:"server Error"});
     }
 }
+
+
 const updateProfile = async (req,res)=>{
     try{
         const {user_name,user_address,user_telephone,user_imageUrl} =req.body
@@ -260,6 +277,8 @@ const updateProfile = async (req,res)=>{
         return res.status(500).json({alert:"server Error"});
     }
 }
+
+
 const updateAdminUser = async (req, res) => {
     if (req.params && req.params.id) {
         UserSchema.findByIdAndUpdate(
@@ -288,11 +307,8 @@ const deleteUsers = async (req, res) => {
     }
 }
 const ActivationToken = (payload) => {
-    return jwt.sign(payload, process.env.JWT_SECRET)
+    return jwt.sign(payload, process.env.JWT_SECRET,{expiresIn:'20m'})
 }
-// const AccessToken = (payload) => {
-//     return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
-// }
 function validateEmail(user_email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(user_email).toLowerCase());

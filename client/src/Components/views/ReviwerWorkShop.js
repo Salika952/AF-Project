@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import reviewerNav from "../navbar/reviewerNavBar";
+import ReviewerNavBar from "../navbar/reviewerNavBar";
 
 
 class ReviewerWorkshop extends Component {
@@ -27,7 +27,7 @@ class ReviewerWorkshop extends Component {
     render() {
         return (
             <div>
-                <reviewerNav/>
+                <ReviewerNavBar/>
                 <div className="container p-3 my-3 bg-dark text-black-100">
                     <h1  className="text-white">Workshop</h1>
                     {this.state.workshops.length > 0 && this.state.workshops.map((item, index) => (

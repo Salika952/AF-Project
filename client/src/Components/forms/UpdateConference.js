@@ -4,6 +4,7 @@ import axios from 'axios';
 import FileBase from 'react-file-base64';
 import EditorNavbar from "../navbar/editorNavbar";
 import swat from "sweetalert2";
+import {isEmpty} from "../../utils/validation";
 
 const SubmissionAlert = () => {
     swat.fire({
@@ -15,11 +16,11 @@ const SubmissionAlert = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Submission Error!'
+        text: message
     })
 }
 
@@ -71,23 +72,29 @@ class UpdateConference extends Component {
     onSubmit(e) {
         e.preventDefault();
         let conference = {
-            con_img:this.state.con_img,
+            con_img: this.state.con_img,
             con_name: this.state.con_name,
             con_theme: this.state.con_theme,
             con_venue: this.state.con_venue,
             con_date: this.state.con_date,
-            con_amount:this.state.con_amount,
-            con_AdminStatus:'Updated'
+            con_amount: this.state.con_amount,
+            con_AdminStatus: 'Updated'
         };
-        console.log('DATA TO SEND', conference)
-        axios.put(`http://localhost:4002/Conference/${this.props.location.conEditProps2.conferenceID}`, conference)
-            .then(response => {
-                SubmissionAlert();
-            })
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail();
-            })
+        if (isEmpty(this.state.con_name) || isEmpty(this.state.con_theme) || isEmpty(this.state.con_venue) || isEmpty(this.state.con_date) || isEmpty(this.state.con_amount)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', conference)
+            axios.put(`http://localhost:4002/Conference/${this.props.location.conEditProps2.conferenceID}`, conference)
+                .then(response => {
+                    SubmissionAlert();
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Error"
+                    SubmissionFail(message);
+                })
+        }
     }
 
     render() {
@@ -175,6 +182,7 @@ class UpdateConference extends Component {
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
+                <br/>
             </div>
         )
     }

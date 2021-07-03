@@ -1,9 +1,45 @@
 import React, {Component} from 'react';
+import UserNavbar from "../navbar/UserNavBar";
+import EditorNavbar from "../navbar/editorNavbar";
+import ReviewerNavbar from "../navbar/reviewerNavBar";
 
 class ContactUs extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            token:'',
+            type:'',
+            isLoggedIn:true
+        }
+    }
+    componentDidMount() {
+        const token = localStorage.getItem('token');
+        const type = localStorage.getItem('userPosition');
+        if (!token) {
+            this.setState({
+                user: null
+            });
+            return;
+        }
+        this.setState({
+            token:token,
+            type:type,
+        })
+    }
     render() {
         return (
             <div>
+                {this.state.type==="user"&&
+                <UserNavbar/>
+                }
+                {this.state.type==="editor"&&
+                <EditorNavbar/>
+                }
+                {this.state.type==="reviewer"&&
+                <ReviewerNavbar/>
+                }
+            <div className="container">
+                <br/><br/><br/><br/>
                 <div className="row row-content">
                     <div className="col-12">
                         <h3>Contact Us</h3>
@@ -76,6 +112,8 @@ class ContactUs extends Component {
                     <div className="col-12 col-md">
                     </div>
                 </div>
+                <br/><br/><br/><br/><br/><br/>
+            </div>
             </div>
         );
     }

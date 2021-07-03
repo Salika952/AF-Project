@@ -79,10 +79,13 @@ class AdminNavBar extends Component {
                                         <a className="nav-link" href="/get_all_users">Users All</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/admin_register">Create Privileged User</a>
+                                        <a className="nav-link" href="/admin_register">Create User</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/notification">Create Notification</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/allNotification">All Notification</a>
                                     </li>
                                 </ul>
                                 <ul className="navbar-nav mb-2 mb-lg-0">

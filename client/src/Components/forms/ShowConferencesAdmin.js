@@ -152,9 +152,11 @@ class ShowConferencesAdmin extends Component {
                                     <h6><small> {item.con_AdminStatus}</small></h6>
 
                                     <button className="btn btn-danger" onClick={() => this.declineConference(item._id,item.con_name)}>Decline</button>
+                                    &nbsp;
                                     <button className="btn btn-success" onClick={() => this.acceptConference(item._id,item.con_name)}>Accept</button>
+                                    &nbsp;
                                     <button className="btn btn-warning" onClick={() => this.addToLanding(item._id)}>Add to Main Page</button>
-
+                                    &nbsp;
                                     <Link to = {{
                                         pathname:'/researchByConferenceAdmin',
                                         conAdminProps:{

@@ -2,21 +2,24 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import swat from "sweetalert2";
+import {isMatch,isEmpty,isLength} from "../../utils/validation";
+import Header from "../../Components/navbar/guestHeader";
+
 const RegisteredAlert = () => {
     swat.fire({
         position: 'center',
         icon: 'success',
-        title: 'You have successfully registered',
+        title: ' Password Update successful',
         showConfirmButton: false,
         timer: 3000
     });
 }
 
-const RegisterFail = () => {
+const RegisterFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Registration Error!'
+        text: message
     })
 }
 class ResetPassword extends Component {
@@ -49,23 +52,38 @@ class ResetPassword extends Component {
         let user = {
             user_password: this.state.password
         }
-        if(isMatch(this.state.password,this.state.confirm_password)) {
+        if(isEmpty(this.state.password) || isEmpty(this.state.confirm_password)){
+            let message="Please Fill the Field"
+            RegisterFail(message);
+        }
+        else if(isLength(this.state.password) || isLength(this.state.confirm_password)){
+            let message="At least 3 characters"
+            RegisterFail(message);
+        }
+        else if(!isMatch(this.state.password,this.state.confirm_password)) {
+           let message= "Password not match"
+            RegisterFail(message);
+        }
+        else {
             console.log('DATA TO SEND', user);
             axios.post('http://localhost:4002/users/reset_password', user, {
                 headers: {Authorization: this.state.token}
             })
                 .then(response => {
                     RegisteredAlert();
+                    window.location.replace("/login");
                 })
                 .catch(error => {
                     console.log(error.message);
-                    RegisterFail();
+                    let message= "Password Error"
+                    RegisterFail(message);
                 })
         }
     }
     render() {
         return (
             <div>
+                <Header/>
                 <section className="space-section">
                     <div className="container">
                         <div className="row justify-content-center">

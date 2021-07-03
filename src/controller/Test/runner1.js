@@ -44,12 +44,12 @@ describe("Post api", () => {
         it("should create a new post", (done) => {
             let req = {
                 //body : {'title': 'bleh'}
-                body : { 'email':"abc@gmail.com",
-                    'password':1234,}
+                body : { 'user_email':"abc@gmail.com",
+                    'user_password':1234,}
             };
 
             let res = testUtils.responseValidatorAsync(200, (post) => {
-                post.should.have.property('email');
+                post.should.have.property('user_email');
                 post.res_topic.should.equal('abc@gmail.com');
                 done();
             });
@@ -59,13 +59,13 @@ describe("Post api", () => {
         });
     });
 
-describe("GET Posts", () => {
+    describe("GET Posts", () => {
         it("should respond with an array of posts", (done) => {
             let req = {};
 
             let res = testUtils.responseValidatorAsync(200, (posts) => {
                 posts.length.should.equal(2);
-                posts[0].should.have.property('email');
+                posts[0].should.have.property('user_email');
                 done();
             });
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import swat from "sweetalert2";
 import { Link } from 'react-router-dom'
 import Header from "../../Components/navbar/guestHeader";
+import {isEmail, isEmpty, isLength, isLengthMobile} from "../../utils/validation";
 
 const RegisteredAlert = () => {
     swat.fire({
@@ -14,11 +15,11 @@ const RegisteredAlert = () => {
     });
 }
 
-const RegisterFail = () => {
+const RegisterFail = (res) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Register Error!'
+        text: res
     })
 }
 
@@ -41,7 +42,7 @@ class Register extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
         let user = {
             user_name: this.state.fullName,
@@ -51,17 +52,31 @@ class Register extends Component {
             user_password: this.state.password,
 
         }
-        console.log('DATA TO SEND', user);
-        axios.post('http://localhost:4002/users/register', user)
-            .then(response => {
-                RegisteredAlert();
-            })
-            .catch(error => {
-                console.log(error.message);
-                RegisterFail();
-            })
+        if (isEmpty(this.state.fullName) || isEmpty(this.state.email) || isEmpty(this.state.telephone) || isEmpty(this.state.address) || isEmpty(this.state.password)) {
+            let message = "Please Fill the Field"
+            RegisterFail(message);
+        } else if (isLength(this.state.password)) {
+            let message = " Password at least 3 characters"
+            RegisterFail(message);
+        } else if (!isEmail(this.state.email)) {
+            let message = "Invalid Email"
+            RegisterFail(message);
+        } else if (!isLengthMobile(this.state.telephone)) {
+            let message = "Mobile, Please enter 10 Numbers"
+            RegisterFail(message);
+        } else {
+            console.log('DATA TO SEND', user);
+            axios.post('http://localhost:4002/users/register', user)
+                .then(response => {
+                    RegisteredAlert();
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Register Failed"
+                    RegisterFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>

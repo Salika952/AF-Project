@@ -3,6 +3,7 @@ import axios from 'axios';
 import FileBase from 'react-file-base64';
 import EditorNavbar from "../navbar/editorNavbar";
 import swat from "sweetalert2";
+import {isEmpty} from '../../utils/validation'
 
 const initialState = {
     res_presenterFee: 0,
@@ -23,11 +24,11 @@ const SubmissionAlert = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Submission Error!'
+        text: message
     })
 }
 
@@ -54,39 +55,45 @@ class CreateResearchEvent extends Component {
             res_presenterFee: this.state.res_presenterFee,
             res_topic: this.state.res_topic,
             res_description: this.state.res_description,
-            res_img:this.state.res_img,
-            res_conferenceName:this.state.res_conferenceName
+            res_img: this.state.res_img,
+            res_conferenceName: this.state.res_conferenceName
 
         };
-        console.log('DATA TO SEND', research)
-        axios.post('http://localhost:4002/ResearchEvent/', research)
-            .then(response => {
-                SubmissionAlert();
+        if (isEmpty(this.state.res_presenterFee) || isEmpty(this.state.res_topic) || isEmpty(this.state.res_description)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', research)
+            axios.post('http://localhost:4002/ResearchEvent/', research)
+                .then(response => {
+                    SubmissionAlert();
 
 
-                ///////////////////////////////////////////
-                let details = {
-                    //conferenceID: this.state.conference_id,
-                    conferenceID: this.props.location.conEditProps.conferenceID,
-                    researchID: response.data.data._id,
-                };
-                console.log('DATA TO SEND', details)
-                axios.patch(`http://localhost:4002/Conference/research`, details)
-                    .then(response => {
-                        console.log('Research added');
-                    })
-                    .catch(error => {
-                        console.log(error.message);
-                        alert(error.message)
-                    })
+                    ///////////////////////////////////////////
+                    let details = {
+                        //conferenceID: this.state.conference_id,
+                        conferenceID: this.props.location.conEditProps.conferenceID,
+                        researchID: response.data.data._id,
+                    };
+                    console.log('DATA TO SEND', details)
+                    axios.patch(`http://localhost:4002/Conference/research`, details)
+                        .then(response => {
+                            console.log('Research added');
+                        })
+                        .catch(error => {
+                            console.log(error.message);
+                            alert(error.message)
+                        })
 
-                ///////////////////////////////////////////
+                    ///////////////////////////////////////////
 
-            })
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail();
-            })
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message ="Error!"
+                    SubmissionFail(message);
+                })
+        }
     }
 
     render() {
@@ -139,6 +146,7 @@ class CreateResearchEvent extends Component {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
+                <br/>
             </div>
         )
     }

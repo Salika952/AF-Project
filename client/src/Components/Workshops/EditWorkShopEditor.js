@@ -1,7 +1,27 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
+import swat from "sweetalert2";
+import {isEmpty} from "../../utils/validation";
+import EditorNavbar from "../navbar/editorNavbar";
 
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Workshop Event Added Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = (message) => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message
+    })
+}
 
 
 const initialState = {
@@ -47,27 +67,33 @@ class EditWorkShopEditor extends Component {
     onSubmit(e) {
         e.preventDefault();
         let workshop = {
-            work_topic:this.state.work_topic,
-            work_description:this.state.work_description,
-            work_place:this.state.work_place,
-            work_image:this.state.work_image,
-            work_template:this.state.work_template,
+            work_topic: this.state.work_topic,
+            work_description: this.state.work_description,
+            work_place: this.state.work_place,
+            work_image: this.state.work_image,
+            work_template: this.state.work_template,
 
         };
-        console.log('DATA TO SEND', workshop)
-        axios.put(`http://localhost:4002/WorkshopEvents/${this.props.match.params.id}`,workshop)
-            .then(response => {
-                alert('Category Data successfully updated')
-            })
-            .catch(error => {
-                console.log(error.message);
-                alert(error.message)
-            })
+        if (isEmpty(this.state.work_topic) || isEmpty(this.state.work_place) || this.state.work_template === "") {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', workshop)
+            axios.put(`http://localhost:4002/WorkshopEvents/${this.props.match.params.id}`, workshop)
+                .then(response => {
+                    SubmissionAlert()
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Error"
+                    SubmissionFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>
+                <EditorNavbar/>
                 <div className="container">
                     <h1>Edit WorkShop</h1>
                     <form onSubmit={this.onSubmit}>

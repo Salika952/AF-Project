@@ -3,6 +3,7 @@ import axios from 'axios';
 import Timer from './Timer/timer';
 import moment from 'moment';
 import {Link} from "react-router-dom";
+import UserNavbar from "../navbar/UserNavBar";
 
 class ShowConferencesUserLanding extends Component {
     constructor(props) {
@@ -45,47 +46,53 @@ class ShowConferencesUserLanding extends Component {
 
 
         return (
-            <div className="container">
-                <h1>Conference</h1>
+            <div>
+                <UserNavbar/>
+                <div className="container">
+                    <h1>Conference</h1>
+                    <div className="parallax">
+                        <div className="parallax-container" >
+                            <div className="p-3" >
+                                <img src={this.state.img} alt="Logo" />
+                                <h4 className="h1-yas">Name: {this.state.name}</h4>
+                                <h6 className="h2-yas">Venue: {this.state.venue}</h6>
+                                <h6 className="h3-yas">Date & Time: {moment(this.state.date).format('Do of MMMM, YYYY')}</h6>
+                                <h6 className="h3-yas">Fee: {this.state.amount}</h6>
+                                <br/>
+                                <h6 className="h4-yas">Theme: {this.state.theme}</h6>
+                                <Link to = {{
+                                    pathname:'/conferencePay',
+                                    conProps:{
+                                        conferenceID: this.state.id,
+                                        conferenceAmount: this.state.amount,
+                                        conferenceName: this.state.name
+                                    }
+                                }}><button className="btn btn-danger join-button" >Join</button></Link>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/*<h3>Research Events</h3>*/}
+                    {/*<div>*/}
+                    {/*    {this.state.researchList.length > 0 && this.state.researchList.map((item, index) => (*/}
+                    {/*        <div key={index} className="card mb-3" >*/}
+                    {/*            <div className="p-3"  >*/}
+                    {/*                <h4>Topic: {item.res_topic}</h4>*/}
+                    {/*                <h5>Fee: {item.res_presenterFee}</h5>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    ))}*/}
+                    {/*</div>*/}
 
 
-                <div className="p-3" >
-                    <img src={this.state.img} alt="Logo" />
-                    <h4>Name: {this.state.name}</h4>
-                    <h6>Theme: {this.state.theme}</h6>
-                    <h6>Venue: {this.state.venue}</h6>
-                    <h6>Date & Time: {moment(this.state.date).format('Do of MMMM, YYYY')}</h6>
-                    <h6>Fee: {this.state.amount}</h6>
 
+
+
+                    <br/>
 
                 </div>
-
-                {/*<h3>Research Events</h3>*/}
-                {/*<div>*/}
-                {/*    {this.state.researchList.length > 0 && this.state.researchList.map((item, index) => (*/}
-                {/*        <div key={index} className="card mb-3" >*/}
-                {/*            <div className="p-3"  >*/}
-                {/*                <h4>Topic: {item.res_topic}</h4>*/}
-                {/*                <h5>Fee: {item.res_presenterFee}</h5>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    ))}*/}
-                {/*</div>*/}
-
-
-
-
-                <Link to = {{
-                    pathname:'/conferencePay',
-                    conProps:{
-                        conferenceID: this.state.id,
-                        conferenceAmount: this.state.amount,
-                        conferenceName: this.state.name
-                    }
-                }}><button className="btn btn-danger" >Join</button></Link>
-
-
             </div>
+
         )
     }
 }

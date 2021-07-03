@@ -11,7 +11,6 @@ import { createStore } from 'redux';
 import Login from "./pages/login/Login";
 const userData = createStore(Reducer);
 import UserPage from "./pages/user/user";
-import Dashboard from "./pages/Dashboard/Dashboard";
 import AdminPage from "./pages/admin/admin";
 import EditorPage from "./pages/editor/editor";
 import Register from "./pages/register/register";
@@ -27,7 +26,7 @@ import Notification from "./pages/admin/Notification";
 import ContactUs from "./Components/forms/ContactUs";
 import AboutUs from "./Components/forms/AboutUs";
 import Notify from "./Components/Notification/notify";
-
+import GetAllNotify from "./Components/Notification/getAllnotify";
 
 ///Yasoja routes
 import CreateConference from "./Components/forms/CreateConference";
@@ -57,7 +56,7 @@ import EditPaper from "./Components/forms/editPaper";
 import PaymentForm from "./Components/forms/paymentForm";
 import ReviewerPayView from "./Components/views/ReviewerPayView";
 import UserSpecfPaper from "./Components/views/UserSpecfPaper";
-
+import Download from "./Components/forms/Download";
 //Salika
 
 import EditProposal from "./Components/Proposals/EditProposal";
@@ -71,6 +70,7 @@ import AdminWorkshop from "./Components/views/AdminWorkshop";
 import UserWorkshop from "./Components/views/UserWorkShop";
 import ReviewerWorkshop from "./Components/views/ReviwerWorkShop";
 import Footer from "./Components/footer/footer";
+import KeyNote from './Components/Landing Page/keynote'
 
 
 if(localStorage.getItem('token')){
@@ -98,6 +98,7 @@ const App = () => {
                             <Route path="/get_all_users" component={GetallUsers}/>
                             <Route path="/notification" component={Notification}/>
                             <Route path="/notify" component={Notify}/>
+                            <Route path="/allNotification" component={GetAllNotify}/>
                             <Route path="/edit_user/:id" component={EditUsers}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/forgot" component={ForgotPassword}/>
@@ -133,8 +134,9 @@ const App = () => {
                             <Route path="/addPay" component={PaymentForm}  />
                             <Route path='/editPaper' component={EditPaper}/>
                             <Route path='/userPaper' component={UserPaper}/>
-                            <Route path='/addPaper' component={CreatePaper}/>
+                            <Route path='/addPaper/:id' component={CreatePaper}/>
                             <Route path='/editorPaper' component={ReviewerPaper}/>
+                            <Route path='/download' component={Download}/>
 
                             {/*Salika Routes*/}
                             <Route path='/editWorkshop/:id' component={EditWorkShopEditor}/>
@@ -147,6 +149,7 @@ const App = () => {
                             <Route path='/addProposal/:id' component={CreateProposal}/>
                             <Route path='/reviewerProposal/:id' component={ReviewerProposal}/>
                             <Route path='/reviewerWorkShop' component={ReviewerWorkshop}/>
+                            <Route path='/keynote' component={KeyNote}/>
                         </Switch>
                     </Router>
                 </Provider>

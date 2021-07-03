@@ -12,6 +12,7 @@ const WorkshopEventAPI = require('./src/api/WorkshopEventsApi');
 const PaperAPI = require('./src/api/PapersApi');
 const ProposalAPI = require('./src/api/ProposalsApi');
 const PaymentAPI = require('./src/api/PaymentApi');
+const CountAPI =require('./src/api/FeedbackApi')
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use(fileUpload({
 }))
 app.use(bodyParser.json({ limit:"30mb",extended: true}));
 app.use(bodyParser.urlencoded({ limit:"30mb",extended: true}));
+app.set('trust proxy', 1) // trust first proxy
 
 const PORT = process.env.PORT || 4002;
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -49,6 +51,8 @@ app.use('/paper', PaperAPI());
 app.use('/payment', PaymentAPI());
 app.use('/WorkshopEvents', WorkshopEventAPI());
 app.use('/ProposalEvents', ProposalAPI());
+app.use('/count', CountAPI());
+
 
 app.listen(PORT, () => {
     console.log(`Server is up and running on PORT ${PORT}`);

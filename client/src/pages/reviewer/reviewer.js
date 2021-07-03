@@ -6,7 +6,8 @@ class Reviewer extends Component {
         return (
             <div>
                 <ReviewerNavBar/>
-                <h1>Hello </h1>
+                <h1>Hello Welcome Reviewer </h1>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
         );
     }

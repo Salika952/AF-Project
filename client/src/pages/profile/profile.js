@@ -6,7 +6,8 @@ import swat from "sweetalert2";
 import FileBase from 'react-file-base64';
 import UserNavbar from "../../Components/navbar/UserNavBar";
 import EditorNavbar from "../../Components/navbar/editorNavbar";
-import reviewerNavBar from "../../Components/navbar/reviewerNavBar";
+import ReviewerNavBar from "../../Components/navbar/reviewerNavBar";
+import {isMatch,isEmpty,isLength} from "../../utils/validation";
 
 const SuccessAlert = (res) => {
     swat.fire({
@@ -22,7 +23,7 @@ const FailAlert = (res) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: res + 'Filed!'
+        text: res
     })
 }
 
@@ -93,25 +94,30 @@ class Profile extends Component {
     }
     onSubmitHandler (e) {
         e.preventDefault();
-        let user={
-            user_name:this.state.fullName,
-            user_address:this.state.address,
-            user_telephone:this.state.telephone,
-            user_imageUrl:this.state.PImage,
+        let user = {
+            user_name: this.state.fullName,
+            user_address: this.state.address,
+            user_telephone: this.state.telephone,
+            user_imageUrl: this.state.PImage,
         }
-        axios.put('http://localhost:4002/users/update',user,{
-            headers: {Authorization: this.state.token}
-        })
-            .then(response => {
-                let message = "User Update"
-                SuccessAlert(message)
-                this.props.history.push('/profile');
-
-            }).catch(error => {
-            let message = " Update"
-            console.log(error);
+        if (isEmpty(this.state.fullName) || isEmpty(this.state.address) || isEmpty(this.state.telephone)){
+            let message = "Please Fill the Fields"
             FailAlert(message)
-        });
+        }else{
+            axios.put('http://localhost:4002/users/update', user, {
+                headers: {Authorization: this.state.token}
+            })
+                .then(response => {
+                    let message = "User Update"
+                    SuccessAlert(message)
+                    this.props.history.push('/profile');
+
+                }).catch(error => {
+                let message = " Update Successfully"
+                console.log(error);
+                FailAlert(message)
+            });
+        }
     }
     onDelete = async (id) =>{
         try {
@@ -135,31 +141,43 @@ class Profile extends Component {
         let user = {
             user_password: this.state.password
         }
-        console.log('DATA TO SEND', user);
-        axios.post('http://localhost:4002/users/reset_password', user,{
-            headers: {Authorization: this.state.token}
-        })
-            .then(response => {
-                let message = "Password Update"
-                SuccessAlert(message)
+        if (isEmpty(this.state.password) || isEmpty(this.state.confirmPassword)) {
+            let message = "Please Fill the Field"
+            FailAlert(message);
+        } else if (isLength(this.state.password) || isLength(this.state.confirmPassword)) {
+            let message = "At least 3 characters"
+            FailAlert(message);
+        } else if (!isMatch(this.state.password, this.state.confirmPassword)) {
+            let message = "Password not match"
+            FailAlert(message);
+        } else {
+            console.log('DATA TO SEND', user);
+            axios.post('http://localhost:4002/users/reset_password', user, {
+                headers: {Authorization: this.state.token}
             })
-            .catch(error => {
-                let message = " Password Update"
-                console.log(error);
-                FailAlert(message)
-            })
+                .then(response => {
+                    let message = "Password Update"
+                    SuccessAlert(message)
+                    this.props.history.push('/profile');
+                })
+                .catch(error => {
+                    let message = "Password Update Failed"
+                    console.log(error);
+                    FailAlert(message)
+                })
+        }
     }
     render() {
         return (
             <div>
                 {this.state.type==="user"&&
-                <UserNavbar/>
+                    <UserNavbar/>
                 }
                 {this.state.type==="editor"&&
-                <EditorNavbar/>
+                    <EditorNavbar/>
                 }
                 {this.state.type==="reviewer"&&
-                <reviewerNavBar/>
+                    <ReviewerNavBar/>
                 }
                 <Form  onSubmit={this.onSubmitHandler}>
                     <div className="profile_page">
@@ -175,6 +193,7 @@ class Profile extends Component {
                             </div>
                             {this.state.updateFields &&
                             <Row form>
+                                <h1>User Profile</h1>
                                 <Col md={25}>
                                     <FormGroup>
                                         <Label for="">Position</Label>
@@ -307,7 +326,7 @@ class Profile extends Component {
                         </div>
                     </div>
                 </Form>
-
+                <br/><br/>
             </div>
         );
     }

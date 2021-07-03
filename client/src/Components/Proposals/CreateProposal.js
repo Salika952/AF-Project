@@ -2,16 +2,38 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
 import Template1 from "url:../../Assets/ProposalTemplate/Presentation1.pptx"
+import {isEmpty} from "../../utils/validation";
+import swat from "sweetalert2";
+import UserNavbar from "../navbar/UserNavBar";
 
 
 const initialState = {
     propo_content: '',
     propo_contact: 0,
     propo_sign: '',
-    propo_pres:''
+    propo_pres:'',
+    token:'',
+    user:'',
+    proposalsID:''
 
 }
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Proposal Added Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
 
+const SubmissionFail = (message) => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message
+    })
+}
 class FileBase extends Component {
     render() {
         return null;
@@ -28,6 +50,36 @@ class CreateProposal extends Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
+    }
+
+    componentDidMount() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            this.setState({
+                user: null
+            });
+            return;
+        }
+        this.setState({
+            token:token
+        })
+
+        axios({
+            method: 'get',
+            url: 'http://localhost:4002/users/',
+            headers: {
+                Authorization: token
+            },
+            data: {}
+        }).then(res => {
+            this.setState({
+                user:res.data._id,
+                isLoggedIn: true
+            })
+
+        }).catch(err => {
+            console.log(err.message);
+        })
     }
 
     // onSubmit(e) {
@@ -58,37 +110,63 @@ class CreateProposal extends Component {
             propo_pres: this.state.propo_pres,
 
         };
+        if (isEmpty(this.state.propo_content) || isEmpty(this.state.propo_contact) || isEmpty(this.state.propo_sign)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', proposals);
+            axios.post('http://localhost:4002/ProposalEvents', proposals)
+                .then(response => {
+                    alert('Data successfully inserted');
 
-        console.log('DATA TO SEND', proposals);
-        axios.post('http://localhost:4002/ProposalEvents', proposals)
-            .then(response => {
-                alert('Data successfully inserted');
+                    let details = {
+                        //conferenceID: this.state.conference_id,
+                        workshopID: this.props.match.params.id,
+                        proposalsID: response.data.data._id,
+                    };
+                    console.log('DATA TO SEND', details)
+                    axios.patch(`http://localhost:4002/WorkshopEvents/proposals`, details)
+                        .then(response => {
+                            console.log('Proposal added');
+                            SubmissionAlert()
+                            let details = {
+                                //conferenceID: this.state.conference_id,
+                                proposalID:this.state.proposalsID,
+                                userID: this.state.user,
+                            };
+                            console.log('DATA TO SEND', details)
+                            axios.patch(`http://localhost:4002/ProposalEvents/add`, details)
+                                .then(response => {
+                                    console.log("user added")
+                                    SubmissionAlert()
 
-                let details = {
-                    //conferenceID: this.state.conference_id,
-                    workshopID: this.props.match.params.id,
-                    proposalsID: response.data.data._id,
-                };
-                console.log('DATA TO SEND', details)
-                axios.patch(`http://localhost:4002/WorkshopEvents/proposals`, details)
-                    .then(response => {
-                        console.log('Proposal added');
-                    })
-                    .catch(error => {
-                        console.log(error.message);
-                        alert(error.message)
-                    })
+                                })
+                                .catch(error => {
+                                    console.log(error.message);
+                                    let message = "Error"
+                                    SubmissionFail(message);
+                                })
 
-            })
-            .catch(error => {
-                console.log(error.message);
-                alert(error.message)
-            })
+                        })
+                        .catch(error => {
+                            console.log(error.message);
+                            let message = "Error"
+                            SubmissionFail(message);
+                        })
+
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Error"
+                    SubmissionFail(message);
+                })
+        }
     }
 
     render() {
         return (
             <div>
+                <UserNavbar/>
                 <div className="container">
                     <h1>Create Proposal</h1>
 
@@ -146,10 +224,10 @@ class CreateProposal extends Component {
                             </div>
                         </div>
 
-
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
+                <br/>
             </div>
         )
     }

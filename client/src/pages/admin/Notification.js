@@ -3,7 +3,7 @@ import axios from 'axios';
 import {SERVER_ADDRESS} from "../../Constants/Constants";
 import swat from "sweetalert2";
 import AdminNavBar from "../../Components/navbar/adminNavBar";
-import {Link} from "react-router-dom";
+import {isEmpty} from "../../utils/validation";
 
 const RegisteredAlert = () => {
     swat.fire({
@@ -61,7 +61,7 @@ class Notification extends Component {
     onChange(e){
         this.setState({ [e.target.name]: e.target.value })
     }
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
         let notification = {
             type: this.state.type,
@@ -70,16 +70,20 @@ class Notification extends Component {
             expire: this.state.expire,
 
         }
-        console.log('DATA TO SEND', notification);
-        axios.post(SERVER_ADDRESS +'/notify/create_notify', notification,{
-        })
-            .then(response => {
-                RegisteredAlert();
-            })
-            .catch(error => {
-                console.log(error.message);
-                RegisterFail();
-            })
+        if (isEmpty(this.state.type) || isEmpty(this.state.title) || isEmpty(this.state.message) || isEmpty(this.state.expire)) {
+            let message = "Please Fill the Field"
+            RegisterFail(message);
+        } else {
+            console.log('DATA TO SEND', notification);
+            axios.post(SERVER_ADDRESS + '/notify/create_notify', notification, {})
+                .then(response => {
+                    RegisteredAlert();
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    RegisterFail();
+                })
+        }
     }
     render() {
         return (

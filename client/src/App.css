@@ -157,25 +157,26 @@ section p:first-child, .timer div:last-child span{
 
 .yas-body{
 
-  background: #fff url("yasPic3.png") center center/cover no-repeat;
+  background: #fff url("conference.jpg") center center/cover no-repeat;
   /* The image used */
   /*background-image: url("yasPic3.png");*/
 
-  /*!* Full height *!*/
+  /*/* Full height */
   /*height: 100%;*/
 
-  /*!* Center and scale the image nicely *!*/
+  /*/* Center and scale the image nicely */
   /*background-position: center;*/
   /*background-repeat: no-repeat;*/
   /*background-size: cover;*/
 }
 
 .h1-yas{
-  color: orangered;
-  font-family: Courier New;
-  font-size: 800%;
+  color: gold;
+  font-family: Arial New;
+  font-size: 500%;
   text-transform: uppercase;
-  font-weight: bold
+  font-weight: bold;
+  text-align: center;
 }
 
 .h2-yas{
@@ -183,25 +184,27 @@ section p:first-child, .timer div:last-child span{
   font-family: "Times New Roman";
   font-size: 400%;
   text-transform: uppercase;
-  font-weight: bold
+  font-weight: bold;
+  text-align: center;
 }
 
 .h4-yas{
   color: #fff;
-  font-family: "Times New Roman";
+  font-family: "";
   font-size: 170%;
-  font-weight: bold
+  padding: 50px;
 }
 
 .h3-yas{
-  color: mediumvioletred;
+  color: lime;
   font-family: "Times New Roman";
   font-size: 300%;
-  font-weight: bold
+  font-weight: bold;
+  text-align: center;
 }
 .parallax {
   /* The image used */
-  background-image: url('yasPic3.png');
+  background-image: url('conference.jpg');
 
   /* Full height */
   height: 100%;
@@ -243,96 +246,41 @@ section p:first-child, .timer div:last-child span{
   transition: all 0.5s;
   cursor: crosshair;
   margin: 5px;
+  margin-left: 640px;
 }
 
 /*---------------------------------*/
 
-
-h1 {
-  line-height: 1.5;
-  font-weight: 350;
-  font-family: "Georgia", Arial, sans-serif;
-  color: #000; }
-
-.space-section {
-  padding: 6em 0; }
-
-.heading-section {
-  font-size: 20px;
-  color: #000;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
 }
 
-.img {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+.home,
+.services,
+.products,
+.sign-up {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
 }
 
-.con-control {
-  position: relative;
-  background: #fff;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.20);
-  -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.20);
-  box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.20);
-}
-.con-control h3 {
-  font-weight: 300;
-}
-.con-control .icon {
-  width: 80px;
-  height: 80px;
-  background: #1089ff;
-  border-radius: 50%;
-  font-size: 30px;
-  margin: 0 auto;
-  margin-bottom: 10px;
-}
-.con-control .icon span {
-  color: #fff; }
-
-.form-control {
-  height: 50px;
-  background: #fff;
-  color: #000;
-  font-size: 15px;
+.join-button{
+  display: inline-block;
   border-radius: 4px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-
+  background-color: #f4511e;
+  border: darkslategray;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: crosshair;
+  margin: 5px;
+  margin-left: 600px;
 }
-.form-control:focus, .form-control:active {
-  outline: none ;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid #1089ff; }
-.btn {
-  cursor: pointer;
-  border-radius: 40px;
-  -webkit-box-shadow: none ;
-  box-shadow: none ;
-  font-size: 15px;
-  margin-top: 10px;
-}
-.btn.btn-primary {
-  background: #1089ff ;
-  border: 1px solid #1089ff ;
-  color: #fff ;
-}
-.btn:hover, .btn:active, .btn:focus {
-  outline: none;
-}
-.forgot1 {
-  text-align: right;
-  margin-right: 30px;
-  margin-top: 10px;
-}
-.register{
-  margin-top: 10px;
-}
-
-/*-------------------*/
-
-
-

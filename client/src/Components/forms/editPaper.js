@@ -2,11 +2,12 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import UserNavbar from "../navbar/UserNavBar";
 import swat from "sweetalert2";
+import {isEmpty} from "../../utils/validation";
 
 const initialState = {
     paper_content: '',
     paper_contact: '',
-    paper_sign: '',
+    paper_mail: '',
     pdf:'',
     paper_id:''
 
@@ -22,11 +23,11 @@ const SubmissionAlert = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Submission Error!'
+        text: message
     })
 }
 
@@ -70,21 +71,25 @@ class EditPaper extends Component {
         let paper = {
             paper_content: this.state.paper_content,
             paper_contact: this.state.paper_contact,
-            paper_sign: this.state.paper_sign,
+            paper_sign: this.state.paper_mail,
             pdf: this.state.pdf
-
         };
-        console.log('DATA TO SEND', paper)
-        axios.put(`http://localhost:4002/paper/${this.state.paper_id}`, paper)
-            .then(response => {
-                SubmissionAlert()
-            })
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail()
-            })
+        if (isEmpty(this.state.paper_content) || isEmpty(this.state.paper_contact) || isEmpty(this.state.paper_mail)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', paper)
+            axios.put(`http://localhost:4002/paper/${this.state.paper_id}`, paper)
+                .then(response => {
+                    SubmissionAlert()
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Submission Error"
+                    SubmissionFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>
@@ -140,6 +145,7 @@ class EditPaper extends Component {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
+                <br/>
             </div>
         )
     }

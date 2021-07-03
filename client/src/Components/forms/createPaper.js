@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import UserNavbar from "../navbar/UserNavBar";
 import Template1 from "url:../../Assets/Templates/temp2.docx";
 import firebase from "../firebase/index";
+import {isEmpty} from "../../utils/validation";
 
 const initialState = {
     paper_content: '',
@@ -16,7 +17,8 @@ const initialState = {
     paper_event:'',
     id:'',
     files:null,
-    u:''
+    u:'',
+    paper_users:''
 
 
 }
@@ -31,14 +33,13 @@ const SubmissionAlert = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Submission Error!'
+        text: message
     })
 }
-
 class CreatePaper extends Component {
     constructor(props) {
         super(props);
@@ -48,19 +49,44 @@ class CreatePaper extends Component {
     }
 
     componentDidMount() {
-        this.state.paper_author = '60bcff2d5b1db804dc3a4181';
-        this.state.paper_event = '60d961ca1b76b24828423586';
-
-    }
-
-    handleChange=(files)=>{
+        const token = localStorage.getItem('token');
+        if (!token) {
+            this.setState({
+                user: null
+            });
+            return;
+        }
         this.setState({
-            files:files
+            token:token
+        })
+
+        axios({
+            method: 'get',
+            url: 'http://localhost:4002/users/',
+            headers: {
+                Authorization: token
+            },
+            data: {}
+        }).then(res => {
+            this.setState({
+                paper_users:res.data._id,
+                isLoggedIn: true
+            })
+
+        }).catch(err => {
+            console.log(err.message);
+        })
+        console.log(this.props.match.params.id);
+        this.state.paper_author = this.state.paper_users;
+        this.state.paper_event = this.props.match.params.id;
+    }
+    handleChange = (files) => {
+        this.setState({
+            files: files
         })
 
     }
-
-    handleSave=(files)=>{
+    handleSave = (files) => {
         // let bucketName = 'images';
         let file = this.state.files[0];
         // let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`);
@@ -76,18 +102,19 @@ class CreatePaper extends Component {
         const upload = firebase.storage().ref(`images/${file.name}`).put(file);
         upload.on(
             "state_changed",
-            snapshot => {},
+            snapshot => {
+            },
             error => {
                 console.log(error);
-            },()=>{
+            }, () => {
                 firebase.storage()
                     .ref("images")
                     .child(file.name)
                     .getDownloadURL()
-                    .then(url=>{
+                    .then(url => {
                         console.log(url)
                         this.setState({
-                            pdf:url
+                            pdf: url
                         })
 
                         console.log(this.state.pdf);
@@ -96,18 +123,17 @@ class CreatePaper extends Component {
         )
 
 
-
     }
 
 
-    deletePaper(){
+    deletePaper() {
         let id = this.state.paper_author;
 
         window.location = `/userPaper/${id}`
     }
 
 
-    downloadPaper(){
+    downloadPaper() {
         axios.get('http://localhost:4002/paper/download')
             .then(response => {
                 SubmissionAlert()
@@ -123,7 +149,7 @@ class CreatePaper extends Component {
 
 
     onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({[e.target.name]: e.target.value})
     }
 
     onSubmit(e) {
@@ -136,31 +162,26 @@ class CreatePaper extends Component {
             paper_event: this.state.paper_event,
             pdf: this.state.pdf
         }
-        console.log('DATA TO SEND', paper);
-        axios.post('http://localhost:4002/paper', paper)
-            .then(response => {
-                SubmissionAlert()
+        if (isEmpty(this.state.paper_content) || isEmpty(this.state.paper_contact) || isEmpty(this.state.paper_mail)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', paper);
+            axios.post('http://localhost:4002/paper', paper)
+                .then(response => {
+                    SubmissionAlert()
+
+                })
+
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Submission Error"
+                    SubmissionFail(message);
+                })
 
 
-
-                // let details = {
-                //     researchId:this.state.research_id,
-                //     paperAuthor: this.state.paper_author,
-                //
-                // };
-
-
-            })
-
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail()
-            })
-
-
-
+        }
     }
-
     render() {
         return (
             <div>
@@ -179,6 +200,21 @@ class CreatePaper extends Component {
                             </form>
                         </div>
                     </div>
+
+                    <div>
+                        <input
+                            type="file"
+                            className="form-control"
+                            name="pdf"
+                            onChange={(e) => {
+                                this.handleChange(e.target.files)
+                            }}/>
+                        <button className="btn btn-danger" onClick={this.handleSave}>Submit Paper</button>
+                        <p>ee:{this.state.pdf}</p>
+                    </div>
+
+                    <p>Please Submit the paper before details</p>
+
                     <form onSubmit={this.onSubmit}>
                         <div className="mb-3">
                             <label htmlFor="paperContent" className="form-label">Content</label>
@@ -189,6 +225,7 @@ class CreatePaper extends Component {
                                 name="paper_content"
                                 value={this.state.paper_content}
                                 onChange={this.onChange}
+
                             />
                         </div>
                         <div className="mb-3">
@@ -213,41 +250,12 @@ class CreatePaper extends Component {
                                 onChange={this.onChange}
                             />
                         </div>
-                        {/*<div className="mb-3">*/}
-                        {/*    <label htmlFor="paperPdf" className="form-label">File</label>*/}
-                        {/*    <input*/}
-                        {/*        type="file"*/}
-                        {/*        className="form-control"*/}
-                        {/*        id="paperPdf"*/}
-                        {/*        name="pdf"*/}
-                        {/*        value={this.state.pdf}*/}
-                        {/*        onChange={this.onChange}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-
-
-                        <button type="submit" className="btn btn-primary" >Submit</button>
-
-
-
-
-
-
+                        <button type="submit" className="btn btn-primary">Submit Details</button>
                     </form>
-
-                    <input
-                        type="file"
-                        className="form-control"
-                        name="pdf"
-                        onChange={(e)=>{this.handleChange(e.target.files)}}/>
-                    <button onClick={this.handleSave}>Save</button>
-                    <p>url:{this.state.pdf}</p>
-
                 </div>
-
+                <br/>
             </div>
         )
     }
 }
-
 export default CreatePaper;

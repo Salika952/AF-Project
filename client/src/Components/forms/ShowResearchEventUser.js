@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import UserNavbar from "../navbar/UserNavBar";
 
 class ShowResearchEventUser extends Component {
     constructor(props) {
@@ -30,30 +31,32 @@ class ShowResearchEventUser extends Component {
 
     }
 
+        becomeResearcher(id){
+            window.location = `/addPaper/${id}`
+        }
 
-    becomeResearcher(id){
-
-    }
 
     render() {
         return (
-            <div className="container">
+            <div>
+                <UserNavbar/>
+                <div className="container">
 
 
-                        <div className="p-3" >
-                            <img src={this.state.img} alt="Logo" />
-                            <h3>Conference: {this.state.con}</h3>
-                            <h4>Topic: {this.state.topic}</h4>
-                            <h6>Description: {this.state.description}</h6>
-                            <h6>Fee: {this.state.fee}</h6>
+                    <div className="p-3" >
+                        <img src={this.state.img} alt="Logo" />
+                        <h3>Conference: {this.state.con}</h3>
+                        <h4>Topic: {this.state.topic}</h4>
+                        <h6>Description: {this.state.description}</h6>
+                        <h6>Fee: {this.state.fee}</h6>
 
-                            <button className="btn btn-success" onClick={() => this.becomeResearcher(this.state.id)}>Become a Researcher</button>
+                        <button className="btn btn-success" onClick={() => this.becomeResearcher(this.state.id)}>Become a Researcher</button>
 
-                        </div>
                     </div>
-
+                </div>
+                <br/><br/><br/>
+            </div>
                 )
-
 
     }
 }

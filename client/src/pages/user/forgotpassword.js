@@ -3,6 +3,7 @@ import swat from "sweetalert2";
 import axios from "axios";
 import Header from "../../Components/navbar/guestHeader";
 import {Link} from "react-router-dom";
+import {isEmail,isEmpty} from '../../utils/validation'
 
 const ForgotAlert = () => {
     swat.fire({
@@ -14,11 +15,11 @@ const ForgotAlert = () => {
     });
 }
 
-const ForgotFail = () => {
+const ForgotFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Forgot Error!'
+        text: message
     })
 }
 
@@ -40,6 +41,13 @@ class ForgotPassword extends Component {
         let forgot = {
             user_email: this.state.email,
         }
+        if(isEmpty(this.state.email)){
+            let message="Please Fill the Field"
+            ForgotFail(message);
+        }else if(!isEmail(this.state.email)){
+            let message="Invalid Email"
+            ForgotFail(message);
+        }else{
         console.log('DATA TO SEND', forgot);
         axios.post('http://localhost:4002/users/forgot_password', forgot)
             .then(response => {
@@ -47,8 +55,10 @@ class ForgotPassword extends Component {
             })
             .catch(error => {
                 console.log(error.message);
-                ForgotFail();
+                let message="Forgot Error"
+                ForgotFail(message);
             })
+         }
     }
 
     render() {

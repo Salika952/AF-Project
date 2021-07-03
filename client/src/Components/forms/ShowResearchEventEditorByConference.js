@@ -63,7 +63,9 @@ class ShowResearchEventEditor extends Component {
                                 <h6>Description: {item.res_description}</h6>
                                 <h6>Fee: {item.res_presenterFee}</h6>
                                 <h6><small> {item.res_AdminStatus}</small></h6>
-                                <button className="btn btn-danger" onClick={() => this.deleteResearch(item._id)}>Delete</button>
+                                <a className = "btn btn-danger" href="/conferenceEditorShow" onClick={() => this.deleteResearch(item._id)}>
+                                   &nbsp;Delete
+                                </a>
                                 &nbsp;
                                 <Link to = {{
                                     pathname:'/researchUpdate',

@@ -3,6 +3,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import UserNavbar from "../navbar/UserNavBar";
 import swat from "sweetalert2";
+import {isEmail, isEmpty, isLength2} from "../../utils/validation";
 
 const initialState = {
     pay_creditCardNo: '',
@@ -23,11 +24,11 @@ const SubmissionAlert = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Submission Error!'
+        text: message
     })
 }
 
@@ -40,10 +41,34 @@ class PaymentForm extends Component {
     }
 
     componentDidMount() {
-        this.state.pay_users = '60bcff2d5b1db804dc3a4181';
+        const token = localStorage.getItem('token');
+        if (!token) {
+            this.setState({
+                user: null
+            });
+            return;
+        }
+        this.setState({
+            token:token
+        })
 
+        axios({
+            method: 'get',
+            url: 'http://localhost:4002/users/',
+            headers: {
+                Authorization: token
+            },
+            data: {}
+        }).then(res => {
+            this.setState({
+                pay_users:res.data._id,
+                isLoggedIn: true
+            })
+
+        }).catch(err => {
+            console.log(err.message);
+        })
     }
-
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
@@ -58,17 +83,28 @@ class PaymentForm extends Component {
             pay_email: this.state.pay_email,
             pay_description: this.state.pay_description
         }
-        console.log('DATA TO SEND', payment);
-        axios.post('http://localhost:4002/payment/', payment)
-            .then(response => {
-                SubmissionAlert()
-            })
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail()
-            })
+        if (isEmpty(this.state.pay_creditCardNo) || isEmpty(this.state.pay_amount)  || isEmpty(this.state.pay_email) ) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        }else if (!isLength2(this.state.pay_creditCardNo)) {
+            let message = "Enter Valid Credit Card"
+            SubmissionFail(message);
+        }else if (!isEmail(this.state.pay_email)) {
+            let message = "Invalid Email"
+            SubmissionFail(message);
+        }else {
+            console.log('DATA TO SEND', payment);
+            axios.post('http://localhost:4002/payment/', payment)
+                .then(response => {
+                    SubmissionAlert()
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = 'Submission Error!'
+                    SubmissionFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>
@@ -77,27 +113,27 @@ class PaymentForm extends Component {
                 <h1>Payment Details</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="paymentCard" className="form-label">Credit Card</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="paymentCard"
-                            name="pay_creditCardNo"
-                            value={this.state.pay_creditCardNo}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="paymentAmount" className="form-label">Amount</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="paymentAmount"
-                            name="pay_amount"
-                            value={this.state.pay_amount}
-                            onChange={this.onChange}
-                        />
-                    </div>
+                    <label htmlFor="paymentCard" className="form-label">Credit Card</label>
+                    <input
+                        type="number"
+                        className="form-control"
+                        id="paymentCard"
+                        name="pay_creditCardNo"
+                        value={this.state.pay_creditCardNo}
+                        onChange={this.onChange}
+                    />
+            </div>
+                <div className="mb-3">
+                    <label htmlFor="paymentAmount" className="form-label">Amount</label>
+                    <input
+                        type="number"
+                        className="form-control"
+                        id="paymentAmount"
+                        name="pay_amount"
+                        value={this.state.pay_amount}
+                        onChange={this.onChange}
+                    />
+                </div>
                     <div className="mb-3">
                         <label htmlFor="paymentEmail" className="form-label">Email</label>
                         <input
@@ -124,6 +160,7 @@ class PaymentForm extends Component {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
+                <br/>
             </div>
         )
     }

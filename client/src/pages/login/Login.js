@@ -5,7 +5,8 @@ import {connect} from 'react-redux';
 import swat from "sweetalert2";
 import '../login/login.css'
 import Header from "../../Components/navbar/guestHeader";
-import UserNavbar from "../../Components/navbar/UserNavBar";
+import {isLength,isEmpty,isEmail} from '../../utils/validation'
+
 const Login = ({loginUser, isLoggedIn}) => {
 
     let [data, setData] = useState({
@@ -33,7 +34,7 @@ const Login = ({loginUser, isLoggedIn}) => {
 
         switch (user.position) {
             case 'admin':
-                return <Redirect to="/conferenceAdminShow"/>
+                return <Redirect to="/admin"/>
             case 'editor':
                 return <Redirect to="/conferenceEditorShow"/>
             case 'reviewer':
@@ -43,11 +44,11 @@ const Login = ({loginUser, isLoggedIn}) => {
         }
     }
 
-    const fieldmissAlart = ()=>{
+    const fieldmissAlart = (res)=>{
         swat.fire({
-            icon: 'question',
+            icon: 'error',
             title: 'OOps! something missing',
-            text: 'Please enter username and password!'
+            text: res
         })
     }
 
@@ -60,8 +61,17 @@ const Login = ({loginUser, isLoggedIn}) => {
 
         event.preventDefault();
 
-        if (user_email === "" || user_password === "") {
-            fieldmissAlart();
+        if (isEmpty(user_email) || isEmpty(user_password)) {
+            let message="Fields are Empty"
+            fieldmissAlart(message);
+        }
+        else if (isLength(user_password)) {
+            let message="At least 3 Characters"
+            fieldmissAlart(message);
+        }
+        else if (!isEmail(user_email)) {
+            let message="Invalid Email"
+            fieldmissAlart(message);
         } else {
             loginUser(user_email, user_password);
             //console.log(loginValue);
@@ -90,8 +100,7 @@ const Login = ({loginUser, isLoggedIn}) => {
                                             onChange={(e) => onChange(e)}
                                             value={user_email}
                                             name="user_email"
-                                            required
-                                        />
+                                            />
                                     </div>
                                     <label htmlFor="exampleDropdownFormPassword2" className="form-label">Password</label>
                                     <div className="form-group d-flex">

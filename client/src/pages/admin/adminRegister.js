@@ -4,7 +4,7 @@ import {SERVER_ADDRESS} from "../../Constants/Constants";
 import swat from "sweetalert2";
 import AdminNavBar from "../../Components/navbar/adminNavBar";
 import {Link} from "react-router-dom";
-
+import {isEmpty, isEmail, isLengthMobile, isLength} from "../../utils/validation";
 
 const RegisteredAlert = () => {
     swat.fire({
@@ -16,11 +16,11 @@ const RegisteredAlert = () => {
     });
 }
 
-const RegisterFail = () => {
+const RegisterFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Registration Error!'
+        text: message
     })
 }
 
@@ -43,7 +43,7 @@ class AdminRegister extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
         let subject = {
             user_name: this.state.fullName,
@@ -53,17 +53,31 @@ class AdminRegister extends Component {
             user_position: this.state.position,
             password: this.state.password
         }
-        console.log('DATA TO SEND', subject);
-        axios.post(SERVER_ADDRESS +'/users/admin_register', subject)
-            .then(response => {
-                RegisteredAlert();
-            })
-            .catch(error => {
-                console.log(error.message);
-                RegisterFail();
-            })
+        if (isEmpty(this.state.fullName) || isEmpty(this.state.email) || isEmpty(this.state.telephone) || isEmpty(this.state.address) || isEmpty(this.state.position)  || isEmpty(this.state.password)) {
+            let message = "Please Fill the Field"
+            RegisterFail(message);
+        } else if (isLength(this.state.password)) {
+            let message = " Password at least 3 characters"
+            RegisterFail(message);
+        } else if (!isEmail(this.state.email)) {
+            let message = "Invalid Email"
+            RegisterFail(message);
+        } else if (!isLengthMobile(this.state.telephone)) {
+            let message = "Mobile, Please enter 10 Numbers"
+            RegisterFail(message);
+        } else {
+            console.log('DATA TO SEND', subject);
+            axios.post(SERVER_ADDRESS + '/users/admin_register', subject)
+                .then(response => {
+                    RegisteredAlert();
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Registration Failed"
+                    RegisterFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>

@@ -121,9 +121,9 @@ class ShowResearchEventAdminByConference extends Component {
                                 <h6>Fee: {item.res_presenterFee}</h6>
                                 <h6><small> {item.res_AdminStatus}</small></h6>
 
-                                <button className="btn btn-success" onClick={() => this.acceptResearch(item._id,item.res_topic)}>Accept</button>
+                                <a className="btn btn-success" href="/conferenceAdminShow" onClick={() => this.acceptResearch(item._id,item.res_topic)}>Accept</a>
                                 &nbsp;
-                                <button className="btn btn-danger" onClick={() => this.declineResearch(item._id,item.res_topic)}>Decline</button>
+                                <a className="btn btn-danger" href="/conferenceAdminShow" onClick={() => this.declineResearch(item._id,item.res_topic)}>Decline</a>
                             </div>
                         </div>
                     ))}

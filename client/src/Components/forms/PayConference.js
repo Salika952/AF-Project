@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import swat from "sweetalert2";
 import UserNavbar from "../navbar/UserNavBar";
+import {isEmail, isEmpty, isLength1, isLength2,isMatch1} from "../../utils/validation";
 
 const SubmissionAlert = () => {
     swat.fire({
@@ -23,11 +24,11 @@ const SubmissionAlert2 = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Payment Error!'
+        text: message
     })
 }
 
@@ -107,64 +108,79 @@ class PayConference extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        if(!isLength1(this.state.digits)){
+            let message = "Invalid CCV"
+            SubmissionFail(message);
+        }
         let pay = {
             pay_creditCardNo: this.state.pay_creditCardNo,
             pay_users: this.state.pay_users,
             pay_amount: this.state.pay_amount,
             pay_description: this.state.pay_description,
-            pay_email:this.state.email
+            pay_email: this.state.email
         };
-        console.log('DATA TO SEND', pay)
-        axios.post('http://localhost:4002/payment/', pay)
-            .then(response => {
-                SubmissionAlert();
+        if (isEmpty(this.state.pay_creditCardNo) || isEmpty(this.state.pay_users) || isEmpty(this.state.pay_amount) || isEmpty(this.state.pay_description) || isEmpty(this.state.email)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        }else if (!isLength2(this.state.pay_creditCardNo)) {
+            let message = "Enter Valid Credit Card"
+            SubmissionFail(message);
+        }else if (!isEmail(this.state.email)) {
+            let message = "Invalid Email"
+            SubmissionFail(message);
+        }else if (!isMatch1(this.state.expiry)) {
+            let message = "Invalid Date"
+            SubmissionFail(message);
+        }else {
+            console.log('DATA TO SEND', pay)
+            axios.post('http://localhost:4002/payment/', pay)
+                .then(response => {
+                    SubmissionAlert();
 
-                ////////////////////////////////////////////
+                    ////////////////////////////////////////////
 
-                let details = {
-                    conferenceID: this.state.conference_id,
-                    attendeeID: this.state.pay_users,
-                };
-                console.log('DATA TO SEND', details)
-                axios.patch(`http://localhost:4002/Conference/attend`, details)
-                    .then(response => {
-                        //alert('Attendee added');
+                    let details = {
+                        conferenceID: this.state.conference_id,
+                        attendeeID: this.state.pay_users,
+                    };
+                    console.log('DATA TO SEND', details)
+                    axios.patch(`http://localhost:4002/Conference/attend`, details)
+                        .then(response => {
+                            //alert('Attendee added');
 
-                        let mail = {
-                            to: this.state.email,
-                            conferenceName: this.state.conference_name,
-                            fee: this.state.pay_amount
-                        };
+                            let mail = {
+                                to: this.state.email,
+                                conferenceName: this.state.conference_name,
+                                fee: this.state.pay_amount
+                            };
 
-                        console.log('DATA TO SEND', details)
-                        axios.post(`http://localhost:4002/Conference/join/mail/to`, mail)
-                            .then(response => {
-                                SubmissionAlert2();
-                            })
-                            .catch(error => {
-                                console.log(error.message);
-                                SubmissionFail2();
-                            })
-                    })
-                    .catch(error => {
-                        console.log(error.message);
-                        alert(error.message)
-                    })
-
-
+                            console.log('DATA TO SEND', details)
+                            axios.post(`http://localhost:4002/Conference/join/mail/to`, mail)
+                                .then(response => {
+                                    SubmissionAlert2();
+                                })
+                                .catch(error => {
+                                    console.log(error.message);
+                                    SubmissionFail2();
+                                })
+                        })
+                        .catch(error => {
+                            console.log(error.message);
+                            alert(error.message)
+                        })
 
 
+                    ///////////////////////////////////////////
 
-                ///////////////////////////////////////////
 
-
-            })
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail();
-            })
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Payment Error"
+                    SubmissionFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>
@@ -204,6 +220,7 @@ class PayConference extends Component {
                             className="form-control"
                             id="expiry"
                             name="expiry"
+                            placeholder="MM/YY"
                             value={this.state.expiry}
                             onChange={this.onChange}
                         />
@@ -222,6 +239,7 @@ class PayConference extends Component {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
+                <br/>
             </div>
         )
     }

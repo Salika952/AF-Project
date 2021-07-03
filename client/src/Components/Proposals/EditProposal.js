@@ -1,6 +1,9 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
+import {isEmpty} from "../../utils/validation";
+import swat from "sweetalert2";
+import UserNavbar from "../navbar/UserNavBar";
 
 
 const initialState = {
@@ -9,7 +12,23 @@ const initialState = {
     propo_sign: '',
     propo_pres:''
 }
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Proposal Event Edit Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
 
+const SubmissionFail = (message) => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message
+    })
+}
 class EditProposal extends Component {
     constructor(props) {
         super(props);
@@ -51,20 +70,26 @@ class EditProposal extends Component {
             propo_pres: this.state.propo_pres
 
         };
-        console.log('DATA TO SEND', proposal)
-        axios.put(`http://localhost:4002/ProposalEvents/${this.props.match.params.id}`,proposal)
-            .then(response => {
-                alert('Category Data successfully updated')
-            })
-            .catch(error => {
-                console.log(error.message);
-                alert(error.message)
-            })
+        if (isEmpty(this.state.propo_content) || isEmpty(this.state.propo_contact) || isEmpty(this.state.propo_sign)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', proposal)
+            axios.put(`http://localhost:4002/ProposalEvents/${this.props.match.params.id}`, proposal)
+                .then(response => {
+                    SubmissionAlert()
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Error"
+                    SubmissionFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>
+                <UserNavbar/>
                 <div className="container">
                     <h1>Edit Paper</h1>
                     <form onSubmit={this.onSubmit}>
@@ -111,6 +136,7 @@ class EditProposal extends Component {
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
+                <br/>
             </div>
         )
     }

@@ -4,8 +4,8 @@ import Timer from './Timer/timer';
 import moment from 'moment';
 import {Link} from "react-router-dom";
 import Header from "../navbar/guestHeader";
-
-
+import HeroSection from "../Landing Page/HeroSection";
+import Cards from "../Landing Page/Cards";
 
 class ShowConferencesUserLanding extends Component {
     constructor(props) {
@@ -89,19 +89,16 @@ class ShowConferencesUserLanding extends Component {
                 <div className="parallax">
 
                     <div className="parallax-container" >
-                        <br></br>
-                        <h1 className="h1-yas"> {this.state.name}</h1>
-                        <h2 className="h4-yas">{this.state.theme}</h2>
-                        <h2 className="h2-yas">{this.state.venue}</h2>
-                        <h3 className="h3-yas">{moment(this.state.date).format('Do of MMMM YYYY')}</h3>
-                        {/*<h6>{this.state.amount}</h6>*/}
-
-
+                        <HeroSection/>
                         <div>
                             <Timer dueDate = {this.state.date}/>
                         </div>
-
-
+                        <h4 className="h1-yas"> {this.state.name}</h4>
+                        <h5 className="h2-yas">{this.state.venue}</h5>
+                        <h3 className="h3-yas">{moment(this.state.date).format('Do of MMMM YYYY')}</h3>
+                        {/*<h6>{this.state.amount}</h6>*/}
+                        <p className="h4-yas">{this.state.theme}</p>
+                        <Cards/>
                     </div>
                     <br></br>
                 </div>

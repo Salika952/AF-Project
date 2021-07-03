@@ -72,6 +72,30 @@ const deleteProposal = async (req, res) => {
     }
 }
 
+const addProposalIdEvents = async (req, res) => {
+    if (req.params) {
+
+        const userID = req.body.userID;
+        const pID=req.body.proposalID;
+
+        console.log("pID:",pID);
+        console.log("UID:",userID);
+        const post = await Proposal.findById(pID);
+
+        console.log(post.propo_author);
+        await post.propo_author.push(userID);
+
+        console.log(post.propo_author);
+        await Proposal.findByIdAndUpdate(pID,post)
+            .then(response => {
+                res.status(200).send({ data: response });
+            })
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+
+    }
+}
 
 
 module.exports = {
@@ -79,6 +103,6 @@ module.exports = {
     getAllProposal,
     getSpecificProposal,
     editProposal,
-    deleteProposal
-
+    deleteProposal,
+    addProposalIdEvents
 };

@@ -9,12 +9,14 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.29.1",
     "parcel": "^2.0.0-beta.3.1",
+    "phaser": "^3.55.2",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
     "react-file-base64": "^1.0.3",
     "react-fontawesome": "^1.7.1",
     "react-notifications": "^1.7.2",
+    "react-redux-form": "^1.16.14",
     "react-router-dom": "^5.2.0",
     "react-select": "^4.3.1",
     "redux": "^4.1.0",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.0-beta.3.1",
+    "@parcel/transformer-typescript-tsc": "^2.0.0-alpha.3",
     "axios": "^0.21.1",
     "react-redux": "^7.2.4",
     "reactstrap": "^8.9.0"

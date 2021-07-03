@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import ReviewerNavBar from "../navbar/reviewerNavBar";
 
 
 class ReviewerProposal extends Component {
@@ -88,12 +89,13 @@ class ReviewerProposal extends Component {
     render() {
         return (
             <div>
+                <ReviewerNavBar/>
                 <div className="container p-3 my-3 bg-dark text-black-100">
                     <h1  className="text-white">Proposal</h1>
                     {this.state.proposal.length > 0 && this.state.proposal.map((item, index) => (
                         <div key={index} className="card mb-3">
                             {/*<div className="p-3" onClick={e => this.navigateSubjectPage(e, item._id)}>*/}
-                               <img src={item.propo_pres} alt="Proposal" />
+                                <img src={item.propo_pres} alt="Proposal" />
                                 <h4>Name: {item.propo_author}</h4>
                                 <h5>Contact: {item.propo_contact}</h5>
                                 <h5>Sign: {item.propo_sign}</h5>

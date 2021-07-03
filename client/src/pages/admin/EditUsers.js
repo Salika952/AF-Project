@@ -3,6 +3,7 @@ import axios from 'axios';
 import {SERVER_ADDRESS} from "../../Constants/Constants";
 import swat from "sweetalert2";
 import AdminNavBar from "../../Components/navbar/adminNavBar";
+import {isEmpty, isEmail, isLengthMobile} from "../../utils/validation";
 
 const UpdateAlert = () => {
     swat.fire({
@@ -14,11 +15,11 @@ const UpdateAlert = () => {
     });
 }
 
-const UpdateFail = () => {
+const UpdateFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Update Failed!'
+        text: message
     })
 }
 
@@ -56,7 +57,7 @@ class AdminRegister extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
         let user = {
             user_name: this.state.fullName,
@@ -64,19 +65,27 @@ class AdminRegister extends Component {
             user_address: this.state.address,
             user_position: this.state.position,
         }
-        console.log('DATA TO SEND', user);
-        axios.put(SERVER_ADDRESS +`/users/admin_update/${this.props.match.params.id}`, user)
-            .then(response => {
-                UpdateAlert();
-                this.props.history.push('/get_all_users');
+        if (isEmpty(this.state.fullName) || isEmpty(this.state.telephone) || isEmpty(this.state.address) || isEmpty(this.state.position)) {
+            let message = "Please Fill the Field"
+            UpdateFail(message);
+        } else if (!isLengthMobile(this.state.telephone)) {
+            let message = "Mobile, Please enter 10 Numbers"
+            UpdateFail(message);
+        } else {
+            console.log('DATA TO SEND', user);
+            axios.put(SERVER_ADDRESS + `/users/admin_update/${this.props.match.params.id}`, user)
+                .then(response => {
+                    UpdateAlert();
+                    this.props.history.push('/get_all_users');
 
-            })
-            .catch(error => {
-                console.log(error.message);
-                UpdateFail();
-            })
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Update Failed"
+                    UpdateFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>

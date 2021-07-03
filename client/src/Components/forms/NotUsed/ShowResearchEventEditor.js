@@ -69,7 +69,7 @@ class ShowResearchEventEditor extends Component {
                                     resEditProps:{
                                         researchID: item._id
                                     }
-                                }}><button className="btn btn-success" >Update</button></Link>
+                                }}>&nbsp;<button className="btn btn-success" >Update</button></Link>
                             </div>
                         </div>
                     ))}

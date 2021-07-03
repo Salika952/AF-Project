@@ -4,6 +4,7 @@ import axios from 'axios';
 import FileBase from 'react-file-base64';
 import EditorNavbar from "../navbar/editorNavbar";
 import swat from "sweetalert2";
+import {isEmpty} from "../../utils/validation";
 
 const SubmissionAlert = () => {
     swat.fire({
@@ -15,11 +16,11 @@ const SubmissionAlert = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Submission Error!'
+        text: message
     })
 }
 
@@ -62,23 +63,28 @@ class CreateConference extends Component {
             con_theme: this.state.con_theme,
             con_venue: this.state.con_venue,
             con_date: this.state.con_date,
-            con_amount:this.state.con_amount,
-            con_img:this.state.con_img,
+            con_amount: this.state.con_amount,
+            con_img: this.state.con_img,
             // con_researchList: this.state.con_researchList_selected,
             // con_workshopList: this.state.con_workshopList_selected
         };
-        console.log('DATA TO SEND', conference)
-        axios.post('http://localhost:4002/Conference/', conference)
-            .then(response => {
-                SubmissionAlert();
+        if (isEmpty(this.state.con_name) || isEmpty(this.state.con_theme) || isEmpty(this.state.con_venue) || isEmpty(this.state.con_date) || isEmpty(this.state.con_amount)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', conference)
+            axios.post('http://localhost:4002/Conference/', conference)
+                .then(response => {
+                    SubmissionAlert();
 
-            })
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail();
-            })
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Error"
+                    SubmissionFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>
@@ -170,6 +176,7 @@ class CreateConference extends Component {
                     </form>
                     <br/>
                 </div>
+                <br/>
             </div>
 
         )

@@ -1,6 +1,9 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 import FileBase from 'react-file-base64';
+import {isEmpty} from "../../utils/validation";
+import swat from "sweetalert2";
+import EditorNavbar from "../navbar/editorNavbar";
 
 const initialState = {
     work_topic:'',
@@ -11,6 +14,24 @@ const initialState = {
 
 
 }
+const SubmissionAlert = () => {
+    swat.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Workshop Event Added Successfully!',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
+
+const SubmissionFail = (message) => {
+    swat.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message
+    })
+}
+
 class CreateWorkshopEditor extends Component {
     constructor(props) {
         super(props);
@@ -26,29 +47,33 @@ class CreateWorkshopEditor extends Component {
     onSubmit(e) {
         e.preventDefault();
         let workshop = {
-            work_topic:this.state.work_topic,
-            work_description:this.state.work_description,
-            work_place:this.state.work_place,
-            work_image:this.state.work_image,
-            work_template:this.state.work_template,
+            work_topic: this.state.work_topic,
+            work_description: this.state.work_description,
+            work_place: this.state.work_place,
+            work_image: this.state.work_image,
+            work_template: this.state.work_template,
 
         };
-
-
-        console.log('DATA TO SEND', workshop);
-        axios.post('http://localhost:4002/WorkshopEvents', workshop)
-            .then(response => {
-                alert('Data successfully inserted')
-            })
-            .catch(error => {
-                console.log(error.message);
-                alert(error.message)
-            })
+        if (isEmpty(this.state.work_topic) || isEmpty(this.state.work_place) || this.state.work_template==="") {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', workshop);
+            axios.post('http://localhost:4002/WorkshopEvents', workshop)
+                .then(response => {
+                    SubmissionAlert()
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message = "Error"
+                    SubmissionFail(message);
+                })
+        }
     }
-
     render() {
         return (
             <div>
+                <EditorNavbar/>
                 <div className="container">
                     <h1>Create WorkShop</h1>
                     <form onSubmit={this.onSubmit}>
@@ -102,6 +127,7 @@ class CreateWorkshopEditor extends Component {
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
+                <br/>
             </div>
         )
     }

@@ -28,9 +28,28 @@ const createNotification = async (req, res) => {
             });
     }
 }
-
-
+const getNotificationAll =async (req,res)=>{
+    await NotifySchema.find()
+        .then(data => {
+            res.status(200).send({ data: data });
+        })
+        .catch(error => {
+            res.status(500).send({ message: "abc" });
+        });
+}
+const deleteNotify = async (req, res) => {
+    if (req.params && req.params.id) {
+        console.log(req.params.id);
+        await NotifySchema.findByIdAndDelete(req.params.id)
+            .then(() => res.json('notification Deleted Successful!'))
+            .catch(error => {
+                res.status(500).send({ error: error.message });
+            });
+    }
+}
 module.exports = {
     createNotification,
-    getSpecificNotification
+    getSpecificNotification,
+    getNotificationAll,
+    deleteNotify
 }

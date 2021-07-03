@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import UserNavbar from "../navbar/UserNavBar";
 
 
 
@@ -33,6 +34,7 @@ class UserProposal extends Component {
     render() {
         return (
             <div>
+                <UserNavbar/>
                 <div className="container p-3 my-3 bg-dark text-black-100">
                     <h1  className="text-white">Proposal</h1>
                     {this.state.proposal.length > 0 && this.state.proposal.map((item, index) => (

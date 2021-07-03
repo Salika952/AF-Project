@@ -4,6 +4,7 @@ import axios from 'axios';
 import FileBase from 'react-file-base64';
 import EditorNavbar from "../navbar/editorNavbar";
 import swat from "sweetalert2";
+import {isEmpty} from "../../utils/validation";
 
 const initialState = {
 
@@ -22,11 +23,11 @@ const SubmissionAlert = () => {
     });
 }
 
-const SubmissionFail = () => {
+const SubmissionFail = (message) => {
     swat.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Submission Error!'
+        text: message
     })
 }
 
@@ -66,17 +67,23 @@ class UpdateResearchEvent extends Component {
             res_presenterFee: this.state.res_presenterFee,
             res_topic: this.state.res_topic,
             res_description: this.state.res_description,
-            res_AdminStatus:'Updated'
+            res_AdminStatus: 'Updated'
         };
-        console.log('DATA TO SEND', research);
-        axios.put(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`, research)
-            .then(response => {
-                SubmissionAlert();
-            })
-            .catch(error => {
-                console.log(error.message);
-                SubmissionFail();
-            })
+        if (isEmpty(this.state.res_presenterFee) || isEmpty(this.state.res_topic) || isEmpty(this.state.res_description)) {
+            let message = "Fill the required fields"
+            SubmissionFail(message);
+        } else {
+            console.log('DATA TO SEND', research);
+            axios.put(`http://localhost:4002/ResearchEvent/${this.props.location.resEditProps.researchID}`, research)
+                .then(response => {
+                    SubmissionAlert();
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    let message ="Error!"
+                    SubmissionFail(message);
+                })
+        }
     }
 
     render() {
@@ -130,6 +137,7 @@ class UpdateResearchEvent extends Component {
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
+                <br/>
             </div>
 
         )

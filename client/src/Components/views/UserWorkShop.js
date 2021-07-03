@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import UserNavbar from "../navbar/UserNavBar";
 
 
 class UserWorkshop extends Component {
@@ -17,19 +18,6 @@ class UserWorkshop extends Component {
             })
     }
 
-    // acceptPaper(workshopId) {
-    //     let workshop = {
-    //         work_validation: true,
-    //     };
-    //     axios.put(`http://localhost:4002/WorkshopEvents/${workshopId}`, workshop)
-    //         .then(response => {
-    //             alert('Category Data successfully updated')
-    //         })
-    //         .catch(error => {
-    //             console.log(error.message);
-    //             alert(error.message)
-    //         })
-    // }
 
     navigateProposalPage(e, workshopId) {
         window.location = `/addProposal/${workshopId}`
@@ -39,6 +27,7 @@ class UserWorkshop extends Component {
     render() {
         return (
             <div>
+                <UserNavbar/>
                 <div className="container p-3 my-3 bg-dark text-black-100">
                     <h1  className="text-white">Workshop</h1>
                     {this.state.workshop.length > 0 && this.state.workshop.map((item, index) => (
