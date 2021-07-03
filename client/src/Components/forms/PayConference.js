@@ -111,74 +111,71 @@ class PayConference extends Component {
         if(!isLength1(this.state.digits)){
             let message = "Invalid CCV"
             SubmissionFail(message);
-        }
-        let pay = {
-            pay_creditCardNo: this.state.pay_creditCardNo,
-            pay_users: this.state.pay_users,
-            pay_amount: this.state.pay_amount,
-            pay_description: this.state.pay_description,
-            pay_email: this.state.email
-        };
-        if (isEmpty(this.state.pay_creditCardNo) || isEmpty(this.state.pay_users) || isEmpty(this.state.pay_amount) || isEmpty(this.state.pay_description) || isEmpty(this.state.email)) {
-            let message = "Fill the required fields"
-            SubmissionFail(message);
-        }else if (!isLength2(this.state.pay_creditCardNo)) {
-            let message = "Enter Valid Credit Card"
-            SubmissionFail(message);
-        }else if (!isEmail(this.state.email)) {
-            let message = "Invalid Email"
-            SubmissionFail(message);
-        }else if (!isMatch1(this.state.expiry)) {
-            let message = "Invalid Date"
-            SubmissionFail(message);
         }else {
-            console.log('DATA TO SEND', pay)
-            axios.post('http://localhost:4002/payment/', pay)
-                .then(response => {
-                    SubmissionAlert();
+            let pay = {
+                pay_creditCardNo: this.state.pay_creditCardNo,
+                pay_users: this.state.pay_users,
+                pay_amount: this.state.pay_amount,
+                pay_description: this.state.pay_description,
+                pay_email: this.state.email
+            };
+            if (isEmpty(this.state.pay_creditCardNo) || isEmpty(this.state.pay_users) || isEmpty(this.state.pay_amount) || isEmpty(this.state.pay_description) || isEmpty(this.state.email)) {
+                let message = "Fill the required fields"
+                SubmissionFail(message);
+            } else if (!isLength2(this.state.pay_creditCardNo)) {
+                let message = "Enter Valid Credit Card"
+                SubmissionFail(message);
+            } else if (!isEmail(this.state.email)) {
+                let message = "Invalid Email"
+                SubmissionFail(message);
+            } else if (!isMatch1(this.state.expiry)) {
+                let message = "Invalid Date"
+                SubmissionFail(message);
+            } else {
+                console.log('DATA TO SEND', pay)
+                axios.post('http://localhost:4002/payment/', pay)
+                    .then(response => {
+                        SubmissionAlert();
 
 
-
-                    let details = {
-                        conferenceID: this.state.conference_id,
-                        attendeeID: this.state.pay_users,
-                    };
-                    console.log('DATA TO SEND', details)
-                    axios.patch(`http://localhost:4002/Conference/attend`, details)
-                        .then(response => {
-
-
-                            let mail = {
-                                to: this.state.email,
-                                conferenceName: this.state.conference_name,
-                                fee: this.state.pay_amount
-                            };
-
-                            console.log('DATA TO SEND', details)
-                            axios.post(`http://localhost:4002/Conference/join/mail/to`, mail)
-                                .then(response => {
-                                    SubmissionAlert2();
-                                })
-                                .catch(error => {
-                                    console.log(error.message);
-                                    SubmissionFail2();
-                                })
-                        })
-                        .catch(error => {
-                            console.log(error.message);
-                            alert(error.message)
-                        })
+                        let details = {
+                            conferenceID: this.state.conference_id,
+                            attendeeID: this.state.pay_users,
+                        };
+                        console.log('DATA TO SEND', details)
+                        axios.patch(`http://localhost:4002/Conference/attend`, details)
+                            .then(response => {
 
 
+                                let mail = {
+                                    to: this.state.email,
+                                    conferenceName: this.state.conference_name,
+                                    fee: this.state.pay_amount
+                                };
+
+                                console.log('DATA TO SEND', details)
+                                axios.post(`http://localhost:4002/Conference/join/mail/to`, mail)
+                                    .then(response => {
+                                        SubmissionAlert2();
+                                    })
+                                    .catch(error => {
+                                        console.log(error.message);
+                                        SubmissionFail2();
+                                    })
+                            })
+                            .catch(error => {
+                                console.log(error.message);
+                                alert(error.message)
+                            })
 
 
-
-                })
-                .catch(error => {
-                    console.log(error.message);
-                    let message = "Payment Error"
-                    SubmissionFail(message);
-                })
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                        let message = "Payment Error"
+                        SubmissionFail(message);
+                    })
+            }
         }
     }
     render() {
