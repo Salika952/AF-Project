@@ -69,7 +69,7 @@ class CreateResearchEvent extends Component {
                     SubmissionAlert();
 
 
-                    ///////////////////////////////////////////
+
                     let details = {
                         //conferenceID: this.state.conference_id,
                         conferenceID: this.props.location.conEditProps.conferenceID,
@@ -85,7 +85,7 @@ class CreateResearchEvent extends Component {
                             alert(error.message)
                         })
 
-                    ///////////////////////////////////////////
+
 
                 })
                 .catch(error => {

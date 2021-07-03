@@ -27,7 +27,7 @@ class ShowConferencesUserLanding extends Component {
     }
 
     componentDidMount() {
-        ///////////////////////////
+
         axios.get('http://localhost:4002/Conference/')
             .then(response => {
                 this.setState({ Conferences: response.data.data });
@@ -55,26 +55,6 @@ class ShowConferencesUserLanding extends Component {
             })
 
 
-
-
-
-
-        ///////////////////////////
-        // axios.get('http://localhost:4002/Conference/60d811524cee61152c551ecc')
-        //     .then(response => {
-        //         this.setState({
-        //             id: response.data.data._id,
-        //             name: response.data.data.con_name,
-        //             theme: response.data.data.con_theme,
-        //             venue: response.data.data.con_venue,
-        //             date: response.data.data.con_date,
-        //             amount: response.data.data.con_amount,
-        //             researchList: response.data.data.con_researchList,
-        //             workshopList: response.data.data.con_workshopList,
-        //
-        //         });
-        //     })
-
     }
 
 
@@ -96,7 +76,6 @@ class ShowConferencesUserLanding extends Component {
                         <h4 className="h1-yas"> {this.state.name}</h4>
                         <h5 className="h2-yas">{this.state.venue}</h5>
                         <h3 className="h3-yas">{moment(this.state.date).format('Do of MMMM YYYY')}</h3>
-                        {/*<h6>{this.state.amount}</h6>*/}
                         <p className="h4-yas">{this.state.theme}</p>
                         <Cards/>
                     </div>

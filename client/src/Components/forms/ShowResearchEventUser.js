@@ -31,9 +31,9 @@ class ShowResearchEventUser extends Component {
 
     }
 
-        becomeResearcher(id){
-            window.location = `/addPaper/${id}`
-        }
+    becomeResearcher(id){
+        window.location = `/addPaper/${id}`
+    }
 
 
     render() {
@@ -56,7 +56,7 @@ class ShowResearchEventUser extends Component {
                 </div>
                 <br/><br/><br/>
             </div>
-                )
+        )
 
     }
 }

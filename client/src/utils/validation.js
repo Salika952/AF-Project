@@ -30,3 +30,8 @@ export const isMatch1 = expire => {
     if((expire.length === 5) && (expire[2]==="/")) return true
     return false
 }
+
+export const isDateYas = enteredDate => {
+    if(new Date(enteredDate).getTime() > new Date().getTime()) return true
+    return false
+}

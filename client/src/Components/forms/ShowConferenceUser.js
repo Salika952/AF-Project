@@ -72,21 +72,6 @@ class ShowConferencesUserLanding extends Component {
                         </div>
                     </div>
 
-                    {/*<h3>Research Events</h3>*/}
-                    {/*<div>*/}
-                    {/*    {this.state.researchList.length > 0 && this.state.researchList.map((item, index) => (*/}
-                    {/*        <div key={index} className="card mb-3" >*/}
-                    {/*            <div className="p-3"  >*/}
-                    {/*                <h4>Topic: {item.res_topic}</h4>*/}
-                    {/*                <h5>Fee: {item.res_presenterFee}</h5>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    ))}*/}
-                    {/*</div>*/}
-
-
-
-
 
                     <br/>
 

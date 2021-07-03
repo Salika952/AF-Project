@@ -148,18 +148,7 @@ class UpdateConference extends Component {
                                 onChange={this.onChange}
                             />
                         </div>
-                        {/*<Select*/}
-                        {/*    options={this.state.con_researchList_options}*/}
-                        {/*    onChange={this.onResearchSelect}*/}
-                        {/*    className="basic-multi-select"*/}
-                        {/*    isMulti*/}
-                        {/*/>*/}
-                        {/*<Select*/}
-                        {/*    options={this.state.con_workshopList_options}*/}
-                        {/*    onChange={this.onWorkshopSelect}*/}
-                        {/*    className="basic-multi-select"*/}
-                        {/*    isMulti*/}
-                        {/*/>*/}
+
 
                         <div className="mb-3">
                             <label htmlFor="con_amount" className="form-label">Entry fee</label>

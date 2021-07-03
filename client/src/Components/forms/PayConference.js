@@ -137,7 +137,7 @@ class PayConference extends Component {
                 .then(response => {
                     SubmissionAlert();
 
-                    ////////////////////////////////////////////
+
 
                     let details = {
                         conferenceID: this.state.conference_id,
@@ -146,7 +146,7 @@ class PayConference extends Component {
                     console.log('DATA TO SEND', details)
                     axios.patch(`http://localhost:4002/Conference/attend`, details)
                         .then(response => {
-                            //alert('Attendee added');
+
 
                             let mail = {
                                 to: this.state.email,
@@ -170,7 +170,7 @@ class PayConference extends Component {
                         })
 
 
-                    ///////////////////////////////////////////
+
 
 
                 })

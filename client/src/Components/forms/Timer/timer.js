@@ -12,7 +12,7 @@ const Timer = (props) => {
     let interval = useRef();
 
     const startTimer = () =>{
-        //const countdownDate = new Date(2021, 11, 24, 10, 33, 30).getTime();
+
         const countdownDate = new Date(props.dueDate).getTime();
 
 

@@ -29,7 +29,7 @@ class ShowConferencesUserLanding extends Component {
     }
 
     componentDidMount() {
-        ///////////////////////////
+
         axios.get('http://localhost:4002/Conference/')
             .then(response => {
                 this.setState({ Conferences: response.data.data });
